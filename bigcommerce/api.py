@@ -136,4 +136,100 @@ class Customer(Resource):
 	def delete(self):
 		"""Deletes the customer"""
 		response, content = self.client.fetch('DELETE', '/customers/' + str(self.id))
+
+class Orders(Resource):
+	"""Orders collection"""
+
+	@classmethod
+	def get(self):
+		"""Returns list of orders"""
+		orders = self.client.fetch_obj('GET', '/orders')
+		return [Order(order) for order in orders]
+
+	@classmethod
+	def get_by_id(self, id):
+		"""Returns an individual order by given ID"""
+		order = self.client.fetch_obj('GET', '/orders/' + str(id))
+		return Order(order)
+
+class Order(Resource):
+	"""An individual order"""
+
+	def create(self):
+		"""Creates a new order"""
+		body = json.dumps(self.__dict__)
+		order = self.client.fetch_obj('PUT', '/orders', body)
+
+	def update(self):
+		"""Updates local changes to the order"""
+		body = json.dumps(self.__dict__)
+		order = self.client.fetch_obj('PUT', '/orders/' + str(self.id), body)
+
+	def delete(self):
+		"""Deletes the order"""
+		response, content = self.client.fetch('DELETE', '/orders/' + str(self.id))
+
+class OptionSets(Resource):
+	"""Option sets collection"""
+
+	@classmethod
+	def get(self):
+		"""Returns list of option sets"""
+		optionsets = self.client.fetch_obj('GET', '/optionsets')
+		return [OptionSet(optionset) for optionset in optionsets]
+
+	@classmethod
+	def get_by_id(self, id):
+		"""Returns an individual option set by given ID"""
+		optionset = self.client.fetch_obj('GET', '/optionsets/' + str(id))
+		return OptionSet(optionset)
+
+class OptionSet(Resource):
+	"""An individual option set"""
+
+	def create(self):
+		"""Creates a new option set"""
+		body = json.dumps(self.__dict__)
+		optionset = self.client.fetch_obj('PUT', '/optionsets', body)
+
+	def update(self):
+		"""Updates local changes to the option set"""
+		body = json.dumps(self.__dict__)
+		optionset = self.client.fetch_obj('PUT', '/optionsets/' + str(self.id), body)
+
+	def delete(self):
+		"""Deletes the option set"""
+		response, content = self.client.fetch('DELETE', '/optionsets/' + str(self.id))
+
+class Categories(Resource):
+	"""Categories collection"""
+
+	@classmethod
+	def get(self):
+		"""Returns list of categories"""
+		categories = self.client.fetch_obj('GET', '/categories')
+		return [Category(category) for category in categories]
+
+	@classmethod
+	def get_by_id(self, id):
+		"""Returns an individual category by given ID"""
+		category = self.client.fetch_obj('GET', '/categories/' + str(id))
+		return Category(category)
+
+class Category(Resource):
+	"""An individual category"""
+
+	def create(self):
+		"""Creates a new category"""
+		body = json.dumps(self.__dict__)
+		category = self.client.fetch_obj('PUT', '/categories', body)
+
+	def update(self):
+		"""Updates local changes to the category"""
+		body = json.dumps(self.__dict__)
+		category = self.client.fetch_obj('PUT', '/categories/' + str(self.id), body)
+
+	def delete(self):
+		"""Deletes the category"""
+		response, content = self.client.fetch('DELETE', '/categories/' + str(self.id))
 	
