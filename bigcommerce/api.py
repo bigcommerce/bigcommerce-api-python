@@ -1,12 +1,18 @@
+"""
+This module provides an object-oriented wrapper around the BigCommerce V2 API
+for use in Python projects or via the Python shell.
+
+"""
+
 import urllib
 import httplib2
 import base64
 import json
 
-API_HOST = 'http://bigcommerce.local'
-API_PATH = '/api/v1'
+API_HOST = 'http://store.mybigcommerce.com'
+API_PATH = '/api/v2'
 API_USER = 'admin'
-API_KEY  = 'apikey'
+API_KEY  = 'yourpasswordhere'
 
 class Connection(object):
 	host      = API_HOST
@@ -14,20 +20,27 @@ class Connection(object):
 	user 	  = API_USER
 	api_key   = API_KEY
 
-	def fetch_obj(self, method, path, data=None):
-		response, content = self.fetch(method, path, data)
+	def handle_response(self, response):
+		pass
+
+	def request_json(self, method, path, data=None):
+		response, content = self.request(method, path, data)
 		if response.status == 200 or response.status == 201:
 			return json.loads(content)
 		else:
 			print response
 			raise Exception(response.status)
-		
 
-	def fetch(self, method, path, data=None):
+	def build_request_headers(self):
+		auth = base64.b64encode(self.user + ':' + self.api_key)
+		return { 'Authorization' : 'Basic ' + auth, 'Accept' : 'application/json' }
+
+	def request(self, method, path, body=None):
 		http = httplib2.Http()
-		auth = base64.encodestring(self.user + ':' + self.api_key)
-		url = self.host + self.base_path + path      	
-		return http.request(url, method, headers = {'Authorization' : 'Basic ' + auth, 'Accept' : 'application/json', 'Content-Type' : 'application/json'}, body=data)
+		url = self.host + self.base_path + path
+		headers = self.build_request_headers()
+		if (body): headers['Content-Type'] = 'application/json'
+		return http.request(url, method, headers=headers, body=body)
 
 class Resource(object):
 	"""Base class representing BigCommerce resources"""
@@ -43,7 +56,7 @@ class Time(Resource):
 	@classmethod
 	def get(self):
 		"""Returns the current time stamp of the BigCommerce store."""
-		return self.client.fetch_obj('GET', '/time')
+		return self.client.request_json('GET', '/time')
 
 class Products(Resource):
 	"""The collection of products in a store"""
@@ -51,13 +64,13 @@ class Products(Resource):
 	@classmethod
 	def get(self):
 		"""Returns list of products"""
-		products_list = self.client.fetch_obj('GET', '/products')
+		products_list = self.client.request_json('GET', '/products')
 		return [Product(product) for product in products_list]
 
 	@classmethod
 	def get_by_id(self, id):
 		"""Returns an individual product by given ID"""
-		product = self.client.fetch_obj('GET', '/products/' + str(id))
+		product = self.client.request_json('GET', '/products/' + str(id))
 		return Product(product)
 
 class Product(Resource):
@@ -66,25 +79,25 @@ class Product(Resource):
 	def update(self):
 		"""Updates local changes to the product"""
 		body = json.dumps(self.__dict__)
-		product = self.client.fetch_obj('PUT', '/products/' + str(self.id), body)
+		product = self.client.request_json('PUT', '/products/' + str(self.id), body)
 
 	def delete(self):
 		"""Deletes the product"""
-		response, content = self.client.fetch('DELETE', '/products/' + str(self.id))
+		response, content = self.client.request('DELETE', '/products/' + str(self.id))
 
 class Brands(Resource):
 	"""Brands collection"""
-	
+
 	@classmethod
 	def get(self):
 		"""Returns list of brands"""
-		brands_list = self.client.fetch_obj('GET', '/brands')
+		brands_list = self.client.request_json('GET', '/brands')
 		return [Brand(brand) for brand in brands_list]
 
 	@classmethod
 	def get_by_id(self, id):
 		"""Returns an individual brand by given ID"""
-		product = self.client.fetch_obj('GET', '/brands/' + str(id))
+		product = self.client.request_json('GET', '/brands/' + str(id))
 		return Product(product)
 
 class Brand(Resource):
@@ -93,17 +106,17 @@ class Brand(Resource):
 	def create(self):
 		"""Creates a new brand"""
 		body = json.dumps(self.__dict__)
-		brand = self.client.fetch_obj('PUT', '/brands', body)
+		brand = self.client.request_json('PUT', '/brands', body)
 
 	def update(self):
 		"""Updates local changes to the brand"""
 		body = json.dumps(self.__dict__)
-		brand = self.client.fetch_obj('PUT', '/brands/' + str(self.id), body)
+		brand = self.client.request_json('PUT', '/brands/' + str(self.id), body)
 		print brand['name']
 
 	def delete(self):
 		"""Deletes the brand"""
-		response, content = self.client.fetch('DELETE', '/brands/' + str(self.id))
+		response, content = self.client.request('DELETE', '/brands/' + str(self.id))
 
 class Customers(Resource):
 	"""Customers collection"""
@@ -111,7 +124,7 @@ class Customers(Resource):
 	@classmethod
 	def get(self):
 		"""Returns list of customers"""
-		customers = self.client.fetch_obj('GET', '/customers')
+		customers = self.client.request_json('GET', '/customers')
 		return [Customer(customer) for customer in customers]
 
 	@classmethod
@@ -126,16 +139,16 @@ class Customer(Resource):
 	def create(self):
 		"""Creates a new customer"""
 		body = json.dumps(self.__dict__)
-		customer = self.client.fetch_obj('PUT', '/customers', body)
+		customer = self.client.request_json('PUT', '/customers', body)
 
 	def update(self):
 		"""Updates local changes to the customer"""
 		body = json.dumps(self.__dict__)
-		customer = self.client.fetch_obj('PUT', '/customers/' + str(self.id), body)
+		customer = self.client.request_json('PUT', '/customers/' + str(self.id), body)
 
 	def delete(self):
 		"""Deletes the customer"""
-		response, content = self.client.fetch('DELETE', '/customers/' + str(self.id))
+		response, content = self.client.request('DELETE', '/customers/' + str(self.id))
 
 class Orders(Resource):
 	"""Orders collection"""
@@ -143,13 +156,13 @@ class Orders(Resource):
 	@classmethod
 	def get(self):
 		"""Returns list of orders"""
-		orders = self.client.fetch_obj('GET', '/orders')
+		orders = self.client.request_json('GET', '/orders')
 		return [Order(order) for order in orders]
 
 	@classmethod
 	def get_by_id(self, id):
 		"""Returns an individual order by given ID"""
-		order = self.client.fetch_obj('GET', '/orders/' + str(id))
+		order = self.client.request_json('GET', '/orders/' + str(id))
 		return Order(order)
 
 class Order(Resource):
@@ -158,16 +171,16 @@ class Order(Resource):
 	def create(self):
 		"""Creates a new order"""
 		body = json.dumps(self.__dict__)
-		order = self.client.fetch_obj('PUT', '/orders', body)
+		order = self.client.request_json('PUT', '/orders', body)
 
 	def update(self):
 		"""Updates local changes to the order"""
 		body = json.dumps(self.__dict__)
-		order = self.client.fetch_obj('PUT', '/orders/' + str(self.id), body)
+		order = self.client.request_json('PUT', '/orders/' + str(self.id), body)
 
 	def delete(self):
 		"""Deletes the order"""
-		response, content = self.client.fetch('DELETE', '/orders/' + str(self.id))
+		response, content = self.client.request('DELETE', '/orders/' + str(self.id))
 
 class OptionSets(Resource):
 	"""Option sets collection"""
@@ -175,7 +188,7 @@ class OptionSets(Resource):
 	@classmethod
 	def get(self):
 		"""Returns list of option sets"""
-		optionsets = self.client.fetch_obj('GET', '/optionsets')
+		optionsets = self.client.request_json('GET', '/optionsets')
 		return [OptionSet(optionset) for optionset in optionsets]
 
 	@classmethod
@@ -190,16 +203,16 @@ class OptionSet(Resource):
 	def create(self):
 		"""Creates a new option set"""
 		body = json.dumps(self.__dict__)
-		optionset = self.client.fetch_obj('PUT', '/optionsets', body)
+		optionset = self.client.request_json('PUT', '/optionsets', body)
 
 	def update(self):
 		"""Updates local changes to the option set"""
 		body = json.dumps(self.__dict__)
-		optionset = self.client.fetch_obj('PUT', '/optionsets/' + str(self.id), body)
+		optionset = self.client.request_json('PUT', '/optionsets/' + str(self.id), body)
 
 	def delete(self):
 		"""Deletes the option set"""
-		response, content = self.client.fetch('DELETE', '/optionsets/' + str(self.id))
+		response, content = self.client.request('DELETE', '/optionsets/' + str(self.id))
 
 class Categories(Resource):
 	"""Categories collection"""
@@ -207,13 +220,13 @@ class Categories(Resource):
 	@classmethod
 	def get(self):
 		"""Returns list of categories"""
-		categories = self.client.fetch_obj('GET', '/categories')
+		categories = self.client.request_json('GET', '/categories')
 		return [Category(category) for category in categories]
 
 	@classmethod
 	def get_by_id(self, id):
 		"""Returns an individual category by given ID"""
-		category = self.client.fetch_obj('GET', '/categories/' + str(id))
+		category = self.client.request_json('GET', '/categories/' + str(id))
 		return Category(category)
 
 class Category(Resource):
@@ -222,14 +235,14 @@ class Category(Resource):
 	def create(self):
 		"""Creates a new category"""
 		body = json.dumps(self.__dict__)
-		category = self.client.fetch_obj('PUT', '/categories', body)
+		category = self.client.request_json('PUT', '/categories', body)
 
 	def update(self):
 		"""Updates local changes to the category"""
 		body = json.dumps(self.__dict__)
-		category = self.client.fetch_obj('PUT', '/categories/' + str(self.id), body)
+		category = self.client.request_json('PUT', '/categories/' + str(self.id), body)
 
 	def delete(self):
 		"""Deletes the category"""
-		response, content = self.client.fetch('DELETE', '/categories/' + str(self.id))
-	
+		response, content = self.client.request('DELETE', '/categories/' + str(self.id))
+
