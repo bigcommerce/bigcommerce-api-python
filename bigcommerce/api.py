@@ -4,7 +4,6 @@ for use in Python projects or via the Python shell.
 
 """
 
-import urllib
 import httplib2
 import base64
 import json
@@ -39,7 +38,7 @@ class Connection(object):
 		http = httplib2.Http()
 		url = self.host + self.base_path + path
 		headers = self.build_request_headers()
-		if (body): headers['Content-Type'] = 'application/json'
+		if body: headers['Content-Type'] = 'application/json'
 		return http.request(url, method, headers=headers, body=body)
 
 class Resource(object):
@@ -130,7 +129,7 @@ class Customers(Resource):
 	@classmethod
 	def get_by_id(self, id):
 		"""Returns an individual customer by given ID"""
-		customer = self.client.fetch_obj('GET', '/customers/' + str(id))
+		customer = self.client.request_json('GET', '/customers/' + str(id))
 		return Customer(customer)
 
 class Customer(Resource):
