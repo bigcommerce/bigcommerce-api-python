@@ -7,17 +7,22 @@ for use in Python projects or via the Python shell.
 import httplib2
 import base64
 import json
+import socks
 
 API_HOST = 'http://store.mybigcommerce.com'
 API_PATH = '/api/v2'
 API_USER = 'admin'
 API_KEY  = 'yourpasswordhere'
+HTTP_PROXY = None
+HTTP_PROXY_PORT = 80
 
 class Connection(object):
 	host      = API_HOST
 	base_path = API_PATH
 	user 	  = API_USER
 	api_key   = API_KEY
+	http_proxy = HTTP_PROXY
+	http_proxy_port = HTTP_PROXY_PORT
 
 	def handle_response(self, response):
 		pass
@@ -35,7 +40,11 @@ class Connection(object):
 		return { 'Authorization' : 'Basic ' + auth, 'Accept' : 'application/json' }
 
 	def request(self, method, path, body=None):
-		http = httplib2.Http()
+		if self.http_proxy is not None:
+			proxy = httplib2.ProxyInfo(socks.PROXY_TYPE_HTTP, self.http_proxy, self.http_proxy_port)
+			http = httplib2.Http(proxy_info=proxy)
+		else:
+			http = httplib2.Http()
 		url = self.host + self.base_path + path
 		headers = self.build_request_headers()
 		if body: headers['Content-Type'] = 'application/json'
