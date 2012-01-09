@@ -55,8 +55,8 @@ class Resource(object):
 
 	client = Connection()
 
-	def __init__(self, fields={}):
-		self.__dict__ = fields
+	def __init__(self, fields=None):
+		self.__dict__ = fields or dict()
 
 class Time(Resource):
 	"""Tests the availability of the API."""
@@ -202,7 +202,7 @@ class OptionSets(Resource):
 	@classmethod
 	def get_by_id(self, id):
 		"""Returns an individual option set by given ID"""
-		optionset = self.client.fetch_obj('GET', '/optionsets/' + str(id))
+		optionset = self.client.request_json('GET', '/optionsets/' + str(id))
 		return OptionSet(optionset)
 
 class OptionSet(Resource):
