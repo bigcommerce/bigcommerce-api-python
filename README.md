@@ -6,8 +6,8 @@ for use in Python projects or via the Python shell.
 
 Requirements:
 
-- Python 2.3+
-- python-httplib2
+- Python 2.6+
+
 
 A valid API key is required to authenticate requests. To grant API access for
 user, go to Control Panel > Users > Edit User and make sure that the
@@ -17,21 +17,46 @@ Usage:
 
 ```
 #!/usr/bin/python
-import bigcommerce.api
+from bigcommerce.api import bigCommerce
 
-bigcommerce.api.Connection.host = 'https://store.mybigcommerce.com'
-bigcommerce.api.Connection.user = 'admin'
-bigcommerce.api.Connection.api_key = '22d05a34ecb25e2d95f5e0208d129b5e1668cade'
-
-products = bigcommerce.api.Products.get()
-for p in products:
-	print p.name
-	print p.price
-
-speakers = bigcommerce.api.Products.get_by_id(22)
-speakers.name = "Logitech Pure-Fi Speakers"
-speakers.price = "99.95"
-speakers.description = "This is a description"
-speakers.update()
+api = bigCommerce(STORE_HOST, STORE_TOKEN, STORE_USERID)
+    
+filters = api.Products.filters()
+filters.min_id.set(73873)
+	    
+# List 10 products starting at offset 10
+for product in api.Products.enumerate(start=10, limit=10, query=filters):
+	print product.id, product.sku, product.name, product.price
+	
 ```
+
+Features
+--------
+
+* All urls to resources are inferred from an initial call to API
+* Enumerate multiple pages of resources with "start" and "limit" parameters
+* Filtering
+
+
+Resource Objects
+---------------
+
+Information about BigCommerce Resources is specified in the ResourceObjects.  These 
+objects also serve as the classes that will be inflated with the results of a query
+on that resource type.
+
+ResourceObjects are intended to specify:
+* SubResource Types
+* Available filters and types
+* Read-Only fields (for error checking)
+* Fields required for create and update
+
+
+
+
+
+
+
+
+
 
