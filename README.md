@@ -28,6 +28,19 @@ filters.min_id.set(73873)
 for product in api.Products.enumerate(start=10, limit=10, query=filters):
 	print product.id, product.sku, product.name, product.price
 	
+
+# How to update a resource
+product = api.Products.get(14)
+    
+print product.id, product.sku, product.name
+product.name = "My New Product"
+product.save()
+
+product.images[1].is_thumbnail = True
+product.images[1].save()
+
+
+	
 ```
 
 Features
