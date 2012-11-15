@@ -3,13 +3,13 @@ import sys
 import base64
 import logging
 
-from bigcommerce.api.lib.connection import Connection
+from Bigcommerce.api.lib.connection import Connection
 from resources import ResourceAccessor
 
 log = logging.getLogger("bc_aaapi")
 
 
-class bigCommerce(object):
+class ApiClient(object):
     BASE_URL = '/api/v2'
     
     def __init__(self, host, token, user_id):

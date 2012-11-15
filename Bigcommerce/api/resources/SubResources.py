@@ -1,6 +1,6 @@
 from . import ResourceObject
-from bigcommerce.api.lib.mapping import Mapping
-from bigcommerce.api.lib.filters import FilterSet, StringFilter, NumberFilter, DateFilter, BoolFilter
+from Bigcommerce.api.lib.mapping import Mapping
+from Bigcommerce.api.lib.filters import FilterSet, StringFilter, NumberFilter, DateFilter, BoolFilter
 
 
 class ShippingAddresses(ResourceObject):

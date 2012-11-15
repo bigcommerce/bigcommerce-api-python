@@ -1,8 +1,8 @@
 import sys
 import logging
-from bigcommerce.api.lib.mapping import Mapping
-from bigcommerce.api.lib.filters import FilterSet
-from bigcommerce.api.lib.connection import EmptyResponseWarning
+from Bigcommerce.api.lib.mapping import Mapping
+from Bigcommerce.api.lib.filters import FilterSet
+from Bigcommerce.api.lib.connection import EmptyResponseWarning
 
 log = logging.getLogger("bc_api")
 

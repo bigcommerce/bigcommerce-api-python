@@ -5,7 +5,7 @@ from settings import *
 import sys
 import logging
 from pprint import pprint
-from bigcommerce.api import bigCommerce
+from Bigcommerce.api import ApiClient
 
 logging.basicConfig(level=logging.DEBUG, 
                     stream=sys.stdout,
@@ -15,7 +15,7 @@ log = logging.getLogger("main")
 
 if __name__ == "__main__":
     log.debug("HOST %s, USER: %s" % (STORE_HOST, STORE_USERID))
-    api = bigCommerce(STORE_HOST, STORE_TOKEN, STORE_USERID)
+    api = ApiClient(STORE_HOST, STORE_TOKEN, STORE_USERID)
     
     filters = api.Products.filters()
     

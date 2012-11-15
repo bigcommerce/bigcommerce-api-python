@@ -1,4 +1,4 @@
-from bigcommerce.api.lib.mapping import Mapping
+from Bigcommerce.api.lib.mapping import Mapping
 from . import ResourceObject, SubResourceAccessor
 import SubResources
 

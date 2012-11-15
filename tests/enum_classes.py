@@ -2,7 +2,7 @@ from settings import *
 import sys
 import logging
 from pprint import pprint, pformat
-from bigcommerce.api import bigCommerce
+from Bigcommerce.api import ApiClient
 
 logging.basicConfig(level=logging.INFO, 
                     stream=sys.stdout,
@@ -70,7 +70,7 @@ def test_resource(resource):
 
 if __name__ == "__main__":
     log.debug("HOST %s, USER: %s" % (STORE_HOST, STORE_USERID))
-    api = bigCommerce(STORE_HOST, STORE_TOKEN, STORE_USERID)
+    api = ApiClient(STORE_HOST, STORE_TOKEN, STORE_USERID)
     api.show_urls()
     
     

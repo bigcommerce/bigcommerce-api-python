@@ -17,9 +17,9 @@ Usage:
 
 ```
 #!/usr/bin/python
-from bigcommerce.api import bigCommerce
+from Bigcommerce.api import ApiClient
 
-api = bigCommerce(STORE_HOST, STORE_TOKEN, STORE_USERID)
+api = ApiClient(STORE_HOST, STORE_TOKEN, STORE_USERID)
     
 filters = api.Products.filters()
 filters.min_id.set(73873)
