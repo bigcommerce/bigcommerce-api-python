@@ -1,5 +1,5 @@
-from ..lib.mapping import Mapping
-from ..lib.filters import FilterSet, StringFilter, NumberFilter, DateFilter, BoolFilter
+from bigcommerce.api.lib.mapping import Mapping
+from bigcommerce.api.lib.filters import FilterSet, StringFilter, NumberFilter, DateFilter, BoolFilter
 from . import ResourceObject
 from Brands import Brands
 import SubResources
@@ -8,6 +8,8 @@ class Products(ResourceObject):
     """
     
     """
+    
+    # List of known sub resources
     sub_resources = Mapping(brand = Mapping(
                                             klass = Brands,
                                             single = True),
@@ -15,7 +17,7 @@ class Products(ResourceObject):
                             custom_fields = Mapping(),
                             discount_rules = Mapping(),
                             downloads = Mapping(),
-                            images = Mapping(),
+                            images = Mapping(klass = SubResources.Images),
                             options = Mapping(klass = SubResources.ProductOptions),
                             option_set = Mapping(klass = SubResources.OptionSets, single=True),
                             rules = Mapping(),
@@ -23,6 +25,15 @@ class Products(ResourceObject):
                             tax_class = Mapping(),
                             videos = Mapping(),
                             )
+    
+    read_only = ["id",
+                 "rating_total",
+                 "rating_count",
+                 "number_sold",
+                 "date_created",
+                 "date_modified",
+                 "date_last_imported",
+                 "custom_url"]
     
     @classmethod
     def filter_set(cls):

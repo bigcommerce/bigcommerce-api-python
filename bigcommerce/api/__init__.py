@@ -1,8 +1,9 @@
+import os
 import sys
 import base64
 import logging
 
-from lib.connection import Connection
+from bigcommerce.api.lib.connection import Connection
 from resources import ResourceAccessor
 
 log = logging.getLogger("bc_aaapi")

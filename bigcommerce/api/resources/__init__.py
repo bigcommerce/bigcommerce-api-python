@@ -1,12 +1,10 @@
 import sys
 import logging
-from ..lib.mapping import Mapping
-from ..lib.filters import FilterSet
-from httplib import HTTPException
+from bigcommerce.api.lib.mapping import Mapping
+from bigcommerce.api.lib.filters import FilterSet
+from bigcommerce.api.lib.connection import EmptyResponseWarning
 
-from ..lib.connection import EmptyResponseWarning
-
-log = logging.getLogger("bc_aapi")
+log = logging.getLogger("bc_api")
 
 
 class ResourceAccessor(object):
@@ -42,8 +40,7 @@ class ResourceAccessor(object):
         """
         Get specific pages
         """
-        _query = {"page": page,
-                  "limit": limit}
+        _query = {"page": page, "limit": limit}
         _query.update(query)
         return self._connection.get(self._url, _query)
     
@@ -91,7 +88,7 @@ class ResourceAccessor(object):
                     else:
                         page_index += 1
             # If the response was empty - we are done
-            except(EmptyResponseWarning):
+            except EmptyResponseWarning:
                 requested_items = 0
             except:
                 raise
@@ -134,19 +131,31 @@ class SubResourceAccessor(ResourceAccessor):
     
 
 class ResourceObject(object):
+    """
+    The realized resource instance type.
+    """
     writeable = [] # list of properties that are writeable
     read_only = [] # list of properties that are read_only
     sub_resources = {}  # list of properties that are subresources
-    
+    can_create = False  # If create is supported
+    can_update = False
     
     def __init__(self, connection, url, fields, parent):
+        #  Very important!! These two lines must be first to support 
+        # customized getattr and setattr
+        self._fields = fields or dict()
+        self._updates = {} # the fields to update
+        
         self._parent = parent
         self._connection = connection
-        self._fields = fields or dict()
         self._url = "%s/%s" % (url, self.id)
-        self.updates = {} # the fields to update
+        
+        
         
     def __getattr__(self, attrname):
+        
+        if self._updates.has_key(attrname):
+            return self._updates[attrname]
         
         data = self._fields.get(attrname,None)
         if data is None:
@@ -178,9 +187,27 @@ class ResourceObject(object):
             
         raise AttributeError
     
+    
+    def __setattr__(self, name, value):
+        if name == "_fields":
+            object.__setattr__(self, name, value)
+        
+        elif self._fields.has_key(name):
+            if name in self.read_only:
+                raise AttributeError("Attempt to assign to a read-only property '%s'" % name)
+            else:
+                self._updates.update({name:value})
+        else:
+            object.__setattr__(self, name, value)
+            
+        
+            
+    """    
     def attr(self, name, value):
-        self.updates.update({name:value})
-
+        if name in self.read_only:
+            raise AttributeError("Attempt to assign to a read-only property '%s'" % name)
+        self._updates.update({name:value})
+    """
         
     def get_url(self):
         return self._url
@@ -188,12 +215,16 @@ class ResourceObject(object):
     def create(self, data):
         log.info("Creating %s" % self.get_url())
         
-    # HACK JOB
+    
     def save(self):
-        log.info("Updating %s" % self.get_url())
-        log.info("Data: %s" % self.updates)
-        self._connection.update(self.get_url(), self.updates)
-                 
+        if self._updates:
+            log.info("Updating %s" % self.get_url())
+            log.debug("Data: %s" % self._updates)
+            
+            results = self._connection.update(self.get_url(), self._updates)
+            self._updates.clear()
+            self._fields = results
+                     
         
     def __repr__(self):
         return str(self._fields)

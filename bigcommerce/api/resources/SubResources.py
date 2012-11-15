@@ -1,5 +1,5 @@
 from . import ResourceObject
-from ..lib.mapping import Mapping
+from bigcommerce.api.lib.mapping import Mapping
 
 class ShippingAddresses(ResourceObject):
     pass
@@ -24,3 +24,11 @@ class SKU(ResourceObject):
     
 class ProductOptions(ResourceObject):
     pass
+
+
+class Images(ResourceObject):
+    can_update = True
+    read_only = ["id",
+                 "product_id",
+                 "date_created"]
+    

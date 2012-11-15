@@ -1,5 +1,5 @@
 from . import ResourceObject
-from ..lib.mapping import Mapping
+from bigcommerce.api.lib.mapping import Mapping
 from OptionValues import OptionValues
 
 class Options(ResourceObject):

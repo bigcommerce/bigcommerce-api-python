@@ -10,7 +10,7 @@ import urllib
 from urlparse import urlparse
 from httplib import HTTPSConnection, HTTPException
 
-
+ 
 log = logging.getLogger("bc_api")
 
 class EmptyResponseWarning(HTTPException):
@@ -95,8 +95,22 @@ class Connection():
         self.__connection.close()
         
         log.debug("PUT %s status %d" % (url,response.status))
+        log.debug("OUTPUT: %s" % data)
         result = {}
+        if response.status == 200:
+            result = simplejson.loads(data)
+            #log.debug("OUTPUT %s" % result)
+        elif response.status == 204:
+            raise EmptyResponseWarning("%d %s @ https://%s%s" % (response.status, response.reason, self.host, url))
+        elif response.status == 404:
+            log.debug("%s returned 404 status" % url)
+            raise HTTPException("%d %s @ https://%s%s" % (response.status, response.reason, self.host, url))
+        elif response.status >= 400:
+            _result = simplejson.loads(data)
+            log.debug("OUTPUT %s" % _result)
+            raise HTTPException("%d %s @ https://%s%s" % (response.status, response.reason, self.host, url))
         return result
+    
     
         
                            

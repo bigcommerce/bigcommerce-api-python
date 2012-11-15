@@ -1,6 +1,3 @@
-STORE_HOST = "www.YOURHOST.com"
-STORE_TOKEN = "YOUR_TOKEN"
-STORE_USERID = "userid"
 from settings import *
 import sys
 import logging
@@ -17,18 +14,14 @@ if __name__ == "__main__":
     log.debug("HOST %s, USER: %s" % (STORE_HOST, STORE_USERID))
     api = bigCommerce(STORE_HOST, STORE_TOKEN, STORE_USERID)
     
-    filters = api.Products.filters()
+    product = api.Products.get(14)
     
+    print product.id, product.sku, product.name
+    product.name = "My New Product"
     
-    # List 10 products starting at offset 10
-    for product in api.Products.enumerate(start=10, limit=10, query=filters):
-        print product.id, product.sku, product.name, product.price
-        pass
+    print product.id, product.name
+    product.save()
     
-    
-    order = api.Orders.get(101)
-    print "Order", order.id, order.date_created
-    for product in order.products:
-        print product.quantity, product.name
-        
+    print product.id, product.name
+    product.save()
     
