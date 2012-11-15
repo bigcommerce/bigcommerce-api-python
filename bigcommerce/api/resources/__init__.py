@@ -26,8 +26,11 @@ class ResourceAccessor(object):
         self.__resource_name = resource_name
         self._connection = connection
         
-        mod = __import__('%s' % resource_name, globals(), locals(), [resource_name], -1)
-        self._klass = getattr(mod, resource_name)
+        try:
+            mod = __import__('%s' % resource_name, globals(), locals(), [resource_name], -1)
+            self._klass = getattr(mod, resource_name)
+        except:
+            self._klass = ResourceObject
             
         # Work around for option values URL being incorrect
         if resource_name == "OptionValues":
@@ -76,6 +79,7 @@ class ResourceAccessor(object):
             page_index = 0
             
             try:
+                
                 for res in self.__get_page(current_page, max_per_page, _query):
                     if offset <= page_index:
                         offset = 0  # Start on the first item for the next page
@@ -87,6 +91,9 @@ class ResourceAccessor(object):
                             yield self._klass(self._connection, self._url, res, self._parent)
                     else:
                         page_index += 1
+                    
+                if page_index < max_per_page:
+                    requested_items = 0
             # If the response was empty - we are done
             except EmptyResponseWarning:
                 requested_items = 0
@@ -116,6 +123,14 @@ class ResourceAccessor(object):
         except:
             return FilterSet()
     
+    def get_name(self):
+        return self.__resource_name
+    
+    
+    def get_subresources(self):
+        return self._klass.sub_resources
+    
+    name = property(fget=get_name)
     
     
 class SubResourceAccessor(ResourceAccessor):
@@ -159,7 +174,7 @@ class ResourceObject(object):
         
         data = self._fields.get(attrname,None)
         if data is None:
-            raise AttributeError
+            raise AttributeError("%s not available" % attrname)
         else:
             
             # if we are dealing with a sub resource and we have not cast it to a list
@@ -195,7 +210,7 @@ class ResourceObject(object):
         elif self._fields.has_key(name):
             if name in self.read_only:
                 raise AttributeError("Attempt to assign to a read-only property '%s'" % name)
-            else:
+            elif not self.writeable or name in self.writeable:
                 self._updates.update({name:value})
         else:
             object.__setattr__(self, name, value)

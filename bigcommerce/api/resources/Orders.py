@@ -6,6 +6,8 @@ class Orders(ResourceObject):
     """
     
     """
+    can_update = True
+    writeable = ["is_deleted", "status_id"]
     sub_resources = Mapping(
                             shipping_addresses = Mapping(
                                                        klass = SubResources.ShippingAddresses,
@@ -17,6 +19,7 @@ class Orders(ResourceObject):
                                                klass = SubResources.OrderProducts,
                                                single = False)
                             )
+    
     
     def __get_shipments(self):
         if self._fields.has_key("shipments"):
@@ -33,5 +36,8 @@ class Orders(ResourceObject):
         
     def add_shipment(self, data):
         pass
+    
+    def __repr__(self):
+        return "%s- %s" % (self.id, self.date_created)
     
     shipments = property(fget = __get_shipments)

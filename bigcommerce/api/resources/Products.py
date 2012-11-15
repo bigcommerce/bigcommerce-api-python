@@ -1,6 +1,7 @@
 from bigcommerce.api.lib.mapping import Mapping
 from bigcommerce.api.lib.filters import FilterSet, StringFilter, NumberFilter, DateFilter, BoolFilter
 from . import ResourceObject
+from OptionSets import OptionSets
 from Brands import Brands
 import SubResources
 
@@ -19,7 +20,7 @@ class Products(ResourceObject):
                             downloads = Mapping(),
                             images = Mapping(klass = SubResources.Images),
                             options = Mapping(klass = SubResources.ProductOptions),
-                            option_set = Mapping(klass = SubResources.OptionSets, single=True),
+                            option_set = Mapping(klass = OptionSets, single=True),
                             rules = Mapping(),
                             skus = Mapping(klass = SubResources.SKU),
                             tax_class = Mapping(),
@@ -60,3 +61,6 @@ class Products(ResourceObject):
                       min_number_sold = NumberFilter(),
                       max_number_sold = NumberFilter(),
                       ) 
+        
+    def __repr__(self):
+        return "%s- %s" % (self.id, self.name)
