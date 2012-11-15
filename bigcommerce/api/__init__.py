@@ -20,8 +20,10 @@ class bigCommerce(object):
     def connection(self):
         pass
     
+    def show_urls(self):
+        self._connection.dump_meta()
+        
     def __getattr__(self, attrname):
-        return ResourceAccessor(attrname, self._connection)
         try:
             return ResourceAccessor(attrname, self._connection)
         except:

@@ -4,7 +4,7 @@ import base64
 import logging
 import settings
 import simplejson
-from pprint import pprint
+from pprint import pprint, pformat
 
 import urllib
 from urlparse import urlparse
@@ -35,7 +35,8 @@ class Connection():
         self.__connection = HTTPSConnection(self.host)
         self.__load_urls()
         
-        
+    def dump_meta(self):
+        log.critical(pformat(self.__resource_meta))    
         
     def __load_urls(self):
         """
@@ -43,6 +44,8 @@ class Connection():
         the server
         """
         self.__resource_meta = self.get()
+        log.debug("Registry")
+        log.debug(pformat(self.__resource_meta))
         
     
     def get(self, url="", query={}):
