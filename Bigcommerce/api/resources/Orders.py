@@ -1,4 +1,5 @@
 from Bigcommerce.api.lib.mapping import Mapping
+from Bigcommerce.api.lib.filters import FilterSet, StringFilter, NumberFilter, DateFilter, BoolFilter
 from . import ResourceObject, SubResourceAccessor
 import SubResources
 
@@ -19,6 +20,20 @@ class Orders(ResourceObject):
                                                klass = SubResources.OrderProducts,
                                                single = False)
                             )
+    
+    @classmethod
+    def filter_set(cls):
+        return FilterSet(min_id = NumberFilter(info="The minimum id of the order."),
+                         max_id = NumberFilter(info="The maximum id of the order."),
+                         min_total = NumberFilter(info="The minimum total for the order."),
+                         max_total = NumberFilter(info="The maximum total for the order."),
+                         customer_id = NumberFilter(info="Filter orders by customers."),
+                         status_id = NumberFilter(info="Filter orders by the order status."),
+                         is_deleted = BoolFilter(info="Filter orders by the deleted flag."),
+                         payment_method = StringFilter(info="Filter orders by payment method."),
+                         min_date_created = DateFilter(info="Retrieve all orders created after a specified date."),
+                         max_date_created = DateFilter()
+                        ) 
     
     
     def __get_shipments(self):
