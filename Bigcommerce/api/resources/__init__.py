@@ -166,30 +166,42 @@ class ResourceObject(object):
         self._url = "%s/%s" % (url, self.id)
         
         
-        
     def __getattr__(self, attrname):
+        """
+        Override get access to look up values in the updates first, 
+        then from the fields, if the fields value indicates that
+        its a sub resource that is not yet realized, make the call to
+        inflate the subresource object.
+        """
         
+        # If the value was set, when asked give this value,
+        # not the original value
         if self._updates.has_key(attrname):
             return self._updates[attrname]
         
+        # Look up the value in the _fields
         data = self._fields.get(attrname,None)
+        
         if data is None:
             raise AttributeError("%s not available" % attrname)
         else:
             
-            # if we are dealing with a sub resource and we have not cast it to a list
+            # if we are dealing with a sub resource and we have not 
+            # already made the call to inflate it - do so
             if self.sub_resources.has_key(attrname) and isinstance(data, dict):
                 
                 _con = SubResourceAccessor(self.sub_resources[attrname].get("klass", ResourceObject), 
                                            data, self._connection, 
                                            self)
                 
+                # If the subresource is a list of objects
                 if not self.sub_resources[attrname].get("single", False):
                     _list = []
                     for sub_res in _con.enumerate():
                         _list.append(sub_res)
                     self._fields[attrname] = _list
-                    
+                
+                # if the subresource is a single object    
                 else:
                     self._fields[attrname] = _con.get("")
                     
@@ -204,6 +216,10 @@ class ResourceObject(object):
     
     
     def __setattr__(self, name, value):
+        """
+        All sets on field properties are caches in the updates dictionary
+        until saved
+        """
         if name == "_fields":
             object.__setattr__(self, name, value)
         
@@ -216,14 +232,6 @@ class ResourceObject(object):
             object.__setattr__(self, name, value)
             
         
-            
-    """    
-    def attr(self, name, value):
-        if name in self.read_only:
-            raise AttributeError("Attempt to assign to a read-only property '%s'" % name)
-        self._updates.update({name:value})
-    """
-        
     def get_url(self):
         return self._url
     
@@ -232,6 +240,10 @@ class ResourceObject(object):
         
     
     def save(self):
+        """
+        Save any updates and set the fields to the values received 
+        from the return value and clear the updates dictionary
+        """
         if self._updates:
             log.info("Updating %s" % self.get_url())
             log.debug("Data: %s" % self._updates)
