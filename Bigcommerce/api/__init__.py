@@ -20,8 +20,8 @@ class ApiClient(object):
     def connection(self):
         pass
     
-    def show_urls(self):
-        self._connection.dump_meta()
+    def get_url_registry(self):
+        return self._connection.meta_data()
         
     def __getattr__(self, attrname):
         try:

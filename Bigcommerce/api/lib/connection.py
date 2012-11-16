@@ -43,7 +43,7 @@ class Connection():
         self.__load_urls()
         
         
-    def dump_meta(self):
+    def meta_data(self):
         """
         Return a string representation of resource-to-url mappings 
         """

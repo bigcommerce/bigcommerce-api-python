@@ -4,7 +4,7 @@ import logging
 from pprint import pprint, pformat
 from Bigcommerce.api import ApiClient
 
-logging.basicConfig(level=logging.INFO, 
+logging.basicConfig(level=logging.DEBUG, 
                     stream=sys.stdout,
                     format='%(asctime)s %(levelname)-8s[%(name)s] %(message)s',
                     datefmt='%m/%d %H:%M:%S')
@@ -71,7 +71,7 @@ def test_resource(resource):
 if __name__ == "__main__":
     log.debug("HOST %s, USER: %s" % (STORE_HOST, STORE_USERID))
     api = ApiClient(STORE_HOST, STORE_TOKEN, STORE_USERID)
-    api.show_urls()
+    log.debug("%s" % api.get_url_registry())
     
     
     test_resource(api.Brands)
