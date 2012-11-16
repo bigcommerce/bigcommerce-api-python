@@ -6,7 +6,7 @@ import logging
 from Bigcommerce.api.lib.connection import Connection
 from resources import ResourceAccessor
 
-log = logging.getLogger("bc_aaapi")
+log = logging.getLogger("Bigcommerce.api")
 
 
 class ApiClient(object):
