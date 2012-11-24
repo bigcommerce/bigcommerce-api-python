@@ -179,11 +179,13 @@ class ResourceObject(object):
         if self._updates.has_key(attrname):
             return self._updates[attrname]
         
+        if not self._fields.has_key(attrname):
+            raise AttributeError("%s not available" % attrname)
         # Look up the value in the _fields
         data = self._fields.get(attrname,None)
         
         if data is None:
-            raise AttributeError("%s not available" % attrname)
+            return data
         else:
             
             # if we are dealing with a sub resource and we have not 
