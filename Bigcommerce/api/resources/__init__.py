@@ -112,9 +112,12 @@ class ResourceAccessor(object):
     
     
     def get_count(self, query={}):
+        
         if query:
             _query = query.query_dict()
-        result = self._connection.get("%s/%s" % (self._url, "count"), query)
+        else:
+            _query = query
+        result = self._connection.get("%s/%s" % (self._url, "count"), _query)
         return result.get("count")
     
     def filters(self):
