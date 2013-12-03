@@ -1,14 +1,14 @@
 """
 This module provides an object-oriented wrapper around the BigCommerce V2 API
 for use in Python projects or via the Python shell.
-
 """
-
-import httplib2
-import base64
+ 
+import requests
 import json
-import socks
+import copy
 
+# EVERYTHING STILL NEEDS TESTING AAAAAAAAAAAAAAAAAAAAAAAAAAAA
+ 
 API_HOST = 'http://store.mybigcommerce.com'
 API_PATH = '/api/v2'
 API_USER = 'admin'
@@ -16,241 +16,191 @@ API_KEY  = 'yourpasswordhere'
 HTTP_PROXY = None
 HTTP_PROXY_PORT = 80
 
+class RequestFailedError(Exception): pass
+# see other response codes (400 - bad syntax, but also used for stuff like duplicate objects?, 5xx - database related stuff)
+
 class Connection(object):
-	host      = API_HOST
-	base_path = API_PATH
-	user 	  = API_USER
-	api_key   = API_KEY
-	http_proxy = HTTP_PROXY
-	http_proxy_port = HTTP_PROXY_PORT
-
-	def handle_response(self, response):
-		pass
-
-	def request_json(self, method, path, data=None):
-		response, content = self.request(method, path, data)
-		if response.status == 200 or response.status == 201:
-			return json.loads(content)
-		else:
-			print response
-			raise Exception(response.status)
-
-	def build_request_headers(self):
-		auth = base64.b64encode(self.user + ':' + self.api_key)
-		return { 'Authorization' : 'Basic ' + auth, 'Accept' : 'application/json' }
-
-	def request(self, method, path, body=None):
-		if self.http_proxy is not None:
-			proxy = httplib2.ProxyInfo(socks.PROXY_TYPE_HTTP, self.http_proxy, self.http_proxy_port)
-			http = httplib2.Http(proxy_info=proxy)
-		else:
-			http = httplib2.Http()
-		url = self.host + self.base_path + path
-		headers = self.build_request_headers()
-		if body: headers['Content-Type'] = 'application/json'
-		return http.request(url, method, headers=headers, body=body)
-
+    """
+    Makes connections according to configuration.
+    Generally, only host, user, api_key needs to be changed.
+    
+    Proxies can be defined by doing:
+        Connection.proxies = {"http": "http://10.10.1.10:3128",
+                              "https": "http://10.10.1.10:1080"}
+    
+    The four methods corresponding to the http methods return the
+    JSON of the response data, or raise an exception if the request failed.
+    """
+    host      = API_HOST
+    base_path = API_PATH
+    user      = API_USER
+    api_key   = API_KEY
+    proxies   = None
+    
+    json_headers = {'Content-type':'application/json'}
+ 
+    # requests automatically uses keep-alive
+    # TODO: let user close the session
+ 
+    @property
+    def auth_pair(self):
+        return (self.user, self.api_key)
+ 
+    def get(self, req_path):
+        full_path = self.host + self.base_path + req_path
+        r = requests.get(full_path, auth=self.auth_pair)
+        if r.status_code == 200 or r.status_code == 201:
+            return r.json()
+        else:
+            raise RequestFailedError("GET request failed. content: {}, path: {}".format(r.content, full_path))
+         
+    def delete(self, req_path):
+        """
+        No return value. Exception if not successful.
+        """
+        full_path = self.host + self.base_path + req_path
+        r = requests.delete(full_path, auth=self.auth_pair)
+        if r.status_code == 200 or r.status_code == 201 or r.status_code == 204: # TODO: I think only 204 is good - check, remove others if necessary
+            return
+        else:
+            raise RequestFailedError("DELETE request failed. content: {}, path: {}".format(r.content, full_path))
+ 
+    def post(self, req_path, data):
+        full_path = self.host + self.base_path + req_path
+        print full_path
+        print data
+        r = requests.post(full_path, auth=self.auth_pair, headers=self.json_headers, data=data)
+        if r.status_code == 200 or r.status_code == 201:
+            return r.json()
+        else:
+            raise RequestFailedError("POST request failed. content: {}, path: {}".format(r.content, full_path))
+         
+    def put(self, req_path, data):
+        print data
+        full_path = self.host + self.base_path + req_path
+        r = requests.put(full_path, auth=self.auth_pair, headers=self.json_headers, data=data)
+        if r.status_code == 200 or r.status_code == 201:
+            return r.json()
+        else:
+            raise RequestFailedError("PUT request failed. content: {}, path: {}".format(r.content, full_path))
+ 
+class ResourceSet(object):
+    """
+    Base class representing a collection of BigCommerce resources.
+    """
+    client = Connection()
+    resource_class = None
+    res_name = "" # this needs to be, e.g., "brands" for brand resources
+     
+    @classmethod
+    def get(cls):
+        """Returns list of resources"""
+        resource_list = cls.client.get('/{}.json'.format(cls.res_name))
+        return [cls.resource_class(res) for res in resource_list]
+ 
+    @classmethod
+    def get_by_id(cls, id):
+        """Returns an individual resource by given ID"""
+        resource = cls.client.get('/{}/{}.json'.format(cls.res_name, id))
+        return cls.resource_class(resource)
+ 
+    @classmethod
+    def create(cls, fields):
+        """
+        Creates a new resource, returning its corresponding object.
+        Don't include the id field.
+        """
+        new_obj_data = cls.client.post('/{}.json'.format(cls.res_name), json.dumps(fields))
+        return cls.resource_class(new_obj_data)
+    
+    @classmethod
+    def delete_from_id(cls, id):
+        cls.client.delete('/{}/{}.json'.format(cls.res_name, id))
+ 
 class Resource(object):
-	"""Base class representing BigCommerce resources"""
-
-	client = Connection()
-
-	def __init__(self, fields=None):
-		self.__dict__ = fields or dict()
-
-class Time(Resource):
-	"""Tests the availability of the API."""
-
-	@classmethod
-	def get(self):
-		"""Returns the current time stamp of the BigCommerce store."""
-		return self.client.request_json('GET', '/time')
-
-class Products(Resource):
-	"""The collection of products in a store"""
-
-	@classmethod
-	def get(self):
-		"""Returns list of products"""
-		products_list = self.client.request_json('GET', '/products')
-		return [Product(product) for product in products_list]
-
-	@classmethod
-	def get_by_id(self, id):
-		"""Returns an individual product by given ID"""
-		product = self.client.request_json('GET', '/products/' + str(id))
-		return Product(product)
-
+    """
+    Base class for an individual resource.
+    """
+    client = Connection()
+    res_name = "" # this needs to be, e.g., "brands" for brand resources
+ 
+    def __init__(self, fields=None):
+        self._fields = fields or {} # internal dict for fields
+        # __dict__ is used as a staging area for local changes
+        # it gets cleared and moved to _fields upon update()
+    
+    @classmethod
+    def get_time(cls):
+        return cls.client.get('/time')
+        
+    def __getattr__(self, attr): # if __dict__ doesn't have it, try _fields
+        try:
+            return self._fields[attr]
+        except KeyError:
+            raise AttributeError("No attribute {}".format(attr))
+ 
+    def update(self):
+        """Updates local changes to the object."""
+        body = copy.deepcopy(self.__dict__)
+        if body.has_key('id'):
+            del body['id']
+        if body.has_key('_fields'): # TODO: inefficient! _fields gets copied and then deleted!
+            del body['_fields']
+        body = json.dumps(body)
+        new_fields = self.client.put('/{}/{}.json'.format(self.res_name, self.id), body)
+        # commit changes locally
+        self._fields = new_fields
+        self.__dict__ = {'_fields' : self._fields}
+ 
+    def delete(self):
+        """Deletes the object"""
+        self.client.delete('/{}/{}.json'.format(self.res_name, self.id))
+  
 class Product(Resource):
-	"""An individual product"""
-
-	def update(self):
-		"""Updates local changes to the product"""
-		body = json.dumps(self.__dict__)
-		product = self.client.request_json('PUT', '/products/' + str(self.id), body)
-
-	def delete(self):
-		"""Deletes the product"""
-		response, content = self.client.request('DELETE', '/products/' + str(self.id))
-
-class Brands(Resource):
-	"""Brands collection"""
-
-	@classmethod
-	def get(self):
-		"""Returns list of brands"""
-		brands_list = self.client.request_json('GET', '/brands')
-		return [Brand(brand) for brand in brands_list]
-
-	@classmethod
-	def get_by_id(self, id):
-		"""Returns an individual brand by given ID"""
-		product = self.client.request_json('GET', '/brands/' + str(id))
-		return Product(product)
-
+    res_name = "products"
+ 
+class Products(ResourceSet):
+    res_name = "products"
+    resource_class = Product
+    
 class Brand(Resource):
-	"""An individual brand"""
-
-	def create(self):
-		"""Creates a new brand"""
-		body = json.dumps(self.__dict__)
-		brand = self.client.request_json('PUT', '/brands', body)
-
-	def update(self):
-		"""Updates local changes to the brand"""
-		body = json.dumps(self.__dict__)
-		brand = self.client.request_json('PUT', '/brands/' + str(self.id), body)
-		print brand['name']
-
-	def delete(self):
-		"""Deletes the brand"""
-		response, content = self.client.request('DELETE', '/brands/' + str(self.id))
-
-class Customers(Resource):
-	"""Customers collection"""
-
-	@classmethod
-	def get(self):
-		"""Returns list of customers"""
-		customers = self.client.request_json('GET', '/customers')
-		return [Customer(customer) for customer in customers]
-
-	@classmethod
-	def get_by_id(self, id):
-		"""Returns an individual customer by given ID"""
-		customer = self.client.request_json('GET', '/customers/' + str(id))
-		return Customer(customer)
-
+    res_name = "brands"
+    
+class Brands(ResourceSet):
+    res_name = "brands"
+    resource_class = Brand
+    
 class Customer(Resource):
-	"""An individual customer"""
-
-	def create(self):
-		"""Creates a new customer"""
-		body = json.dumps(self.__dict__)
-		customer = self.client.request_json('PUT', '/customers', body)
-
-	def update(self):
-		"""Updates local changes to the customer"""
-		body = json.dumps(self.__dict__)
-		customer = self.client.request_json('PUT', '/customers/' + str(self.id), body)
-
-	def delete(self):
-		"""Deletes the customer"""
-		response, content = self.client.request('DELETE', '/customers/' + str(self.id))
-
-class Orders(Resource):
-	"""Orders collection"""
-
-	@classmethod
-	def get(self):
-		"""Returns list of orders"""
-		orders = self.client.request_json('GET', '/orders')
-		return [Order(order) for order in orders]
-
-	@classmethod
-	def get_by_id(self, id):
-		"""Returns an individual order by given ID"""
-		order = self.client.request_json('GET', '/orders/' + str(id))
-		return Order(order)
-
+    res_name = "customers"
+    
+class Customers(ResourceSet):
+    res_name = "customers"
+    resource_class = Customer
+    
 class Order(Resource):
-	"""An individual order"""
-
-	def create(self):
-		"""Creates a new order"""
-		body = json.dumps(self.__dict__)
-		order = self.client.request_json('PUT', '/orders', body)
-
-	def update(self):
-		"""Updates local changes to the order"""
-		body = json.dumps(self.__dict__)
-		order = self.client.request_json('PUT', '/orders/' + str(self.id), body)
-
-	def delete(self):
-		"""Deletes the order"""
-		response, content = self.client.request('DELETE', '/orders/' + str(self.id))
-
-class OptionSets(Resource):
-	"""Option sets collection"""
-
-	@classmethod
-	def get(self):
-		"""Returns list of option sets"""
-		optionsets = self.client.request_json('GET', '/optionsets')
-		return [OptionSet(optionset) for optionset in optionsets]
-
-	@classmethod
-	def get_by_id(self, id):
-		"""Returns an individual option set by given ID"""
-		optionset = self.client.request_json('GET', '/optionsets/' + str(id))
-		return OptionSet(optionset)
-
+    res_name = "orders"
+    
+class Orders(ResourceSet):
+    res_name = "orders"
+    resource_class = Order
+    
 class OptionSet(Resource):
-	"""An individual option set"""
-
-	def create(self):
-		"""Creates a new option set"""
-		body = json.dumps(self.__dict__)
-		optionset = self.client.request_json('PUT', '/optionsets', body)
-
-	def update(self):
-		"""Updates local changes to the option set"""
-		body = json.dumps(self.__dict__)
-		optionset = self.client.request_json('PUT', '/optionsets/' + str(self.id), body)
-
-	def delete(self):
-		"""Deletes the option set"""
-		response, content = self.client.request('DELETE', '/optionsets/' + str(self.id))
-
-class Categories(Resource):
-	"""Categories collection"""
-
-	@classmethod
-	def get(self):
-		"""Returns list of categories"""
-		categories = self.client.request_json('GET', '/categories')
-		return [Category(category) for category in categories]
-
-	@classmethod
-	def get_by_id(self, id):
-		"""Returns an individual category by given ID"""
-		category = self.client.request_json('GET', '/categories/' + str(id))
-		return Category(category)
-
+    res_name = "optionsets"
+    
+class OptionSets(ResourceSet):
+    res_name = "optionsets"
+    resource_class = OptionSet
+    
 class Category(Resource):
-	"""An individual category"""
-
-	def create(self):
-		"""Creates a new category"""
-		body = json.dumps(self.__dict__)
-		category = self.client.request_json('PUT', '/categories', body)
-
-	def update(self):
-		"""Updates local changes to the category"""
-		body = json.dumps(self.__dict__)
-		category = self.client.request_json('PUT', '/categories/' + str(self.id), body)
-
-	def delete(self):
-		"""Deletes the category"""
-		response, content = self.client.request('DELETE', '/categories/' + str(self.id))
-
+    res_name = "categories"
+    
+class Categories(ResourceSet):
+    res_name = "categories"
+    resource_class = Category
+    
+class Coupon(Resource):
+    res_name = "coupons"
+    
+class Coupons(ResourceSet):
+    res_name = "coupons"
+    resource_class = Coupon
