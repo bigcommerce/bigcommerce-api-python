@@ -1,11 +1,24 @@
 """
 This module provides an object-oriented wrapper around the BigCommerce V2 API
 for use in Python projects or via the Python shell.
+
+The Connection class should mostly be used to configure the connection details
+(host, user, api token, etc). Actual interaction with BigCommerce's REST API should
+be done through the appropriate resource classes.
+ 
+If anything isn't well supported, the get, post, put, and delete methods of
+the class could be used directly:
+    all of the methods take a req_path, which corresponds to the URL substring after /api/v2
+        (e.g. /products/5.json)
+    all of the methods, except delete, return JSON of the response contents,
+        typically the resource made/modified/retrieved
 """
  
 import requests
 import json
 import copy
+
+from httpexception import *
 
 # EVERYTHING STILL NEEDS TESTING AAAAAAAAAAAAAAAAAAAAAAAAAAAA
  
@@ -15,9 +28,6 @@ API_USER = 'admin'
 API_KEY  = 'yourpasswordhere'
 HTTP_PROXY = None
 HTTP_PROXY_PORT = 80
-
-class RequestFailedError(Exception): pass
-# see other response codes (400 - bad syntax, but also used for stuff like duplicate objects?, 5xx - database related stuff)
 
 class Connection(object):
     """
@@ -29,7 +39,8 @@ class Connection(object):
                               "https": "http://10.10.1.10:1080"}
     
     The four methods corresponding to the http methods return the
-    JSON of the response data, or raise an exception if the request failed.
+    JSON of the response data, or raise an exception if the 
+    request failed (see HttpException).
     """
     host      = API_HOST
     base_path = API_PATH
@@ -49,10 +60,12 @@ class Connection(object):
     def get(self, req_path):
         full_path = self.host + self.base_path + req_path
         r = requests.get(full_path, auth=self.auth_pair)
-        if r.status_code == 200 or r.status_code == 201:
-            return r.json()
+        ex = self._check_response(r)
+        if ex:
+            ex.message = "GET request failed:" + ex.message
+            raise ex
         else:
-            raise RequestFailedError("GET request failed. content: {}, path: {}".format(r.content, full_path))
+            return r.json()
          
     def delete(self, req_path):
         """
@@ -60,29 +73,55 @@ class Connection(object):
         """
         full_path = self.host + self.base_path + req_path
         r = requests.delete(full_path, auth=self.auth_pair)
-        if r.status_code == 200 or r.status_code == 201 or r.status_code == 204: # TODO: I think only 204 is good - check, remove others if necessary
-            return
-        else:
-            raise RequestFailedError("DELETE request failed. content: {}, path: {}".format(r.content, full_path))
+        ex = self._check_response(r)
+        if ex:
+            ex.message = "DELETE request failed:" + ex.message
+            raise ex
  
     def post(self, req_path, data):
         full_path = self.host + self.base_path + req_path
-        print full_path
-        print data
         r = requests.post(full_path, auth=self.auth_pair, headers=self.json_headers, data=data)
-        if r.status_code == 200 or r.status_code == 201:
-            return r.json()
+        ex = self._check_response(r)
+        if ex:
+            ex.message = "POST request failed:" + ex.message
+            raise ex
         else:
-            raise RequestFailedError("POST request failed. content: {}, path: {}".format(r.content, full_path))
+            return r.json()
          
     def put(self, req_path, data):
-        print data
         full_path = self.host + self.base_path + req_path
         r = requests.put(full_path, auth=self.auth_pair, headers=self.json_headers, data=data)
-        if r.status_code == 200 or r.status_code == 201:
-            return r.json()
+        ex = self._check_response(r)
+        if ex:
+            ex.message = "PUT request failed:" + ex.message
+            raise ex
         else:
-            raise RequestFailedError("PUT request failed. content: {}, path: {}".format(r.content, full_path))
+            return r.json()
+
+#     exception_classes = {501 : UnsupportedRequest,
+#                          503 : ServiceUnavailable,
+#                          507 : StorageCapacityError,
+#                          509 : BandwidthExceeded,
+#                          };
+    
+    def _check_response(self, r):
+        """
+        Returns an appropriate HttpException object for 
+        status codes other than 2xx, and None otherwise.
+        """
+        ex = None
+#         if exception_classes.has_key(r.status_code):
+#             ex = exception_classes[r.status_code](str(r.content))
+#         elif not r.status_code in (200, 201, 202, 204):
+        # the contents of the responses are very descriptive, so I'll just use those
+        if not r.status_code in (200, 201, 202, 204):
+            if r.status_code >= 500:
+                ex = ServerException(str(r.content), r.headers, r.content)
+            elif r.status_code >= 400:
+                ex = ClientRequestException(str(r.content), r.headers, r.content)
+            elif r.status_code >= 300:
+                ex = RedirectionException(str(r.content), r.headers, r.content)
+        return ex
  
 class ResourceSet(object):
     """
