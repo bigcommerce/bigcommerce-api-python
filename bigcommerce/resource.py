@@ -6,7 +6,7 @@ as collections.
 import copy
 import json
 
-from api import Connection
+from connection import Connection
 
 class ResourceSet(object):
     """
