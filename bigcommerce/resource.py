@@ -1,6 +1,11 @@
 """
 A bunch of classes for each of BigCommerce's resources, individually and
 as collections.
+
+Supports filter options as dictionaries, e.g.
+    someresourceset.get(options={'limit' : 5, 'page' : 2})
+See the BigCommerce resources index documentation for available filter fields.
+    http://developer.bigcommerce.com/docs/api/v2/resources
 """
 
 import copy
@@ -17,29 +22,39 @@ class ResourceSet(object):
     res_name = "" # this needs to be, e.g., "brands" for brand resources
      
     @classmethod
-    def get(cls):
-        """Returns list of resources"""
-        resource_list = cls.client.get('/{}.json'.format(cls.res_name))
-        return [cls.resource_class(res) for res in resource_list]
+    def count(cls):
+        return cls.client.get('/{}/count.json'.format(cls.res_name))['count']
+     
+    @classmethod
+    def get(cls, options=None):
+        """
+        Returns list of resources.
+        """
+        req = '/{}.json'.format(cls.res_name)
+        resource_list = cls.client.get(req, options)
+        return [cls.resource_class(res) for res in resource_list] if resource_list else None
  
     @classmethod
-    def get_by_id(cls, id):
+    def get_by_id(cls, id, options=None):
         """Returns an individual resource by given ID"""
-        resource = cls.client.get('/{}/{}.json'.format(cls.res_name, id))
-        return cls.resource_class(resource)
+        req = '/{}/{}.json'.format(cls.res_name, id)
+        resource = cls.client.get(req, options)
+        return cls.resource_class(resource) if resource else None
  
     @classmethod
-    def create(cls, fields):
+    def create(cls, fields, options=None):
         """
         Creates a new resource, returning its corresponding object.
         Don't include the id field.
+        Fails (raises an exception) if mandatory fields are missing. See
+        resource documentation for which fields are required.
         """
-        new_obj_data = cls.client.post('/{}.json'.format(cls.res_name), json.dumps(fields))
-        return cls.resource_class(new_obj_data)
+        new_obj_data = cls.client.post('/{}.json'.format(cls.res_name), json.dumps(fields), options)
+        return cls.resource_class(new_obj_data) if new_obj_data else None
     
     @classmethod
-    def delete_from_id(cls, id):
-        cls.client.delete('/{}/{}.json'.format(cls.res_name, id))
+    def delete_from_id(cls, id, options=None):
+        cls.client.delete('/{}/{}.json'.format(cls.res_name, id), options)
  
 class Resource(object):
     """
@@ -49,12 +64,18 @@ class Resource(object):
     res_name = "" # this needs to be, e.g., "brands" for brand resources
  
     def __init__(self, fields=None):
+        """
+        This constructor should only be used with a dict of fields 
+        retrieved from a store. 
+        If you want to create a new resource, use
+        the corresponding ResourceSet.create method.
+        """
         self._fields = fields or {} # internal dict for fields
         # __dict__ is used as a staging area for local changes
         # it gets cleared and moved to _fields upon update()
     
     @classmethod
-    def get_time(cls):
+    def get_time(cls): # TODO: format? or at least note how to
         return cls.client.get('/time')
         
     def __getattr__(self, attr): # if __dict__ doesn't have it, try _fields
@@ -62,24 +83,205 @@ class Resource(object):
             return self._fields[attr]
         except KeyError:
             raise AttributeError("No attribute {}".format(attr))
+
+    def delete(self, options=None):
+        """Deletes this object"""
+        self.client.delete('/{}/{}.json'.format(self.res_name, self.id), options)
  
-    def update(self):
+    def update(self, options=None):
         """Updates local changes to the object."""
-        body = copy.deepcopy(self.__dict__)
-        if body.has_key('id'):
-            del body['id']
-        if body.has_key('_fields'): # TODO: inefficient! _fields gets copied and then deleted!
-            del body['_fields']
+        body = self._copy_dict()
         body = json.dumps(body)
-        new_fields = self.client.put('/{}/{}.json'.format(self.res_name, self.id), body)
+        new_fields = self.client.put('/{}/{}.json'.format(self.res_name, self.id), body, options)
         # commit changes locally
-        self._fields = new_fields
+        self._replace_fields(new_fields)
+        
+    def _copy_dict(self):
+        copy_d = self.__dict__.copy()
+        if copy_d.has_key('id'):
+            del copy_d['id']
+        del copy_d['_fields']
+        return copy_d
+
+    def _replace_fields(self, new_fields):
+        self._fields = new_fields if new_fields else {}
         self.__dict__ = {'_fields' : self._fields}
  
-    def delete(self):
-        """Deletes the object"""
-        self.client.delete('/{}/{}.json'.format(self.res_name, self.id))
-  
+class ParentResource(Resource):
+    """
+    A Resource class that has subresources. 
+
+    Implements subresource related operations that do not
+    require a specific instance of a ParentResource.
+    Contains a SubResourceManager for operations that do.
+    
+    supported_subres = [ list of supported subresources ]
+        Mostly for user's convenience - not actually used anywhere.
+        An exception will be raised for unsupported subresource classes.
+    """
+    # in future, should allow the get methods to take names of the subresources, rather than just class
+    # also in future - should move some of these methods to mixins, or otherwise restrict them
+    # for resources that do not support some methods
+    supported_subres = None
+
+    def __init__(self, fields=None):
+        super(ParentResource, self).__init__(fields)
+        self.subresources = SubResourceManager(self)
+
+    @classmethod
+    def count_all(cls, sres):
+        """
+        Number of all subresources of type sres.
+        GET /resource/subresource/count
+        """
+        req_str = '/{}/{}/count.json'
+        return cls.client.get(req_str.format(cls.res_name, 
+                                             sres.resname))['count']
+                                             
+    @classmethod
+    def get_sres_by_id(cls, sres, id, options=None):
+        """
+        Returns an individual subresource by given ID.
+        Equivalent to GET /resource/subresource/sres_id
+        """
+        sres_name = sres.res_name
+        resource = self.client.get('/{}/{}/{}.json'.format(self.res_name, sres_name, id), 
+                                   options)
+        return sres(resource) if resource else None
+               
+    @classmethod                                  
+    def get_all_sres(cls, sres, options=None):
+        """
+        List of subresources of type sres, up to default limit (can be specified in options).
+        GET /resource/subresource
+        """ 
+        resource_list = cls.client.get('/{}/{}.json'.format(cls.res_name, sres.res_name), options)
+        return [sres(res) for res in resource_list] if resource_list else None
+    
+    def _copy_dict(self):
+        copy_d = super(ParentResource, self)._copy_dict()
+        del copy_d['supported_subres']
+        del copy_d['subresources']
+        return copy_d
+    
+    def _replace_fields(self, new_fields):
+        self._fields = new_fields
+        self.__dict__ = {'_fields' : self._fields,
+                         'supported_subres' : self._supported_subres,
+                         'subresources' : self.subresources}
+
+class SubResourceManager(object):
+    """
+    Handles the subresources of a specific instance of a ParentResource.
+    
+    Uses very similar interface to ResourceSet,
+    but requires a subresource class or instance to be passed in as argument.
+    
+    Not all operations are supported by all resources/subresources.
+    Refer to the BigCommerce resources documentation if unsure.
+    
+    Currently, all methods are available for all parent resources. There is
+    no guarentee that all methods will be supported, in which case a 400 or 501
+    exception may be raised.
+    """
+    
+    def __init__(self, parent_res):
+        self._res = parent_res
+    
+    @property
+    def id(self):
+        return self._res.id
+    
+    @property
+    def res_name(self):
+        return self._res.res_name
+    
+    @property
+    def client(self):
+        return self._res.client
+    
+    def create(self, sres, fields, options=None):
+        """
+        Creates a new resource, returning its corresponding object.
+        Don't include the id field.
+        Equivalent to POST /resource/res_id/subresource
+        """
+        sres_name = sres.res_name
+        new_obj_data = self.client.post('/{}/{}/{}.json'.format(self.res_name, self.id, sres_name),
+                                       json.dumps(fields), 
+                                       options)
+        return sres(new_obj_data) if new_obj_data else None
+    
+    def count(self, sres):
+        """
+        Returns number of subresources, corresponding to sres, related
+        to this object.
+        """
+        sres_name = sres.res_name
+        req_str = '/{}/{}/{}/count.json'
+        return self.client.get(req_str.format(self.res_name, self.id, sres_name))['count']
+     
+    def get(self, sres, options=None):
+        """
+        Returns list of subresources related to this object (up to limit, 
+        default or specified).
+        Equivalent to GET resource/res_id/subresource
+        
+        Can be used like get_by_id if id is given.
+        """
+        sres_name = sres.res_name
+        resource_list = self.client.get('/{}/{}/{}.json'.format(self.res_name, self.id, sres_name),
+                                        options)
+        return [sres(res) for res in resource_list] if resource_list else None
+ 
+    def get_by_id(self, sres, id, options=None):
+        """
+        Returns an individual subresource of this object by given ID.
+        Equivalent to GET /resource/res_id/subresource/sres_id
+        """
+        sres_name = sres.res_name
+        resource = self.client.get('/{}/{}/{}/{}.json'.format(self.res_name, self.id, sres_name, id),
+                                   options)
+        return sres(resource) if resource else None
+    
+    def delete_all(self, sres, options=None):
+        """
+        DELETE /resource/res_id/subresource
+        """
+        self.client.delete('/{}/{}/{}.json'.format(self.res_name, self.id, sres.res_name),
+                           options)
+        
+    def delete(self, sres, options=None):
+        """
+        DELETE /resource/res_id/subresource/sres_id
+        """
+        self.client.delete('/{}/{}/{}/{}.json'.format(self.res_name, self.id, sres.res_name, sres.id),
+                           options)
+        
+    def update(self, sres, options=None):
+        """
+        Updates the given subresource with its local changes.
+        Equivalent to PUT /resource/res_id/subresource/sres_id
+        """
+        body = sres._copy_dict()
+        body = json.dumps(body)
+        new_fields = self.client.put('/{}/{}/{}/{}.json'.format(self.res_name, 
+                                                                self.id, 
+                                                                sres.res_name, 
+                                                                sres,id), 
+                                     body,
+                                     options)
+        # commit changes locally
+        sres._replace_fields(new_fields)
+
+class Country(ParentResource):
+    res_name = "countries"
+        
+class Countries(ResourceSet):
+    res_name = "countries"
+    resource_class = Country
+
+        
 class Product(Resource):
     res_name = "products"
  

@@ -36,7 +36,10 @@ Connection.api_key = API_KEY    # eg. 'a2e777fbb2d98fd04461d700463a8ed71782e475'
 ```
 
 Retrieving:
+(and count)
 ```
+resource.Products.count()
+
 products = resource.Products.get()
 for p in products:
     print p.id
@@ -67,9 +70,9 @@ returns the corresponding resource object (Coupon in this case)
 Deleting:
 ```
 Coupons.delete_from_id(new_c.id)
-
-# OR
-
+```
+or:
+```
 new_c.delete()
 ```
 

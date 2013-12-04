@@ -6,12 +6,13 @@ The Connection class should mostly be used to configure the connection details
 (host, user, api token, etc). Actual interaction with BigCommerce's REST API should
 be done through the appropriate resource classes.
  
-If anything isn't well supported, the get, post, put, and delete methods of
+If needed for some reason, the get, post, put, and delete methods of
 the class could be used directly:
     all of the methods take a req_path, which corresponds to the URL substring after /api/v2
         (e.g. /products/5.json)
-    all of the methods, except delete, return JSON of the response contents,
-        typically the resource made/modified/retrieved
+    all of the methods, except delete, return parsed JSON of the response contents,
+        typically containing the fields of the resource made/modified/retrieved.
+        The parsed JSON can be used to construct Resource objects.
 """
  
 import requests
@@ -37,8 +38,8 @@ class Connection(object):
                               "https": "http://10.10.1.10:1080"}
     
     The four methods corresponding to the http methods return the
-    JSON of the response data, or raise an exception if the 
-    request failed (see HttpException).
+    JSON of the response data (or None if no data received), or raise 
+    an exception if the request failed (see HttpException).
     """
     prtcl_str = "https://"
     host      = API_HOST
@@ -58,43 +59,51 @@ class Connection(object):
  
     def full_path(self, req_path):
         return self.prtcl_str + self.host + self.base_path + req_path
- 
-    def get(self, req_path):
+
+    def _join_options(self, path, options):
+        query_str = '&'.join(['='.join(map(str, item)) for item in options.iteritems()])
+        return path + '?' + query_str
+
+    def get(self, req_path, options=None):
+        if options: req_path = self._join_options(req_path, options)
         r = requests.get(self.full_path(req_path), auth=self.auth_pair)
         ex = self._check_response(r)
         if ex:
             ex.message = "GET request failed:" + ex.message
             raise ex
         else:
-            return r.json()
+            return r.json() if r.content else None
          
-    def delete(self, req_path):
+    def delete(self, req_path, options=None):
         """
         No return value. Exception if not successful.
         """
+        if options: req_path = self._join_options(req_path, options)
         r = requests.delete(self.full_path(req_path), auth=self.auth_pair)
         ex = self._check_response(r)
         if ex:
             ex.message = "DELETE request failed:" + ex.message
             raise ex
  
-    def post(self, req_path, data):
+    def post(self, req_path, data, options=None):
+        if options: req_path = self._join_options(req_path, options)
         r = requests.post(self.full_path(req_path), auth=self.auth_pair, headers=self.json_headers, data=data)
         ex = self._check_response(r)
         if ex:
             ex.message = "POST request failed:" + ex.message
             raise ex
         else:
-            return r.json()
+            return r.json() if r.content else None
          
-    def put(self, req_path, data):
+    def put(self, req_path, data, options=None):
+        if options: req_path = self._join_options(req_path, options)
         r = requests.put(self.full_path(req_path), auth=self.auth_pair, headers=self.json_headers, data=data)
         ex = self._check_response(r)
         if ex:
             ex.message = "PUT request failed:" + ex.message
             raise ex
         else:
-            return r.json()
+            return r.json() if r.content else None
 
 #     exception_classes = {501 : UnsupportedRequest,
 #                          503 : ServiceUnavailable,
