@@ -150,8 +150,8 @@ except ClientRequestException as e:
 ```
 
 To handle more specific exceptions, users should examine contents for the status code using:
-    ```e.content['status']```
+```e.content['status']```
 Information about the API request limit (number of requests the client can make until blocked) can 
 be accessed as part of the header:
 
-    ```e.headers['x-bc-apilimit-remaining']```
+```e.headers['x-bc-apilimit-remaining']```
