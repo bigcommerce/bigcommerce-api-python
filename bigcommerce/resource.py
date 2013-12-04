@@ -8,7 +8,6 @@ See the BigCommerce resources index documentation for available filter fields.
     http://developer.bigcommerce.com/docs/api/v2/resources
 """
 
-import copy
 import json
 
 from connection import Connection
@@ -114,60 +113,53 @@ class ParentResource(Resource):
     Implements subresource related operations that do not
     require a specific instance of a ParentResource.
     Contains a SubResourceManager for operations that do.
-    
-    supported_subres = [ list of supported subresources ]
-        Mostly for user's convenience - not actually used anywhere.
-        An exception will be raised for unsupported subresource classes.
     """
     # in future, should allow the get methods to take names of the subresources, rather than just class
     # also in future - should move some of these methods to mixins, or otherwise restrict them
-    # for resources that do not support some methods
-    supported_subres = None
-
+    # for resources that do not support some methods ...
+    
     def __init__(self, fields=None):
         super(ParentResource, self).__init__(fields)
         self.subresources = SubResourceManager(self)
 
     @classmethod
-    def count_all(cls, sres):
+    def count_all(cls, sres_class):
         """
-        Number of all subresources of type sres.
+        Number of all subresources of type sres_class.
         GET /resource/subresource/count
         """
         req_str = '/{}/{}/count.json'
         return cls.client.get(req_str.format(cls.res_name, 
-                                             sres.resname))['count']
+                                             sres_class.resname))['count']
                                              
     @classmethod
-    def get_sres_by_id(cls, sres, id, options=None):
+    def get_sres_by_id(cls, sres_class, id, options=None):
         """
         Returns an individual subresource by given ID.
         Equivalent to GET /resource/subresource/sres_id
         """
-        sres_name = sres.res_name
+        sres_name = sres_class.res_name
         resource = self.client.get('/{}/{}/{}.json'.format(self.res_name, sres_name, id), 
                                    options)
-        return sres(resource) if resource else None
+        return sres_class(resource) if resource else None
                
     @classmethod                                  
-    def get_all_sres(cls, sres, options=None):
+    def get_all_sres(cls, sres_class, options=None):
         """
-        List of subresources of type sres, up to default limit (can be specified in options).
+        List of subresources of type sres_class, up to default limit (can be specified in options).
         GET /resource/subresource
         """ 
-        resource_list = cls.client.get('/{}/{}.json'.format(cls.res_name, sres.res_name), options)
-        return [sres(res) for res in resource_list] if resource_list else None
+        resource_list = cls.client.get('/{}/{}.json'.format(cls.res_name, sres_class.res_name), options)
+        return [sres_class(res) for res in resource_list] if resource_list else None
     
     def _copy_dict(self):
         copy_d = super(ParentResource, self)._copy_dict()
-        del copy_d['supported_subres']
         del copy_d['subresources']
         return copy_d
     
     def _replace_fields(self, new_fields):
         self._fields = new_fields
         self.__dict__ = {'_fields' : self._fields,
-                         'supported_subres' : self._supported_subres,
                          'subresources' : self.subresources}
 
 class SubResourceManager(object):
@@ -200,17 +192,17 @@ class SubResourceManager(object):
     def client(self):
         return self._res.client
     
-    def create(self, sres, fields, options=None):
+    def create(self, sres_class, fields, options=None):
         """
         Creates a new resource, returning its corresponding object.
         Don't include the id field.
         Equivalent to POST /resource/res_id/subresource
         """
-        sres_name = sres.res_name
+        sres_name = sres_class.res_name
         new_obj_data = self.client.post('/{}/{}/{}.json'.format(self.res_name, self.id, sres_name),
                                        json.dumps(fields), 
                                        options)
-        return sres(new_obj_data) if new_obj_data else None
+        return sres_class(new_obj_data) if new_obj_data else None
     
     def count(self, sres):
         """
@@ -221,7 +213,7 @@ class SubResourceManager(object):
         req_str = '/{}/{}/{}/count.json'
         return self.client.get(req_str.format(self.res_name, self.id, sres_name))['count']
      
-    def get(self, sres, options=None):
+    def get(self, sres_class, options=None):
         """
         Returns list of subresources related to this object (up to limit, 
         default or specified).
@@ -229,26 +221,26 @@ class SubResourceManager(object):
         
         Can be used like get_by_id if id is given.
         """
-        sres_name = sres.res_name
+        sres_name = sres_class.res_name
         resource_list = self.client.get('/{}/{}/{}.json'.format(self.res_name, self.id, sres_name),
                                         options)
-        return [sres(res) for res in resource_list] if resource_list else None
+        return [sres_class(res) for res in resource_list] if resource_list else None
  
-    def get_by_id(self, sres, id, options=None):
+    def get_by_id(self, sres_class, id, options=None):
         """
         Returns an individual subresource of this object by given ID.
         Equivalent to GET /resource/res_id/subresource/sres_id
         """
-        sres_name = sres.res_name
+        sres_name = sres_class.res_name
         resource = self.client.get('/{}/{}/{}/{}.json'.format(self.res_name, self.id, sres_name, id),
                                    options)
-        return sres(resource) if resource else None
+        return sres_class(resource) if resource else None
     
-    def delete_all(self, sres, options=None):
+    def delete_all(self, sres_class, options=None):
         """
         DELETE /resource/res_id/subresource
         """
-        self.client.delete('/{}/{}/{}.json'.format(self.res_name, self.id, sres.res_name),
+        self.client.delete('/{}/{}/{}.json'.format(self.res_name, self.id, sres_class.res_name),
                            options)
         
     def delete(self, sres, options=None):
@@ -268,11 +260,20 @@ class SubResourceManager(object):
         new_fields = self.client.put('/{}/{}/{}/{}.json'.format(self.res_name, 
                                                                 self.id, 
                                                                 sres.res_name, 
-                                                                sres,id), 
+                                                                sres.id), 
                                      body,
                                      options)
         # commit changes locally
         sres._replace_fields(new_fields)
+
+# Resources and ResourceSets
+
+class Brand(Resource):
+    res_name = "brands"
+    
+class Brands(ResourceSet):
+    res_name = "brands"
+    resource_class = Brand
 
 class Country(ParentResource):
     res_name = "countries"
@@ -281,20 +282,12 @@ class Countries(ResourceSet):
     res_name = "countries"
     resource_class = Country
 
-        
-class Product(Resource):
+class Product(ParentResource):
     res_name = "products"
  
 class Products(ResourceSet):
     res_name = "products"
     resource_class = Product
-    
-class Brand(Resource):
-    res_name = "brands"
-    
-class Brands(ResourceSet):
-    res_name = "brands"
-    resource_class = Brand
     
 class Customer(Resource):
     res_name = "customers"
