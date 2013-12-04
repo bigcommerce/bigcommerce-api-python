@@ -82,10 +82,10 @@ new_c.delete()
 
 #### Sub-Resources
 
-Some resources are defined as a ````ParentResource```. These objects hold a bunch of class methods for handling
+Some resources are defined as a ```ParentResource```. These objects hold a bunch of class methods for handling
 sub-resources independently from specific parent resources. The operations not independent of specific
-instances are handled by a ```SubResourceManager```.
-A parent resource's manager is accessible through the ```subresources``` field.
+instances are handled by a ```SubResourceManager```, accessible through a ParentResource 
+instance's ```subresources``` field.
 
 For these operations to work, they either take a SubResource class, or a specific instance of a SubResource.
 
@@ -93,19 +93,19 @@ Otherwise, much of the interface and behaviour of sub-resource related functiona
 rest of the client.
 
 Some random sample code:
-```python
-print "\n>> Fetching 2 countries from page 3"
-countries = Countries.get({'limit' : 2, 'page' : 3})
-for c in countries:
-    print "\t({}): {} - {}".format(c.id, c.country_iso3, c.country)
-    
+
+Getting states:
+```
 print ">> Fetching Country 226:"
 murrica = Countries.get_by_id(226)
 
 print ">> it has {} states, showing 5 of them:".format(murrica.subresources.count(CountryState))
 for state in murrica.subresources.get(CountryState, {'limit':5}):
     print "\t({}): {} - {}".format(state.id, state.state_abbreviation, state.state)
-    
+```
+
+Getting images, and some manipulation:
+```
 print "\n >>Looking at images of product 33"
 something = Products.get_by_id(33)
 for i in something.subresources.get(ProductImage):
@@ -120,13 +120,15 @@ img_data = {'image_file' : "http://upload.wikimedia.org/wikipedia/commons/6/61/S
 img.description = "NOPE"
 img.update()
 
-print ">> Images of 33 are now:"
+# print them out
 for i in something.subresources.get(ProductImage):
     print "\t({}): product_id: {}, image_file: {}, desc: {}".format(i.id, i.product_id, i.image_file, i.description)
 
 print ">> Changing it back"
 img.description = img_data['description'] or "ItDoesntLikeNullValues"
 something.subresources.update(img) # img.update() works too
+
+# Deletion and creation
 
 print ">> Delete it!"
 something.subresources.delete(img) # img.delete() works as well
