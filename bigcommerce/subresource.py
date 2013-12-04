@@ -37,6 +37,46 @@ class CountryState(SubResource):
     res_name = "states"
     parent_name = "countries"
     
+class OptionValue(SubResource):
+    res_name = "values"
+    parent_name = "options"
+
+class OrderShipment(SubResource):
+    res_name = "shipments"
+    parent_name = "orders"
+    
+class OrderShippingAddress(SubResource):
+    res_name = "shippingaddresses"
+    parent_name = "orders"
+    
+class ProductSKU(SubResource):
+    res_name = "skus"
+    parent_name = "products"
+ 
+class ProductConfigurableField(SubResource):
+    res_name = "configurablefields"
+    parent_name = "products"
+    
+class ProductCustomField(SubResource):
+    res_name = "customfields"
+    parent_name = "products"
+    
+class ProductDiscountRule(SubResource):
+    res_name = "discountrules"
+    parent_name = "products"
+    
 class ProductImage(SubResource):
     res_name = "images"
     parent_name = "products"
+    
+class ProductRule(SubResource):
+    res_name = "rules"
+    parent_name = "products"
+    
+class ProductVideo(SubResource):
+    res_name = "productvideos"
+    parent_name = "products"
+    
+class ShippingMethod(SubResource):
+    res_name = "methods"
+    parent_name = "shipping"

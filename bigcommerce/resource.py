@@ -275,12 +275,76 @@ class Brands(ResourceSet):
     res_name = "brands"
     resource_class = Brand
 
+class Category(Resource):
+    res_name = "categories"
+    
+class Categories(ResourceSet):
+    res_name = "categories"
+    resource_class = Category
+    
+class OrderStatus(Resource):
+    res_name = "orderstatuses"
+    
+class OrderStatuses(ResourceSet):
+    res_name = "orderstatuses"
+    resource_class = OrderStatus
+
+class CustomerGroup(Resource):
+    res_name = "customer_groups"
+    
+class CustomerGroups(ResourceSet):
+    res_name = "customer_groups"
+    resource_class = CustomerGroup
+
+class Coupon(Resource):
+    res_name = "coupons"
+    
+class Coupons(ResourceSet):
+    res_name = "coupons"
+    resource_class = Coupon
+
+class Store(Resource):
+    res_name = "store"
+    
+class Stores(ResourceSet):
+    """Only supports GET /store.json, according to documentation."""
+    res_name = "store"
+    resource_class = Store
+
 class Country(ParentResource):
     res_name = "countries"
         
 class Countries(ResourceSet):
     res_name = "countries"
     resource_class = Country
+
+class Customer(ParentResource):
+    res_name = "customers"
+    
+class Customers(ResourceSet):
+    res_name = "customers"
+    resource_class = Customer
+    
+class Option(ParentResource):
+    res_name = "options"
+    
+class Options(ResourceSet):
+    res_name = "options"
+    resource_class = Option
+
+class OptionSet(ParentResource):
+    res_name = "optionsets"
+    
+class OptionSets(ResourceSet):
+    res_name = "optionsets"
+    resource_class = OptionSet
+
+class Order(ParentResource):
+    res_name = "orders"
+    
+class Orders(ResourceSet):
+    res_name = "orders"
+    resource_class = Order
 
 class Product(ParentResource):
     res_name = "products"
@@ -289,37 +353,22 @@ class Products(ResourceSet):
     res_name = "products"
     resource_class = Product
     
-class Customer(Resource):
-    res_name = "customers"
+class Redirect(Resource):
+    res_name = "redirects"
     
-class Customers(ResourceSet):
-    res_name = "customers"
-    resource_class = Customer
+class Redirects(ResourceSet):
+    res_name = "redirects"
+    resource_class = Redirect
     
-class Order(Resource):
-    res_name = "orders"
-    
-class Orders(ResourceSet):
-    res_name = "orders"
-    resource_class = Order
-    
-class OptionSet(Resource):
-    res_name = "optionsets"
-    
-class OptionSets(ResourceSet):
-    res_name = "optionsets"
-    resource_class = OptionSet
-    
-class Category(Resource):
-    res_name = "categories"
-    
-class Categories(ResourceSet):
-    res_name = "categories"
-    resource_class = Category
-    
-class Coupon(Resource):
-    res_name = "coupons"
-    
-class Coupons(ResourceSet):
-    res_name = "coupons"
-    resource_class = Coupon
+class Shipping(ParentResource):
+    """Only GET"""
+    res_name = "shipping"
+
+# class Shippings(ResourceSet):
+#     """
+#     An actual "Shipping" resource does not appear to exist.
+#     The resource is actually shipping methods - use Shipping.get_all_sres
+#     and other methods to interact.
+#     """
+#     res_name = "shipping"
+#     resource_class = Shipping
