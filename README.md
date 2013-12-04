@@ -20,7 +20,7 @@ The API focuses on the subclasses of Resource and ResourceSet. They all share th
 resources.
 
 See http://developer.bigcommerce.com/docs/api/v2/resources for all resources.
-
+The options/filters for some requests can be passed in as a dictionary (see 'Retrieving').
 
 #### Setup
 ```
@@ -40,7 +40,7 @@ Connection.api_key = API_KEY    # eg. 'a2e777fbb2d98fd04461d700463a8ed71782e475'
 ```
 num_products = Products.count()
 
-products = Products.get()
+products = Products.get({'limit' : 10'})
 for p in products:
     print "\t({}): {}, price: {}".format(p.id, p.name, p.price)
 ```
@@ -124,7 +124,7 @@ for i in something.subresources.get(ProductImage):
 
 print ">> Changing it back"
 img.description = img_data['description'] or "ItDoesntLikeNullValues"
-something.subresources.update(img)
+something.subresources.update(img) # img.delete() works as well
 
 print ">> Delete it!"
 something.subresources.delete(img)
