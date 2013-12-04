@@ -25,13 +25,19 @@ See http://developer.bigcommerce.com/docs/api/v2/resources for all resources.
 The options/filters for some requests can be passed in as a dictionary (see 'Retrieving').
 
 #### Setup
+Modules
 ```
-# import everything
+from bigcommerce import *
+
+# the above is equivalent to:
 from bigcommerce.connection import Connection 
 from bigcommerce.httpexception import *
 from bigcommerce.resource import *
 from bigcommerce.subresource import *
+```
 
+Set-up connection:
+```
 Connection.host = YOUR_STORE    # eg. 'mystore.bigcommerce.com
 Connection.user = USER          # eg. 'admin'
 Connection.api_key = API_KEY    # eg. 'a2e777fbb2d98fd04461d700463a8ed71782e475'

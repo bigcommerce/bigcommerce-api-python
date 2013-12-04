@@ -48,7 +48,7 @@ class Connection(object):
     api_key   = API_KEY
     proxies   = None
     
-    json_headers = {'Content-type':'application/json'}
+    req_headers = {'Content-type':'application/json'}
  
     # TODO: let user close the session
  
@@ -86,7 +86,7 @@ class Connection(object):
  
     def post(self, req_path, data, options=None):
         if options: req_path = self._join_options(req_path, options)
-        r = requests.post(self.full_path(req_path), auth=self.auth_pair, headers=self.json_headers, data=data)
+        r = requests.post(self.full_path(req_path), auth=self.auth_pair, headers=self.req_headers, data=data)
         ex = self._check_response(r)
         if ex:
             ex.message = "POST request failed:" + ex.message
@@ -96,7 +96,7 @@ class Connection(object):
          
     def put(self, req_path, data, options=None):
         if options: req_path = self._join_options(req_path, options)
-        r = requests.put(self.full_path(req_path), auth=self.auth_pair, headers=self.json_headers, data=data)
+        r = requests.put(self.full_path(req_path), auth=self.auth_pair, headers=self.req_headers, data=data)
         ex = self._check_response(r)
         if ex:
             ex.message = "PUT request failed:" + ex.message

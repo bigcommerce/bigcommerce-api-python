@@ -1,3 +1,5 @@
+from bigcommerce import *
+
 HOST = 'somestore.bigcommerce.com'
 USER = 'admin'
 KEY = 'asdfhahahahauehauheau'
