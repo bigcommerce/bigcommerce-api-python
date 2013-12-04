@@ -124,10 +124,10 @@ for i in something.subresources.get(ProductImage):
 
 print ">> Changing it back"
 img.description = img_data['description'] or "ItDoesntLikeNullValues"
-something.subresources.update(img) # img.delete() works as well
+something.subresources.update(img) # img.update() works too
 
 print ">> Delete it!"
-something.subresources.delete(img)
+something.subresources.delete(img) # img.delete() works as well
 
 print ">> Make it again!"
 something.subresources.create(ProductImage, img_data)
@@ -149,9 +149,7 @@ except ClientRequestException as e:
     print "\tcontent: ", e.content
 ```
 
-To handle more specific exceptions, users should examine contents for the status code using:
-```e.content['status']```
-Information about the API request limit (number of requests the client can make until blocked) can 
-be accessed as part of the header:
+To handle more specific exceptions, users should examine contents for the status code using: ```e.content['status']```
 
-```e.headers['x-bc-apilimit-remaining']```
+Information about the API request limit (number of requests the client can make until blocked) can 
+be accessed as part of the header: ```e.headers['x-bc-apilimit-remaining']```
