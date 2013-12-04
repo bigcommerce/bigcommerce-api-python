@@ -80,6 +80,61 @@ new_c.delete()
 
 #### Sub-Resources
 
+Some resources are defined as a ````ParentResource```. These objects hold a bunch of class methods for handling
+sub-resources independently from specific parent resources. The operations not independent of specific
+instances are handled by a ```SubResourceManager```.
+A parent resource's manager is accessible through the ```subresources``` field.
+
+For these operations to work, they either take a SubResource class, or a specific instance of a SubResource.
+
+Otherwise, much of the interface and behaviour of sub-resource related functionality is the same as the
+rest of the client.
+
+Some random sample code:
+```python
+print "\n>> Fetching 2 countries from page 3"
+countries = Countries.get({'limit' : 2, 'page' : 3})
+for c in countries:
+    print "\t({}): {} - {}".format(c.id, c.country_iso3, c.country)
+    
+print ">> Fetching Country 226:"
+murrica = Countries.get_by_id(226)
+
+print ">> it has {} states, showing 5 of them:".format(murrica.subresources.count(CountryState))
+for state in murrica.subresources.get(CountryState, {'limit':5}):
+    print "\t({}): {} - {}".format(state.id, state.state_abbreviation, state.state)
+    
+print "\n >>Looking at images of product 33"
+something = Products.get_by_id(33)
+for i in something.subresources.get(ProductImage):
+    print "\t({}): product_id: {}, image_file: {}, desc: {}".format(i.id, i.product_id, i.image_file, i.description)
+    img = i # last image found
+
+print ">> Changing description"
+img_data = {'image_file' : "http://upload.wikimedia.org/wikipedia/commons/6/61/SandstoneUSGOV.jpg",
+            'is_thumbnail' : img.is_thumbnail,
+            'sort_order' : img.sort_order,
+            'description' : "dont worry im a doctor"}
+img.description = "NOPE"
+img.update()
+
+print ">> Images of 33 are now:"
+for i in something.subresources.get(ProductImage):
+    print "\t({}): product_id: {}, image_file: {}, desc: {}".format(i.id, i.product_id, i.image_file, i.description)
+
+print ">> Changing it back"
+img.description = img_data['description'] or "ItDoesntLikeNullValues"
+something.subresources.update(img)
+
+print ">> Delete it!"
+something.subresources.delete(img)
+
+print ">> Make it again!"
+something.subresources.create(ProductImage, img_data)
+for i in speakers.subresources.get(ProductImage):
+    print "\t({}): product_id: {}, image_file: {}, desc: {}".format(i.id, i.product_id, i.image_file, i.description)
+```
+
 #### Exception Handling
 The client defines HttpException, which acts as a direct analogue to http errors by holding headers
 and content of errors encountered as fields.
