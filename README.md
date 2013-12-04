@@ -7,7 +7,9 @@ for use in Python projects or via the Python shell.
 ### Requirements
 
 - Python 2.6+
-- requests
+- requests : `pip install requests`
+
+The test also requires vcrpy : `pip install vcrpy`
 
 For a given user, a valid API key is required to authenticate requests. To grant 
 API access for user, go to Control Panel > Users > Edit User and make sure that the
