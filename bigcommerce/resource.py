@@ -9,7 +9,6 @@ See the BigCommerce resources index documentation for available filter fields.
 """
 
 import json
-
 from connection import Connection
 
 class ResourceSet(object):

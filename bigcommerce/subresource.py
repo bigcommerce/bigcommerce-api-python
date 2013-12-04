@@ -1,5 +1,4 @@
 import json
-
 from resource import Resource
 
 class SubResource(Resource):

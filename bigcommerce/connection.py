@@ -50,7 +50,6 @@ class Connection(object):
     
     json_headers = {'Content-type':'application/json'}
  
-    # requests automatically uses keep-alive
     # TODO: let user close the session
  
     @property
@@ -105,22 +104,12 @@ class Connection(object):
         else:
             return r.json() if r.content else None
 
-#     exception_classes = {501 : UnsupportedRequest,
-#                          503 : ServiceUnavailable,
-#                          507 : StorageCapacityError,
-#                          509 : BandwidthExceeded,
-#                          };
-    
     def _check_response(self, r):
         """
         Returns an appropriate HttpException object for 
         status codes other than 2xx, and None otherwise.
         """
         ex = None
-#         if exception_classes.has_key(r.status_code):
-#             ex = exception_classes[r.status_code](str(r.content))
-#         elif not r.status_code in (200, 201, 202, 204):
-        # the contents of the responses are very descriptive, so I'll just use those
         if not r.status_code in (200, 201, 202, 204):
             if r.status_code >= 500:
                 ex = ServerException(str(r.content), r.headers, r.content)
