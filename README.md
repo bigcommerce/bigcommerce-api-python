@@ -37,6 +37,12 @@ Connection.user = USER          # eg. 'admin'
 Connection.api_key = API_KEY    # eg. 'a2e777fbb2d98fd04461d700463a8ed71782e475'
 ```
 
+Proxies can also be defined by doing:
+```
+Connection.proxies = {"http": "http://10.10.1.10:3128",
+                      "https": "http://10.10.1.10:1080"}
+```
+
 #### Retrieving
 (and count)
 ```
