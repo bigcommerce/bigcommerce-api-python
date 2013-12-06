@@ -7,7 +7,7 @@ class SubResource(Resource):
     These resources should be handled through their corresponding
     ParentResource classes.
     """
-    def update(self, options=None): 
+    def update(self, **options): 
         """
         Updates the given subresource with its local changes.
         Equivalent to PUT /resource/subresource/sres_id
@@ -18,11 +18,11 @@ class SubResource(Resource):
                                                                 self.res_name, 
                                                                 self.id), 
                                      body,
-                                     options)
+                                     **options)
         # commit changes locally
         self._replace_fields(new_fields)
     
-    def delete(self, options=None):
+    def delete(self, **options):
         """
         Deletes this resource from the store.
         Equivalent to GET /resource/subresource/sres_id
@@ -30,7 +30,7 @@ class SubResource(Resource):
         self.client.delete('/{}/{}.json'.format(self.parent_name, 
                                                 self.res_name, 
                                                 self.id), 
-                           options)
+                           **options)
     
 class CountryState(SubResource):
     res_name = "states"

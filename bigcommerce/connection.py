@@ -18,8 +18,6 @@ the class could be used directly:
 import requests
 
 from httpexception import *
-
-# EVERYTHING STILL NEEDS TESTING AAAAAAAAAAAAAAAAAAAAAAAAAAAA
  
 API_HOST = 'http://store.mybigcommerce.com'
 API_PATH = '/api/v2'
@@ -63,7 +61,7 @@ class Connection(object):
         query_str = '&'.join(['='.join(map(str, item)) for item in options.iteritems()])
         return path + '?' + query_str
 
-    def get(self, req_path, options=None):
+    def get(self, req_path, **options):
         if options: req_path = self._join_options(req_path, options)
         r = requests.get(self.full_path(req_path), auth=self.auth_pair)
         ex = self._check_response(r)
@@ -73,7 +71,7 @@ class Connection(object):
         else:
             return r.json() if r.content else None
          
-    def delete(self, req_path, options=None):
+    def delete(self, req_path, **options):
         """
         No return value. Exception if not successful.
         """
@@ -84,7 +82,7 @@ class Connection(object):
             ex.message = "DELETE request failed:" + ex.message
             raise ex
  
-    def post(self, req_path, data, options=None):
+    def post(self, req_path, data, **options):
         if options: req_path = self._join_options(req_path, options)
         r = requests.post(self.full_path(req_path), auth=self.auth_pair, headers=self.req_headers, data=data)
         ex = self._check_response(r)
@@ -94,7 +92,7 @@ class Connection(object):
         else:
             return r.json() if r.content else None
          
-    def put(self, req_path, data, options=None):
+    def put(self, req_path, data, **options):
         if options: req_path = self._join_options(req_path, options)
         r = requests.put(self.full_path(req_path), auth=self.auth_pair, headers=self.req_headers, data=data)
         ex = self._check_response(r)

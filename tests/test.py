@@ -3,10 +3,6 @@ from bigcommerce import *
 import unittest
 import vcr
 
-# TODO: write something about getting stuff (orders?) since date/modified-date
-# because I don't actually know what format the date needs to be in...
-
-
 class TestHugeRandomUseCase(unittest.TestCase):
     
     def setUp(self):
@@ -16,7 +12,7 @@ class TestHugeRandomUseCase(unittest.TestCase):
     
     def test_get_products(self):
         with vcr.use_cassette('vcr/test0.yaml'):
-            products = Products.get({'limit' : 20})
+            products = Products.get(limit=20)
             self.assertTrue(len(products) == 20)
             
             expected = [(32, "Logitech Pure-Fi Speakers"),
@@ -83,7 +79,7 @@ class TestHugeRandomUseCase(unittest.TestCase):
                 
     def test_subresources(self):
         with vcr.use_cassette('vcr/test3.yaml'):
-            countries = Countries.get({'limit' : 2, 'page' : 3})
+            countries = Countries.get(limit=2, page=3)
             expected = [(5, "AND", "Andorra"),
                         (6, "AGO", "Angola")]
             self.assertTrue(len(countries) == 2)
@@ -100,7 +96,7 @@ class TestHugeRandomUseCase(unittest.TestCase):
                         (3, "AS", "American Samoa"),
                         (4, "AZ", "Arizona"),
                         (5, "AR", "Arkansas")]
-            states = murrica.subresources.get(CountryState, {'limit':5})
+            states = murrica.subresources.get(CountryState, limit=5)
             self.assertTrue(len(states) == 5)
             for i, val in enumerate(expected):
                 self.assertTrue(states[i].id == val[0])
