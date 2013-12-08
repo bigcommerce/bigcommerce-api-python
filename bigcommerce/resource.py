@@ -15,7 +15,7 @@ class ResourceSet(object):
     """
     Base class representing a collection of BigCommerce resources.
     """
-    client = Connection()
+    client = Connection
     resource_class = None
     res_name = "" # this needs to be, e.g., "brands" for brand resources
      
@@ -58,7 +58,7 @@ class Resource(object):
     """
     Base class for an individual resource.
     """
-    client = Connection()
+    client = Connection
     res_name = "" # this needs to be, e.g., "brands" for brand resources
  
     def __init__(self, fields=None):

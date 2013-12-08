@@ -8,8 +8,9 @@ class HttpException(Exception):
     Class for representing http errors. Contains headers and content of
     the error response.
     """
-    def __init__(self, msg, headers=None, content=None):
+    def __init__(self, msg, status_code, headers=None, content=None):
         super(Exception, self).__init__(msg)
+        self.status_code = status_code
         self.headers = headers
         self.content = content
     

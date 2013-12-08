@@ -1,18 +1,15 @@
 """
-This module provides an object-oriented wrapper around the BigCommerce V2 API
-for use in Python projects or via the Python shell.
-
-The Connection class should mostly be used to configure the connection details
-(host, user, api token, etc). Actual interaction with BigCommerce's REST API should
-be done through the appropriate resource classes.
+Simple wrapper around requests library, mostly for configuring connection
+and usage by resources.
  
-If needed for some reason, the get, post, put, and delete methods of
-the class could be used directly:
-    all of the methods take a req_path, which corresponds to the URL substring after /api/v2
-        (e.g. /products/5.json)
-    all of the methods, except delete, return parsed JSON of the response contents,
-        typically containing the fields of the resource made/modified/retrieved.
-        The parsed JSON can be used to construct Resource objects.
+The get, post, put, and delete methods of the class could be used directly.
+_run_method doc:
+    Runs given method (requests.post, .get, .put, .delete)
+    with given req_path (the part after /api/v2), and the
+    given options keyword args as the query string.
+    
+    If content is received in response, returns it as
+    parsed JSON or raw XML (or other raw data).
 """
  
 import requests
@@ -46,63 +43,66 @@ class Connection(object):
     api_key   = API_KEY
     proxies   = None
     
-    req_headers = {'Content-type':'application/json'}
- 
     # TODO: let user close the session
+    # this doesn't need to be instantiated at all to work - change all to classmethod?
  
-    @property
-    def auth_pair(self):
-        return (self.user, self.api_key)
- 
-    def full_path(self, req_path):
-        return self.prtcl_str + self.host + self.base_path + req_path
-
-    def _join_options(self, path, options):
+    @classmethod
+    def auth_pair(cls):
+        return (cls.user, cls.api_key)
+    
+    @classmethod
+    def full_path(cls, req_path):
+        return cls.prtcl_str + cls.host + cls.base_path + req_path
+    
+    @classmethod
+    def _join_options(cls, path, options):
         query_str = '&'.join(['='.join(map(str, item)) for item in options.iteritems()])
         return path + '?' + query_str
-
-    def get(self, req_path, **options):
-        if options: req_path = self._join_options(req_path, options)
-        r = requests.get(self.full_path(req_path), auth=self.auth_pair)
-        ex = self._check_response(r)
+    
+    @classmethod
+    def _run_method(cls, method, req_path, data, **options):
+        """
+        Runs given method (requests.post, .get, .put, .delete)
+        with given req_path (the part after /api/v2), and the
+        given options keyword args as the query string.
+        
+        If content is received in response, returns it as
+        parsed JSON or raw XML (or other raw data).
+        """
+        if options: req_path = cls._join_options(req_path, options)
+        r = method(cls.full_path(req_path), auth=cls.auth_pair(), data=data)
+        ex = cls._check_response(r)
         if ex:
-            ex.message = "GET request failed:" + ex.message
+            ex.message = r.request.method + " request failed:" + ex.message
             raise ex
         else:
-            return r.json() if r.content else None
+            if r.content:
+                if r.headers['content-type'] == 'application/json':
+                    return r.json()
+                else:
+                    return r.content
+
+    @classmethod
+    def get(cls, req_path, **options):
+        return cls._run_method(requests.get, req_path, None, **options)
          
-    def delete(self, req_path, **options):
+    @classmethod
+    def delete(cls, req_path, **options):
         """
         No return value. Exception if not successful.
         """
-        if options: req_path = self._join_options(req_path, options)
-        r = requests.delete(self.full_path(req_path), auth=self.auth_pair)
-        ex = self._check_response(r)
-        if ex:
-            ex.message = "DELETE request failed:" + ex.message
-            raise ex
+        return cls._run_method(requests.delete, req_path, None, **options)
  
-    def post(self, req_path, data, **options):
-        if options: req_path = self._join_options(req_path, options)
-        r = requests.post(self.full_path(req_path), auth=self.auth_pair, headers=self.req_headers, data=data)
-        ex = self._check_response(r)
-        if ex:
-            ex.message = "POST request failed:" + ex.message
-            raise ex
-        else:
-            return r.json() if r.content else None
+    @classmethod
+    def post(cls, req_path, data, **options):
+        return cls._run_method(requests.post, req_path, data, **options)
          
-    def put(self, req_path, data, **options):
-        if options: req_path = self._join_options(req_path, options)
-        r = requests.put(self.full_path(req_path), auth=self.auth_pair, headers=self.req_headers, data=data)
-        ex = self._check_response(r)
-        if ex:
-            ex.message = "PUT request failed:" + ex.message
-            raise ex
-        else:
-            return r.json() if r.content else None
+    @classmethod
+    def put(cls, req_path, data, **options):
+        return cls._run_method(requests.put, req_path, data, **options)
 
-    def _check_response(self, r):
+    @classmethod
+    def _check_response(cls, r):
         """
         Returns an appropriate HttpException object for 
         status codes other than 2xx, and None otherwise.
@@ -110,9 +110,9 @@ class Connection(object):
         ex = None
         if not r.status_code in (200, 201, 202, 204):
             if r.status_code >= 500:
-                ex = ServerException(str(r.content), r.headers, r.content)
+                ex = ServerException(str(r.content), r.status_code, r.headers, r.content)
             elif r.status_code >= 400:
-                ex = ClientRequestException(str(r.content), r.headers, r.content)
+                ex = ClientRequestException(str(r.content), r.status_code, r.headers, r.content)
             elif r.status_code >= 300:
-                ex = RedirectionException(str(r.content), r.headers, r.content)
+                ex = RedirectionException(str(r.content), r.status_code, r.headers, r.content)
         return ex
