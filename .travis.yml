@@ -2,4 +2,4 @@ language: python
 python:
   - "2.7"
   - "2.6"
-script: python -m unittest discover
+script: python -m tests
