@@ -15,6 +15,30 @@ For a given user, a valid API key is required to authenticate requests. To grant
 API access for user, go to Control Panel > Users > Edit User and make sure that the
 'Enable the API' checkbox is ticked.
 
+### Connection-Only Usage
+
+The Connection class in connection.py is a simple wrapper around the requests library, providing
+class methods that can be used by themselves if you do not need the object-oriented features:
+
+```
+# after setting up host, user, api key, etc
+products = Connection.get('/products.json', limit=20)
+
+Connection.put('/products/32.json', {'description' : "This is a new description"})
+
+new_coupon = Connection.post('/coupons.json', {'name' : "70% off order total", 
+                                               'amount' : 70.00, 
+                                               'code' : "HT75", 
+                                               'type' : "percentage_discount", 
+                                               'applies_to' : {'entity' : "products", 'ids' : [32]}})
+
+Connection.delete('/coupons/{}.json'.format(new_coupon['id']))
+```
+
+The four methods return parsed JSON, or raw data. HttpExceptions are raised on 3xx, 4xx, and 5xx
+status codes.
+See tests/test_direct.py for further usage examples.
+
 ### Usage
 
 The API focuses on the subclasses of Resource and ResourceSet. They all share the same functionality
