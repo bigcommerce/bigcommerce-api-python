@@ -1,0 +1,73 @@
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
+      - !!python/tuple [Accept, '*/*']
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: GET
+    path: /api/v2/countries.json?limit=2&page=3
+    port: 443
+    protocol: https
+  response:
+    body: {string: '[{"id":5,"country":"Andorra","country_iso2":"AD","country_iso3":"AND","states":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/countries\/5\/states.json","resource":"\/countries\/5\/states"}},{"id":6,"country":"Angola","country_iso2":"AO","country_iso3":"AGO","states":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/countries\/6\/states.json","resource":"\/countries\/6\/states"}}]'}
+    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 04:16:43 GMT',
+      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '898',
+      x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
+      - !!python/tuple [Accept, '*/*']
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: GET
+    path: /api/v2/countries/226.json
+    port: 443
+    protocol: https
+  response:
+    body: {string: '{"id":226,"country":"United States","country_iso2":"US","country_iso3":"USA","states":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/countries\/226\/states.json","resource":"\/countries\/226\/states"}}'}
+    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 04:16:43 GMT',
+      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '897',
+      x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
+      - !!python/tuple [Accept, '*/*']
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: GET
+    path: /api/v2/countries/226/states/count.json
+    port: 443
+    protocol: https
+  response:
+    body: {string: '{"count":65}'}
+    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 04:16:44 GMT',
+      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '896',
+      x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
+      - !!python/tuple [Accept, '*/*']
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: GET
+    path: /api/v2/countries/226/states.json?limit=5
+    port: 443
+    protocol: https
+  response:
+    body: {string: '[{"id":1,"state":"Alabama","state_abbreviation":"AL","country_id":226},{"id":2,"state":"Alaska","state_abbreviation":"AK","country_id":226},{"id":3,"state":"American
+        Samoa","state_abbreviation":"AS","country_id":226},{"id":4,"state":"Arizona","state_abbreviation":"AZ","country_id":226},{"id":5,"state":"Arkansas","state_abbreviation":"AR","country_id":226}]'}
+    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 04:16:44 GMT',
+      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '895',
+      x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
