@@ -20,8 +20,6 @@ API_HOST = 'http://store.mybigcommerce.com'
 API_PATH = '/api/v2'
 API_USER = 'admin'
 API_KEY  = 'yourpasswordhere'
-HTTP_PROXY = None
-HTTP_PROXY_PORT = 80
 
 class Connection(object):
     """
@@ -31,6 +29,9 @@ class Connection(object):
     Proxies can be defined by doing:
         Connection.proxies = {"http": "http://10.10.1.10:3128",
                               "https": "http://10.10.1.10:1080"}
+    Custom headers can also be defined (requests tends to handle everything):
+        Connection.headers = {'content-type' : 'application/xml'}
+    Set back to None to disable.
     
     The four methods corresponding to the http methods return the
     JSON of the response data (or None if no data received), or raise 
@@ -41,10 +42,17 @@ class Connection(object):
     base_path = API_PATH
     user      = API_USER
     api_key   = API_KEY
-    proxies   = None
     
-    # TODO: let user close the session
-    # this doesn't need to be instantiated at all to work - change all to classmethod?
+    proxies   = None
+    headers   = None
+    
+    # instead of using requests.get methods, can create and hold session instance 
+    # (as class variable) on demand and use that (which is what requests does anyway)
+    # and let user close it if they wish
+    # -> would user ever really want to manually close sessions? does requests ever do that automatically?
+    # also see (for session objects):
+    #     Note that connections are only released back to the pool for reuse once all body data has been read; 
+    #     be sure to either set stream to False or read the content property of the Response object.
  
     @classmethod
     def auth_pair(cls):
@@ -69,8 +77,11 @@ class Connection(object):
         If content is received in response, returns it as
         parsed JSON or raw XML (or other raw data).
         """
+        #TODO: in which cases would users not want parsed JSON returned?
         if options: req_path = cls._join_options(req_path, options)
-        r = method(cls.full_path(req_path), auth=cls.auth_pair(), data=data)
+        r = method(cls.full_path(req_path), auth=cls.auth_pair(), data=data, 
+                   proxies=cls.proxies,
+                   headers=cls.headers)
         ex = cls._check_response(r)
         if ex:
             ex.message = r.request.method + " request failed:" + ex.message
@@ -81,6 +92,8 @@ class Connection(object):
                     return r.json()
                 else:
                     return r.content
+
+    #TODO: maybe CRUD naming would be better... not important?
 
     @classmethod
     def get(cls, req_path, **options):

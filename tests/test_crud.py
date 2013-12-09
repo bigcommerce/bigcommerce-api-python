@@ -3,7 +3,7 @@ from bigcommerce import *
 import unittest
 import vcr
 
-class TestHugeRandomUseCase(unittest.TestCase):
+class TestGeneralCRUD(unittest.TestCase):
     
     def setUp(self):
         Connection.host = 'somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net'
@@ -131,8 +131,6 @@ class TestHugeRandomUseCase(unittest.TestCase):
                 self.assertTrue(imgs[i].image_file == val[2])
                 self.assertTrue(imgs[i].description == val[3])
             
-            
-            
             img.description = img_data['description'] or "itdoesntlikenullvalues"
             something.subresources.update(img)
             imgs = something.subresources.get(ProductImage)
@@ -162,5 +160,6 @@ class TestHugeRandomUseCase(unittest.TestCase):
                 self.assertTrue(imgs[i].image_file == val[2])
                 self.assertTrue(imgs[i].description == val[3])
                 
-suite = unittest.TestLoader().loadTestsFromTestCase(TestHugeRandomUseCase)
+suite = unittest.TestLoader().loadTestsFromTestCase(TestGeneralCRUD)
+
 unittest.TextTestRunner(verbosity=2).run(suite)
