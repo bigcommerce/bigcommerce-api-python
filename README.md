@@ -1,6 +1,8 @@
 BigCommerce API V2 - Python Client
 ==================================
 
+THIS ISN'T ACCURATE / UP TO DATE
+
 This module provides an object-oriented wrapper around the BigCommerce V2 API
 for use in Python projects or via the Python shell.
 
@@ -22,7 +24,7 @@ class methods that can be used by themselves if you do not need the object-orien
 
 ```
 # after setting up host, user, api key, etc
-products = Connection.get('/products.json', limit=20)
+products = Connection.get('/products.json', limit=20) # or leave out .json if you like xml
 
 Connection.put('/products/32.json', {'description' : "This is a new description"})
 

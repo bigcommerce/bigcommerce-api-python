@@ -51,7 +51,7 @@ class Connection():
     Connection class manages the connection to the Bigcommerce REST API.
     """
     
-    def __init__(self, host, base_url, auth): # auth already base64 encoded
+    def __init__(self, host, base_url, auth): # auth already base64 encoded - see client
         """
         Constructor
         
@@ -108,11 +108,10 @@ class Connection():
         qs = urllib.urlencode(query)
         if qs:
             qs = "?%s" % qs
-        url = "%s%s" % (url, qs)
+        log.debug("GET %s%s" % (url, qs))
+        url = self.full_path("%s%s" % (url, qs))
         
-        log.debug("GET %s" % (url))
-        
-        response = requests.get(self.full_path(url), headers=self.__headers)
+        response = requests.get(url, headers=self.__headers)
         
         log.debug("GET %s status %d" % (url,response.status_code))
         
@@ -127,7 +126,8 @@ class Connection():
         put_headers = {"Content-Type": "application/json"}
         put_headers.update(self.__headers)
 
-        response = requests.put(self.full_path(url), data=updates, headers=put_headers)
+        url = self.full_path(url)
+        response = requests.put(url, data=updates, headers=put_headers)
         
         log.debug("PUT %s status %d" % (url,response.status_code))
         log.debug("OUTPUT: %s" % response.content)
@@ -138,34 +138,36 @@ class Connection():
         """
         POST request for creating new objects.
         """
-        response = requests.post(self.full_path(url), data=data, headers=put_headers)
+        url = self.full_path(url)
+        response = requests.post(url, data=data, headers=self.__headers)
         return self._handle_response(url, response)
         
     def delete(self, url):
-        response = requests.delete(self.full_path(url), data=data, headers=put_headers)
-        return self._handle_response(url, response)
+        url = self.full_path(url)
+        response = requests.delete(url, headers=self.__headers)
+        return self._handle_response(url, response, suppress_empty=True)
     
-    def _handle_response(self, url, response):
+    def _handle_response(self, url, res, suppress_empty=False):
         """
         Returns parsed JSON or raises an exception appropriately.
         """
         # users see {} in case of 3xx, 202 - should handle?
         result = {}
-        if r.status_code in (200, 201, 202):
-            result = response.json()
-        elif response.status_code == 204:
-            raise EmptyResponseWarning("%d %s @ https://%s%s" % (response.status_code, response.reason, self.host, url), 
-                                         r.status_code, r.headers, r.content)
-        elif response.status_code >= 500:
-            raise ServerException("%d %s @ https://%s%s" % (response.status_code, response.reason, self.host, url), 
-                                  r.status_code, r.headers, r.content)
-        elif response.status_code >= 400:
-            log.debug("OUTPUT %s" % response.json())
-            raise ClientRequestException("%d %s @ https://%s%s" % (response.status_code, response.reason, self.host, url), 
-                                         r.status_code, r.headers, r.content)
-        elif response.status_code >= 300:
-            raise RedirectionException("%d %s @ https://%s%s" % (response.status_code, response.reason, self.host, url), 
-                                         r.status_code, r.headers, r.content)
+        if res.status_code in (200, 201, 202):
+            result = res.json()
+        elif res.status_code == 204 and not suppress_empty:
+            raise EmptyResponseWarning("%d %s @ %s" % (res.status_code, res.reason, url), 
+                                         res.status_code, res.headers, res.content)
+        elif res.status_code >= 500:
+            raise ServerException("%d %s @ %s" % (res.status_code, res.reason, url), 
+                                  res.status_code, res.headers, res.content)
+        elif res.status_code >= 400:
+            log.debug("OUTPUT %s" % res.json())
+            raise ClientRequestException("%d %s @ %s" % (res.status_code, res.reason, url), 
+                                         res.status_code, res.headers, res.content)
+        elif res.status_code >= 300:
+            raise RedirectionException("%d %s @ %s" % (res.status_code, res.reason, url), 
+                                         res.status_code, res.headers, res.content)
         return result
 
     def __repr__(self):
