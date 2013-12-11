@@ -35,161 +35,138 @@ new_coupon = Connection.post('/coupons.json', {'name' : "70% off order total",
 Connection.delete('/coupons/{}.json'.format(new_coupon['id']))
 ```
 
-The four methods return parsed JSON, or raw data. HttpExceptions are raised on 3xx, 4xx, and 5xx
-status codes.
-See tests/test_direct.py for further usage examples.
-
-### Usage
-
-The API focuses on the subclasses of Resource and ResourceSet. They all share the same functionality
-(except concerning sub-resources, explained later), so the examples below should be applicable to all
-resources.
-
-See http://developer.bigcommerce.com/docs/api/v2/resources for all resources.
-The options/filters for some requests can be passed in as a dictionary (see 'Retrieving').
-
-#### Setup
-Modules
-```
-from bigcommerce import *
-
-# the above is equivalent to:
-from bigcommerce.connection import Connection 
-from bigcommerce.httpexception import *
-from bigcommerce.resource import *
-from bigcommerce.subresource import *
-```
-
-Set-up connection:
-```
-Connection.host = YOUR_STORE    # eg. 'mystore.bigcommerce.com
-Connection.user = USER          # eg. 'admin'
-Connection.api_key = API_KEY    # eg. 'a2e777fbb2d98fd04461d700463a8ed71782e475'
-```
-
-Proxies can also be defined by doing:
-```
-Connection.proxies = {"http": "http://10.10.1.10:3128",
-                      "https": "http://10.10.1.10:1080"}
-```
-
-#### Retrieving
-(and count)
-```
-num_products = Products.count()
-
-products = Products.get({'limit' : 10'})
-for p in products:
-    print "\t({}): {}, price: {}".format(p.id, p.name, p.price)
-```
-
-Use ```Products.get_by_id(some_id)``` for specific resources. 
-
-#### Updating
-```
-speakers = Products.get_by_id(32)
-print "\t({}): {}, price: {}".format(speakers.id, speakers.name, speakers.price)
-  
-speakers.name = "Logitech Pure-Fi Speakers"
-speakers.price = 999.95
-speakers.description = "This is a description"
-speakers.update()
-```
-
-#### Creating
-```
-new_c = Coupons.create({'name' : "70% off order total", 
-                        'amount' : 70.00, 
-                        'code' : "HT75", 
-                        'type' : "percentage_discount", 
-                        'applies_to' : {'entity' : "products", 'ids' : [32]}})
-```
-The create method saves the resource to the store server (equivalent to a POST request), and
-returns the corresponding resource object (Coupon in this case)
-
-#### Deleting
-```
-Coupons.delete_from_id(new_c.id)
-```
-or:
-```
-new_c.delete()
-```
-
-#### Sub-Resources
-
-Some resources are defined as a ```ParentResource```. These objects hold a bunch of class methods for handling
-sub-resources independently from specific parent resources. The operations not independent of specific
-instances are handled by a ```SubResourceManager```, accessible through a ParentResource 
-instance's ```subresources``` field.
-
-For these operations to work, they either take a SubResource class, or a specific instance of a SubResource.
-
-Otherwise, much of the interface and behaviour of sub-resource related functionality is the same as the
-rest of the client.
-
-Some random sample code:
-
-Getting states:
-```
-print ">> Fetching Country 226:"
-murrica = Countries.get_by_id(226)
-
-print ">> it has {} states, showing 5 of them:".format(murrica.subresources.count(CountryState))
-for state in murrica.subresources.get(CountryState, {'limit':5}):
-    print "\t({}): {} - {}".format(state.id, state.state_abbreviation, state.state)
-```
-
-Getting images, and some manipulation:
-```
-print "\n >>Looking at images of product 33"
-something = Products.get_by_id(33)
-for i in something.subresources.get(ProductImage):
-    print "\t({}): product_id: {}, image_file: {}, desc: {}".format(i.id, i.product_id, i.image_file, i.description)
-    img = i # last image found
-
-print ">> Changing description"
-img_data = {'image_file' : "http://upload.wikimedia.org/wikipedia/commons/6/61/SandstoneUSGOV.jpg",
-            'is_thumbnail' : img.is_thumbnail,
-            'sort_order' : img.sort_order,
-            'description' : "dont worry im a doctor"}
-img.description = "NOPE"
-img.update()
-
-# print them out
-for i in something.subresources.get(ProductImage):
-    print "\t({}): product_id: {}, image_file: {}, desc: {}".format(i.id, i.product_id, i.image_file, i.description)
-
-print ">> Changing it back"
-img.description = img_data['description'] or "ItDoesntLikeNullValues"
-something.subresources.update(img) # img.update() works too
-
-# Deletion and creation
-
-print ">> Delete it!"
-something.subresources.delete(img) # img.delete() works as well
-
-print ">> Make it again!"
-something.subresources.create(ProductImage, img_data)
-for i in speakers.subresources.get(ProductImage):
-    print "\t({}): product_id: {}, image_file: {}, desc: {}".format(i.id, i.product_id, i.image_file, i.description)
-```
-
-#### Exception Handling
-The client defines HttpException, which acts as a direct analogue to http errors by holding headers
-and content of errors encountered as fields.
-It is subclassed by RedirectionException, ClientRequestException, and ServerException, corresponding
-to 3xx, 4xx, 5xx status codes respectively.
+#### Usage:
 
 ```
-try:
-    c = Coupons.get_by_id(999999)
-except ClientRequestException as e:
-    print "Exception caught successfully. Headers: ", e.headers
-    print "\tcontent: ", e.content
+#!/usr/bin/python
+from Bigcommerce.api import ApiClient
+
+api = ApiClient(STORE_HOST, STORE_TOKEN, STORE_USERID)
+    
+filters = api.Products.filters()
+filters.min_id.set(73873)
+        
+# List 10 products starting at offset 10
+for product in api.Products.enumerate(start=10, limit=10, query=filters):
+    print product.id, product.sku, product.name, product.price
+    
+
+# How to update a resource
+product = api.Products.get(14)
+    
+print product.id, product.sku, product.name
+product.name = "My New Product"
+product.save()
+
+product.images[1].is_thumbnail = True
+product.images[1].save()
+
+
+    
 ```
 
-To handle more specific exceptions, users should examine contents for the status code using: ```e.content['status']```
+Features
+--------
 
-Information about the API request limit (number of requests the client can make until blocked) can 
-be accessed as part of the header: ```e.headers['x-bc-apilimit-remaining']```
+* All urls to resources are inferred from an initial call to API
+* Enumerate multiple pages of resources with "start" and "limit" parameters
+* Filtering
+* Inflates SubResource objects on demand (ex: listing the products in an order)
+
+Access to SubResources using native contructs
+---------------------------------------------
+```
+logging.basicConfig(level=logging.DEBUG, 
+                    stream=sys.stdout,
+                    format='%(asctime)s %(levelname)-8s[%(name)s] %(message)s',
+                    datefmt='%m/%d %H:%M:%S')
+                    
+order = api.Orders.get(121000980)
+print "Order", order.id, order.date_created
+for product in order.products:
+    print product.quantity, product.name
+    
+```
+
+```
+11/14 02:38:24 DEBUG   [bc_api] GET /api/v2/orders/121000980
+11/14 02:38:25 DEBUG   [bc_api] GET /api/v2/orders/121000980 status 200
+11/14 02:38:25 DEBUG   [bc_api] GET /api/v2/orders/121000980/products?limit=50&page=1
+11/14 02:38:25 DEBUG   [bc_api] GET /api/v2/orders/121000980/products?limit=50&page=1 status 200
+11/14 02:38:25 DEBUG   [bc_api] GET /api/v2/orders/121000980/products?limit=50&page=2
+11/14 02:38:25 DEBUG   [bc_api] GET /api/v2/orders/121000980/products?limit=50&page=2 status 204
+
+Order 121000980 Fri, 09 Nov 2012 18:55:43 +0000
+1 Navy Blue Scrub Bottoms
+1 Navy Blue Scrub Tops
+1 Hampton Cotton Polo
+```
+
+Note: The count urls are not always accurate, so I enumerate until I hit a HTTP 204 Response.
+
+Resource Objects
+---------------
+
+Information about BigCommerce Resources is specified in the ResourceObjects.  These 
+objects also serve as the classes that will be inflated with the results of a query
+on that resource type.
+
+ResourceObjects are intended to specify:
+* SubResource Types (automatic API calls to inflate sub resources)
+* Available filters and types
+* Read-Only fields (for error checking)
+* Fields required for create and update
+
+Product Resource Definition
+---------------------------
+```
+from . import ResourceObject
+from Brands import Brands
+import SubResources
+
+class Products(ResourceObject):
+    """
+    
+    """
+    sub_resources = Mapping(brand = Mapping(
+                                            klass = Brands,
+                                            single = True),
+                            configurable_fields = Mapping(),
+                            custom_fields = Mapping(),
+                            discount_rules = Mapping(),
+                            downloads = Mapping(),
+                            images = Mapping(),
+                            options = Mapping(klass = SubResources.ProductOptions),
+                            option_set = Mapping(klass = SubResources.OptionSets, single=True),
+                            rules = Mapping(),
+                            skus = Mapping(klass = SubResources.SKU),
+                            tax_class = Mapping(),
+                            videos = Mapping(),
+                            )
+    
+    @classmethod
+    def filter_set(cls):
+        return FilterSet(min_id = NumberFilter( info="Minimum id of the product" ),
+                      max_id = NumberFilter( info="Minimum id of the product" ),
+                      name = StringFilter( info="The product name" ),
+                      sku = StringFilter(),
+                      description = StringFilter(),
+                      condition = StringFilter(),
+                      availability = StringFilter(),
+                      brand_id = NumberFilter(),
+                      min_date_created = DateFilter(),
+                      max_date_created = DateFilter(),
+                      min_date_modified = DateFilter(),
+                      max_date_modified = DateFilter(),
+                      min_date_last_imported = DateFilter(),
+                      max_date_last_imported = DateFilter(),
+                      min_inventory_level = NumberFilter(),
+                      max_inventory_level = NumberFilter(),
+                      is_visible = BoolFilter(),
+                      is_featured = BoolFilter(),
+                      min_price = NumberFilter(),
+                      max_price = NumberFilter(),
+                      min_number_sold = NumberFilter(),
+                      max_number_sold = NumberFilter(),
+                      ) 
+```
