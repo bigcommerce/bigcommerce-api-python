@@ -93,8 +93,6 @@ class Connection(object):
                 else:
                     return r.content
 
-    #TODO: maybe CRUD naming would be better... not important?
-
     @classmethod
     def get(cls, req_path, **options):
         return cls._run_method(requests.get, req_path, None, **options)
@@ -109,9 +107,19 @@ class Connection(object):
     @classmethod
     def post(cls, req_path, data, **options):
         return cls._run_method(requests.post, req_path, data, **options)
+
+    @classmethod
+    def create(cls, req_path, data, **options):
+        """Same as post."""
+        return cls._run_method(requests.post, req_path, data, **options)
          
     @classmethod
     def put(cls, req_path, data, **options):
+        return cls._run_method(requests.put, req_path, data, **options)
+    
+    @classmethod
+    def update(cls, req_path, data, **options):
+        """Same as put."""
         return cls._run_method(requests.put, req_path, data, **options)
 
     @classmethod

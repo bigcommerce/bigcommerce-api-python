@@ -11,6 +11,7 @@ class TestGeneralCRUD(unittest.TestCase):
         Connection.api_key = 'a2e777fbb2d98fd04461d700463a8ed71782e475'
     
     def test_get_products(self):
+        # get, update
         with vcr.use_cassette('vcr/test0.yaml'):
             products = Products.get(limit=20)
             self.assertTrue(len(products) == 20)
@@ -37,6 +38,7 @@ class TestGeneralCRUD(unittest.TestCase):
             self.assertTrue(speakers.price == "200.9500")
             
     def test_manip_coupons(self):
+        # get, create, delete
         with vcr.use_cassette('vcr/test1.yaml'):
             coupons = Coupons.get()
             expected = [(1, "5% off order total"),
@@ -78,6 +80,7 @@ class TestGeneralCRUD(unittest.TestCase):
                 self.assertTrue(True)
                 
     def test_subresources(self):
+        # get
         with vcr.use_cassette('vcr/test3.yaml'):
             countries = Countries.get(limit=2, page=3)
             expected = [(5, "AND", "Andorra"),
@@ -102,6 +105,7 @@ class TestGeneralCRUD(unittest.TestCase):
                 self.assertTrue(states[i].id == val[0])
             
     def test_subresources2(self):
+        # get, update, update, delete, create
         with vcr.use_cassette('vcr/test4.yaml'):
             something = Products.get_by_id(33)
             expected = [(239, 33, "sample_images/cocolee_anna_92851__19446.jpg", None),
@@ -159,7 +163,3 @@ class TestGeneralCRUD(unittest.TestCase):
                 self.assertTrue(imgs[i].product_id == val[1])
                 self.assertTrue(imgs[i].image_file == val[2])
                 self.assertTrue(imgs[i].description == val[3])
-                
-suite = unittest.TestLoader().loadTestsFromTestCase(TestGeneralCRUD)
-
-unittest.TextTestRunner(verbosity=2).run(suite)

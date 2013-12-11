@@ -167,7 +167,3 @@ class TestDirectCalls(unittest.TestCase):
                 self.assertTrue(imgs[i]['description'] == val[3])
                 
     #TODO: write one using XML
-                
-suite = unittest.TestLoader().loadTestsFromTestCase(TestDirectCalls)
-
-unittest.TextTestRunner(verbosity=2).run(suite)
