@@ -27,9 +27,8 @@ if __name__ == "__main__":
     
     
     order = api.Orders.get(101)
-    if order !== None:
-        print "Order", order.id, order.date_created
-        for product in order.products:
-            print product.quantity, product.name
+    print "Order", order.id, order.date_created
+    for product in order.products:
+        print product.quantity, product.name
         
     

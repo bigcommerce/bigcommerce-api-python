@@ -1,5 +1,5 @@
-from . import ResourceObject
-from Bigcommerce.api.lib.filters import FilterSet, StringFilter, NumberFilter, DateFilter, BoolFilter
+from bigcommerce.api.resource import ResourceObject
+from bigcommerce.api.filters import FilterSet, StringFilter, NumberFilter, DateFilter, BoolFilter
 
 class Categories(ResourceObject):
     """

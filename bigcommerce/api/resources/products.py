@@ -1,6 +1,6 @@
-from Bigcommerce.api.lib.mapping import Mapping
-from Bigcommerce.api.lib.filters import FilterSet, StringFilter, NumberFilter, DateFilter, BoolFilter
-from . import ResourceObject
+from bigcommerce.api.mapping import Mapping
+from bigcommerce.api.filters import FilterSet, StringFilter, NumberFilter, DateFilter, BoolFilter
+from bigcommerce.api.resource import ResourceObject
 from OptionSets import OptionSets
 from Brands import Brands
 import SubResources
