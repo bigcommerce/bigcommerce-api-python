@@ -15,7 +15,7 @@ class TestDirectCalls(unittest.TestCase):
         host = 'somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net'
         user = 'admin'
         api_key = 'a2e777fbb2d98fd04461d700463a8ed71782e475'
-        self.connection = Connection(host, '/api/v2', base64.b64encode("%s:%s" % (user, api_key)))
+        self.connection = Connection(host, '/api/v2', (user, api_key))
     
     def test_get_products(self):
         with vcr.use_cassette('vcr/test0.yaml'):

@@ -51,10 +51,8 @@ class Connection():
     Connection class manages the connection to the Bigcommerce REST API.
     """
     
-    def __init__(self, host, base_url, auth): # auth already base64 encoded - see client
+    def __init__(self, host, base_url, auth):
         """
-        Constructor
-        
         On creation, an initial call is made to load the mappings of resources to URLs
         """
         self.host = host
@@ -62,17 +60,19 @@ class Connection():
         self.auth = auth
         
         log.info("API Host: %s/%s" % (self.host, self.base_url))
-        log.debug("Accepting json, auth: Basic %s" % self.auth)
-        self.__headers = {"Authorization": "Basic %s" % self.auth,
-                        "Accept": "application/json"}
+        log.debug("Accepting json") #, auth: Basic %s" % self.auth)
         
+        # TODO: would like to let people use Connection directly and grab XML data if they want
+        # maybe just an xml_mode flag would be enough
+        self.__headers = {"Accept" : "application/json"}
+
         self.__resource_meta = {}
         self.__load_urls()
         
         
     def meta_data(self):
         """
-        Return a string representation of resource-to-url mappings 
+        Return a JSON string representation of resource-to-url mappings 
         """
         return simplejson.dumps(self.__resource_meta)    
         
@@ -90,16 +90,18 @@ class Connection():
         """
         Lookup the "url" for the resource name from the internally stored resource mappings
         """
-        return self.__resource_meta.get(resource_name,{}).get("url", None)
+        return self.__resource_meta.get(resource_name, {}).get("url", None)
     
     def get_resource_url(self, resource_name):
         """
         Lookup the "resource" for the resource name from the internally stored resource mappings
         """
-        return self.__resource_meta.get(resource_name,{}).get("resource", None)
+        return self.__resource_meta.get(resource_name, {}).get("resource", None)
 
     def full_path(self, url):
         return "https://" + self.host + self.base_url + url
+    
+    # could use a session to save the auth and __headers - keeping as is for now
     
     def get(self, url="", query={}):
         """
@@ -111,7 +113,7 @@ class Connection():
         log.debug("GET %s%s" % (url, qs))
         url = self.full_path("%s%s" % (url, qs))
         
-        response = requests.get(url, headers=self.__headers)
+        response = requests.get(url, auth=self.auth, headers=self.__headers)
         
         log.debug("GET %s status %d" % (url,response.status_code))
         
@@ -122,16 +124,11 @@ class Connection():
         Make a PUT request to save updates
         """
         log.debug("PUT %s" % (url))
-        
-        put_headers = {"Content-Type": "application/json"}
-        put_headers.update(self.__headers)
-
         url = self.full_path(url)
-        response = requests.put(url, data=updates, headers=put_headers)
+        response = requests.put(url, auth=self.auth, data=updates, headers=self.__headers)
         
         log.debug("PUT %s status %d" % (url,response.status_code))
         log.debug("OUTPUT: %s" % response.content)
-        
         return self._handle_response(url, response)
     
     def create(self, url, data):
@@ -139,19 +136,18 @@ class Connection():
         POST request for creating new objects.
         """
         url = self.full_path(url)
-        response = requests.post(url, data=data, headers=self.__headers)
+        response = requests.post(url, auth=self.auth, data=data, headers=self.__headers)
         return self._handle_response(url, response)
         
     def delete(self, url):
         url = self.full_path(url)
-        response = requests.delete(url, headers=self.__headers)
+        response = requests.delete(url, auth=self.auth, headers=self.__headers)
         return self._handle_response(url, response, suppress_empty=True)
     
     def _handle_response(self, url, res, suppress_empty=False):
         """
         Returns parsed JSON or raises an exception appropriately.
         """
-        # users see {} in case of 3xx, 202 - should handle?
         result = {}
         if res.status_code in (200, 201, 202):
             result = res.json()

@@ -18,10 +18,11 @@ class TestProductsBasic(unittest.TestCase):
         self.client = Client(STORE_HOST, STORE_TOKEN, STORE_USERID)
     
     def test_get_products(self):
-        filters = self.client.Products.filters()
-        for product in self.client.Products.enumerate(start=10, limit=10, query=filters):
-            print product.id, product.name, product.images
+        with vcr.use_cassette('vcr/test_get_products.yaml'):
+            filters = self.client.Products.filters()
+            for product in self.client.Products.enumerate(start=10, limit=10, query=filters):
+                print product.id, product.name, product.images
 
 if __name__ == "__main__":
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestProducts)
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestProductsBasic)
     unittest.TextTestRunner(verbosity=2).run(suite)
