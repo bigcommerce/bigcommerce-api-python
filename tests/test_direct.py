@@ -3,7 +3,8 @@ from bigcommerce import *
 import unittest
 import vcr
 
-import base64
+
+my_vcr = vcr.VCR(match_on = ['url', 'method', 'body']) # headers too?
 
 class TestDirectCalls(unittest.TestCase):
     """
@@ -18,7 +19,7 @@ class TestDirectCalls(unittest.TestCase):
         self.connection = Connection(host, '/api/v2', (user, api_key))
     
     def test_get_products(self):
-        with vcr.use_cassette('vcr/test0.yaml'):
+        with my_vcr.use_cassette('vcr/test2.yaml'):
             products = self.connection.get('/products.json', {'limit':20})
             self.assertTrue(len(products) == 20)
             
@@ -31,9 +32,9 @@ class TestDirectCalls(unittest.TestCase):
                 self.assertTrue(products[i]['name'] == vals[1])
             
             speakers = self.connection.get('/products/32.json')
-            self.assertTrue(speakers['price'] == "300.9500")
+            self.assertTrue(speakers['price'] == "2288.9465")
               
-            new_price = 200.95
+            new_price = float(speakers['price']) * 0.5
             updates = {'name' : "Logitech Pure-Fi Speakers",
                        'price' : new_price,
                        'description' : "This is a description"
@@ -41,10 +42,10 @@ class TestDirectCalls(unittest.TestCase):
             self.connection.update('/products/32.json', updates)
             
             speakers = self.connection.get('/products/32.json')
-            self.assertTrue(float(speakers['price']) == new_price)
+            self.assertTrue(float(speakers['price']) == 1144.4733) # rounding up
             
     def test_manip_coupons(self):
-        with vcr.use_cassette('vcr/test1.yaml'):
+        with my_vcr.use_cassette('vcr/test1.yaml'):
             coupons = self.connection.get('/coupons.json')
             expected = [(1, "5% off order total"),
                         (2, "10% off order total"),
@@ -88,7 +89,7 @@ class TestDirectCalls(unittest.TestCase):
                 self.assertTrue(True)
                  
     def test_subresources(self):
-        with vcr.use_cassette('vcr/test3.yaml'):
+        with my_vcr.use_cassette('vcr/test3.yaml'):
             countries = self.connection.get('/countries.json', {'limit':2, 'page':3})
             expected = [(5, "AND", "Andorra"),
                         (6, "AGO", "Angola")]
@@ -112,7 +113,7 @@ class TestDirectCalls(unittest.TestCase):
                 self.assertTrue(states[i]['id'] == val[0])
              
     def test_subresources2(self):
-        with vcr.use_cassette('vcr/test4.yaml'):
+        with my_vcr.use_cassette('vcr/test4.yaml'):
             something = self.connection.get('/products/33.json')
              
             expected = [(239, 33, "sample_images/cocolee_anna_92851__19446.jpg", None),

@@ -2,8 +2,8 @@
     body: null
     headers: !!python/object/apply:__builtin__.frozenset
     - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Accept, application/json]
       - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
       - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
     host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
     method: GET
@@ -12,9 +12,9 @@
     protocol: https
   response:
     body: {string: '[{"id":32,"keyword_filter":null,"name":"Logitech Pure-Fi Speakers","type":"physical","sku":"","description":"This
-        is a description","search_keywords":null,"availability_description":"","price":"300.9500","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"300.9500","sort_order":0,"is_visible":true,"is_featured":true,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"0.3000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"10.0000","is_free_shipping":false,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Fri,
-        21 Sep 2012 02:31:01 +0000","brand_id":17,"view_count":4,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[14],"date_modified":"Wed,
-        04 Dec 2013 03:44:39 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":null,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/tomorrow-is-today-red-printed-scarf\/","availability":"available","brand":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/brands\/17.json","resource":"\/brands\/17"},"images":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/images.json","resource":"\/products\/32\/images"},"discount_rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/discountrules.json","resource":"\/products\/32\/discountrules"},"configurable_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/configurablefields.json","resource":"\/products\/32\/configurablefields"},"custom_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/customfields.json","resource":"\/products\/32\/customfields"},"videos":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/videos.json","resource":"\/products\/32\/videos"},"skus":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/skus.json","resource":"\/products\/32\/skus"},"rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/rules.json","resource":"\/products\/32\/rules"},"option_set":null,"options":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/options.json","resource":"\/products\/32\/options"},"tax_class":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}},{"id":33,"keyword_filter":null,"name":"[Sample]
+        is a description","search_keywords":null,"availability_description":"","price":"2288.9465","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"2288.9465","sort_order":0,"is_visible":true,"is_featured":true,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"0.3000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"10.0000","is_free_shipping":false,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Fri,
+        21 Sep 2012 02:31:01 +0000","brand_id":17,"view_count":4,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[14],"date_modified":"Thu,
+        12 Dec 2013 23:54:48 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":null,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/tomorrow-is-today-red-printed-scarf\/","availability":"available","brand":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/brands\/17.json","resource":"\/brands\/17"},"images":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/images.json","resource":"\/products\/32\/images"},"discount_rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/discountrules.json","resource":"\/products\/32\/discountrules"},"configurable_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/configurablefields.json","resource":"\/products\/32\/configurablefields"},"custom_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/customfields.json","resource":"\/products\/32\/customfields"},"videos":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/videos.json","resource":"\/products\/32\/videos"},"skus":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/skus.json","resource":"\/products\/32\/skus"},"rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/rules.json","resource":"\/products\/32\/rules"},"option_set":null,"options":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/options.json","resource":"\/products\/32\/options"},"tax_class":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}},{"id":33,"keyword_filter":null,"name":"[Sample]
         Anna, multi-colored bangles","type":"physical","sku":"","description":"<p><strong>How
         to write product descriptions that sell<\/strong><br \/>One of the best things
         you can do to make your store successful is invest some time in writing great
@@ -223,8 +223,8 @@
         don&rsquo;t overwhelm with a laundry list of features or flowery language.
         Densely pack your descriptions with useful information and watch products
         fly off the shelf.<\/p>","search_keywords":null,"availability_description":"","price":"69.0000","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"69.0000","sort_order":0,"is_visible":true,"is_featured":false,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"0.8000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"5.0000","is_free_shipping":false,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Fri,
-        21 Sep 2012 05:41:04 +0000","brand_id":21,"view_count":1,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[1],"date_modified":"Mon,
-        24 Sep 2012 05:01:49 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":14,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/modern-amusement-hozey-maccas-striped-tee\/","availability":"available","brand":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/brands\/21.json","resource":"\/brands\/21"},"images":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/42\/images.json","resource":"\/products\/42\/images"},"discount_rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/42\/discountrules.json","resource":"\/products\/42\/discountrules"},"configurable_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/42\/configurablefields.json","resource":"\/products\/42\/configurablefields"},"custom_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/42\/customfields.json","resource":"\/products\/42\/customfields"},"videos":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/42\/videos.json","resource":"\/products\/42\/videos"},"skus":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/42\/skus.json","resource":"\/products\/42\/skus"},"rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/42\/rules.json","resource":"\/products\/42\/rules"},"option_set":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/optionsets\/14.json","resource":"\/optionsets\/14"},"options":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/42\/options.json","resource":"\/products\/42\/options"},"tax_class":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}},{"id":43,"keyword_filter":null,"name":"[Sample]
+        21 Sep 2012 05:41:04 +0000","brand_id":21,"view_count":1,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[1],"date_modified":"Wed,
+        04 Dec 2013 23:29:19 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":14,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/modern-amusement-hozey-maccas-striped-tee\/","availability":"available","brand":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/brands\/21.json","resource":"\/brands\/21"},"images":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/42\/images.json","resource":"\/products\/42\/images"},"discount_rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/42\/discountrules.json","resource":"\/products\/42\/discountrules"},"configurable_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/42\/configurablefields.json","resource":"\/products\/42\/configurablefields"},"custom_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/42\/customfields.json","resource":"\/products\/42\/customfields"},"videos":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/42\/videos.json","resource":"\/products\/42\/videos"},"skus":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/42\/skus.json","resource":"\/products\/42\/skus"},"rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/42\/rules.json","resource":"\/products\/42\/rules"},"option_set":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/optionsets\/14.json","resource":"\/optionsets\/14"},"options":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/42\/options.json","resource":"\/products\/42\/options"},"tax_class":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}},{"id":43,"keyword_filter":null,"name":"[Sample]
         Gant, mens casual BW check shirt","type":"physical","sku":"","description":"<p><strong>How
         to write product descriptions that sell<\/strong><br \/>One of the best things
         you can do to make your store successful is invest some time in writing great
@@ -397,16 +397,16 @@
         and watch products fly off the shelf.<\/span><\/p>","search_keywords":null,"availability_description":"","price":"180.0000","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"180.0000","sort_order":0,"is_visible":true,"is_featured":true,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"2.0000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"0.0000","is_free_shipping":true,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Sun,
         23 Sep 2012 02:01:36 +0000","brand_id":28,"view_count":0,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[8],"date_modified":"Mon,
         24 Sep 2012 05:01:49 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":14,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/sass-bide-sea-of-red-floral-print-dress\/","availability":"available","brand":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/brands\/28.json","resource":"\/brands\/28"},"images":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/51\/images.json","resource":"\/products\/51\/images"},"discount_rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/51\/discountrules.json","resource":"\/products\/51\/discountrules"},"configurable_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/51\/configurablefields.json","resource":"\/products\/51\/configurablefields"},"custom_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/51\/customfields.json","resource":"\/products\/51\/customfields"},"videos":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/51\/videos.json","resource":"\/products\/51\/videos"},"skus":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/51\/skus.json","resource":"\/products\/51\/skus"},"rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/51\/rules.json","resource":"\/products\/51\/rules"},"option_set":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/optionsets\/14.json","resource":"\/optionsets\/14"},"options":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/51\/options.json","resource":"\/products\/51\/options"},"tax_class":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}}]'}
-    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 03:58:12 GMT',
-      last-modified: 'Wed, 04 Dec 2013 03:44:39 GMT', server: Apache, transfer-encoding: chunked,
-      x-bc-apilimit-remaining: '947', x-bc-store-version: 7.6.0}
+    headers: {content-type: application/json, date: 'Thu, 12 Dec 2013 23:55:32 GMT',
+      last-modified: 'Thu, 12 Dec 2013 23:54:48 GMT', server: Apache, transfer-encoding: chunked,
+      x-bc-apilimit-remaining: '976', x-bc-store-version: 7.6.0}
     status: {code: 200, message: OK}
 - request: !!python/object:vcr.request.Request
     body: null
     headers: !!python/object/apply:__builtin__.frozenset
     - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Accept, application/json]
       - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
       - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
     host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
     method: GET
@@ -415,23 +415,23 @@
     protocol: https
   response:
     body: {string: '{"id":32,"keyword_filter":null,"name":"Logitech Pure-Fi Speakers","type":"physical","sku":"","description":"This
-        is a description","search_keywords":null,"availability_description":"","price":"300.9500","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"300.9500","sort_order":0,"is_visible":true,"is_featured":true,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"0.3000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"10.0000","is_free_shipping":false,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Fri,
-        21 Sep 2012 02:31:01 +0000","brand_id":17,"view_count":4,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[14],"date_modified":"Wed,
-        04 Dec 2013 03:44:39 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":null,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/tomorrow-is-today-red-printed-scarf\/","availability":"available","brand":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/brands\/17.json","resource":"\/brands\/17"},"images":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/images.json","resource":"\/products\/32\/images"},"discount_rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/discountrules.json","resource":"\/products\/32\/discountrules"},"configurable_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/configurablefields.json","resource":"\/products\/32\/configurablefields"},"custom_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/customfields.json","resource":"\/products\/32\/customfields"},"videos":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/videos.json","resource":"\/products\/32\/videos"},"skus":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/skus.json","resource":"\/products\/32\/skus"},"rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/rules.json","resource":"\/products\/32\/rules"},"option_set":null,"options":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/options.json","resource":"\/products\/32\/options"},"tax_class":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}}'}
-    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 03:58:13 GMT',
-      last-modified: 'Wed, 04 Dec 2013 03:44:39 GMT', server: Apache, transfer-encoding: chunked,
-      x-bc-apilimit-remaining: '946', x-bc-store-version: 7.6.0}
+        is a description","search_keywords":null,"availability_description":"","price":"2288.9465","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"2288.9465","sort_order":0,"is_visible":true,"is_featured":true,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"0.3000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"10.0000","is_free_shipping":false,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Fri,
+        21 Sep 2012 02:31:01 +0000","brand_id":17,"view_count":4,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[14],"date_modified":"Thu,
+        12 Dec 2013 23:54:48 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":null,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/tomorrow-is-today-red-printed-scarf\/","availability":"available","brand":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/brands\/17.json","resource":"\/brands\/17"},"images":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/images.json","resource":"\/products\/32\/images"},"discount_rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/discountrules.json","resource":"\/products\/32\/discountrules"},"configurable_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/configurablefields.json","resource":"\/products\/32\/configurablefields"},"custom_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/customfields.json","resource":"\/products\/32\/customfields"},"videos":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/videos.json","resource":"\/products\/32\/videos"},"skus":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/skus.json","resource":"\/products\/32\/skus"},"rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/rules.json","resource":"\/products\/32\/rules"},"option_set":null,"options":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/options.json","resource":"\/products\/32\/options"},"tax_class":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}}'}
+    headers: {content-type: application/json, date: 'Thu, 12 Dec 2013 23:55:32 GMT',
+      last-modified: 'Thu, 12 Dec 2013 23:54:48 GMT', server: Apache, transfer-encoding: chunked,
+      x-bc-apilimit-remaining: '975', x-bc-store-version: 7.6.0}
     status: {code: 200, message: OK}
 - request: !!python/object:vcr.request.Request
-    body: '{"price": 200.95, "description": "This is a description", "name": "Logitech
-      Pure-Fi Speakers"}'
+    body: '{"price": 1144.47325, "name": "Logitech Pure-Fi Speakers", "description":
+      "This is a description"}'
     headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Content-Length, !!python/unicode '94']
-      - !!python/tuple [Content-type, application/json]
+    - - !!python/tuple [Content-Type, application/json]
+      - !!python/tuple [Accept, application/json]
       - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
       - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
       - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Content-Length, !!python/unicode '98']
     host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
     method: PUT
     path: /api/v2/products/32.json
@@ -439,19 +439,19 @@
     protocol: https
   response:
     body: {string: '{"id":32,"keyword_filter":null,"name":"Logitech Pure-Fi Speakers","type":"physical","sku":"","description":"This
-        is a description","search_keywords":null,"availability_description":"","price":"200.9500","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"200.9500","sort_order":0,"is_visible":true,"is_featured":true,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"0.3000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"10.0000","is_free_shipping":false,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Fri,
-        21 Sep 2012 02:31:01 +0000","brand_id":17,"view_count":4,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[14],"date_modified":"Wed,
-        04 Dec 2013 03:58:14 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":null,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/tomorrow-is-today-red-printed-scarf\/","availability":"available","brand":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/brands\/17.json","resource":"\/brands\/17"},"images":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/images.json","resource":"\/products\/32\/images"},"discount_rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/discountrules.json","resource":"\/products\/32\/discountrules"},"configurable_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/configurablefields.json","resource":"\/products\/32\/configurablefields"},"custom_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/customfields.json","resource":"\/products\/32\/customfields"},"videos":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/videos.json","resource":"\/products\/32\/videos"},"skus":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/skus.json","resource":"\/products\/32\/skus"},"rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/rules.json","resource":"\/products\/32\/rules"},"option_set":null,"options":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/options.json","resource":"\/products\/32\/options"},"tax_class":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}}'}
-    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 03:58:13 GMT',
-      last-modified: 'Wed, 04 Dec 2013 03:58:14 GMT', server: Apache, transfer-encoding: chunked,
-      x-bc-apilimit-remaining: '945', x-bc-store-version: 7.6.0}
+        is a description","search_keywords":null,"availability_description":"","price":"1144.4733","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"1144.4733","sort_order":0,"is_visible":true,"is_featured":true,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"0.3000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"10.0000","is_free_shipping":false,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Fri,
+        21 Sep 2012 02:31:01 +0000","brand_id":17,"view_count":4,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[14],"date_modified":"Thu,
+        12 Dec 2013 23:55:33 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":null,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/tomorrow-is-today-red-printed-scarf\/","availability":"available","brand":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/brands\/17.json","resource":"\/brands\/17"},"images":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/images.json","resource":"\/products\/32\/images"},"discount_rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/discountrules.json","resource":"\/products\/32\/discountrules"},"configurable_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/configurablefields.json","resource":"\/products\/32\/configurablefields"},"custom_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/customfields.json","resource":"\/products\/32\/customfields"},"videos":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/videos.json","resource":"\/products\/32\/videos"},"skus":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/skus.json","resource":"\/products\/32\/skus"},"rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/rules.json","resource":"\/products\/32\/rules"},"option_set":null,"options":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/options.json","resource":"\/products\/32\/options"},"tax_class":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}}'}
+    headers: {content-type: application/json, date: 'Thu, 12 Dec 2013 23:55:33 GMT',
+      last-modified: 'Thu, 12 Dec 2013 23:55:33 GMT', server: Apache, transfer-encoding: chunked,
+      x-bc-apilimit-remaining: '974', x-bc-store-version: 7.6.0}
     status: {code: 200, message: OK}
 - request: !!python/object:vcr.request.Request
     body: null
     headers: !!python/object/apply:__builtin__.frozenset
     - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Accept, application/json]
       - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
       - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
     host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
     method: GET
@@ -460,469 +460,10 @@
     protocol: https
   response:
     body: {string: '{"id":32,"keyword_filter":null,"name":"Logitech Pure-Fi Speakers","type":"physical","sku":"","description":"This
-        is a description","search_keywords":null,"availability_description":"","price":"200.9500","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"200.9500","sort_order":0,"is_visible":true,"is_featured":true,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"0.3000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"10.0000","is_free_shipping":false,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Fri,
-        21 Sep 2012 02:31:01 +0000","brand_id":17,"view_count":4,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[14],"date_modified":"Wed,
-        04 Dec 2013 03:58:14 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":null,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/tomorrow-is-today-red-printed-scarf\/","availability":"available","brand":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/brands\/17.json","resource":"\/brands\/17"},"images":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/images.json","resource":"\/products\/32\/images"},"discount_rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/discountrules.json","resource":"\/products\/32\/discountrules"},"configurable_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/configurablefields.json","resource":"\/products\/32\/configurablefields"},"custom_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/customfields.json","resource":"\/products\/32\/customfields"},"videos":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/videos.json","resource":"\/products\/32\/videos"},"skus":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/skus.json","resource":"\/products\/32\/skus"},"rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/rules.json","resource":"\/products\/32\/rules"},"option_set":null,"options":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/options.json","resource":"\/products\/32\/options"},"tax_class":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}}'}
-    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 03:58:14 GMT',
-      last-modified: 'Wed, 04 Dec 2013 03:58:14 GMT', server: Apache, transfer-encoding: chunked,
-      x-bc-apilimit-remaining: '944', x-bc-store-version: 7.6.0}
-    status: {code: 200, message: OK}
-- request: !!python/object:vcr.request.Request
-    body: null
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
-      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
-    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
-    method: GET
-    path: /api/v2/coupons.json
-    port: 443
-    protocol: https
-  response:
-    body: {string: '[{"id":1,"name":"5% off order total","type":"percentage_discount","amount":"5.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"A4CC26E5C5AC0BC","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":2,"name":"10%
-        off order total","type":"percentage_discount","amount":"10.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"4FA3083A1AD4128","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":3,"name":"Free
-        shipping","type":"free_shipping","amount":"0.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"6192C9637A6620D","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":4,"name":"$5
-        off shipping","type":"shipping_discount","amount":"5.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"96596B58A71F415","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null}]'}
-    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 03:58:15 GMT',
-      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '943',
-      x-bc-store-version: 7.6.0}
-    status: {code: 200, message: OK}
-- request: !!python/object:vcr.request.Request
-    body: '{"amount": 70.0, "code": "HT75", "type": "percentage_discount", "name":
-      "70% off order total", "applies_to": {"ids": [32], "entity": "products"}}'
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Content-type, application/json]
-      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
-      - !!python/tuple [Content-Length, !!python/unicode '145']
-      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
-      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
-    method: POST
-    path: /api/v2/coupons.json
-    port: 443
-    protocol: https
-  response:
-    body: {string: '{"id":130,"name":"70% off order total","type":"percentage_discount","amount":"70.0000","min_purchase":"0.0000","expires":"","enabled":false,"code":"HT75","applies_to":{"entity":"products","ids":[32]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null}'}
-    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 03:58:15 GMT',
-      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '942',
-      x-bc-store-version: 7.6.0}
-    status: {code: 201, message: Created}
-- request: !!python/object:vcr.request.Request
-    body: '{"amount": 60.0, "code": "HT85", "type": "percentage_discount", "name":
-      "60% off order total", "applies_to": {"ids": [32], "entity": "products"}}'
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Content-type, application/json]
-      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
-      - !!python/tuple [Content-Length, !!python/unicode '145']
-      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
-      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
-    method: POST
-    path: /api/v2/coupons.json
-    port: 443
-    protocol: https
-  response:
-    body: {string: '{"id":131,"name":"60% off order total","type":"percentage_discount","amount":"60.0000","min_purchase":"0.0000","expires":"","enabled":false,"code":"HT85","applies_to":{"entity":"products","ids":[32]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null}'}
-    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 03:58:16 GMT',
-      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '941',
-      x-bc-store-version: 7.6.0}
-    status: {code: 201, message: Created}
-- request: !!python/object:vcr.request.Request
-    body: null
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
-      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
-    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
-    method: GET
-    path: /api/v2/coupons.json
-    port: 443
-    protocol: https
-  response:
-    body: {string: '[{"id":1,"name":"5% off order total","type":"percentage_discount","amount":"5.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"A4CC26E5C5AC0BC","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":2,"name":"10%
-        off order total","type":"percentage_discount","amount":"10.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"4FA3083A1AD4128","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":3,"name":"Free
-        shipping","type":"free_shipping","amount":"0.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"6192C9637A6620D","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":4,"name":"$5
-        off shipping","type":"shipping_discount","amount":"5.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"96596B58A71F415","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":130,"name":"70%
-        off order total","type":"percentage_discount","amount":"70.0000","min_purchase":"0.0000","expires":"","enabled":false,"code":"HT75","applies_to":{"entity":"products","ids":[32]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":131,"name":"60%
-        off order total","type":"percentage_discount","amount":"60.0000","min_purchase":"0.0000","expires":"","enabled":false,"code":"HT85","applies_to":{"entity":"products","ids":[32]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null}]'}
-    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 03:58:16 GMT',
-      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '940',
-      x-bc-store-version: 7.6.0}
-    status: {code: 200, message: OK}
-- request: !!python/object:vcr.request.Request
-    body: null
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
-      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
-      - !!python/tuple [Content-Length, '0']
-    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
-    method: DELETE
-    path: /api/v2/coupons/130.json
-    port: 443
-    protocol: https
-  response:
-    body: {string: ''}
-    headers: {content-length: '0', content-type: application/json, date: 'Wed, 04
-        Dec 2013 03:58:16 GMT', server: Apache, x-bc-apilimit-remaining: '939', x-bc-store-version: 7.6.0}
-    status: {code: 204, message: No Content}
-- request: !!python/object:vcr.request.Request
-    body: null
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
-      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
-      - !!python/tuple [Content-Length, '0']
-    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
-    method: DELETE
-    path: /api/v2/coupons/131.json
-    port: 443
-    protocol: https
-  response:
-    body: {string: ''}
-    headers: {content-length: '0', content-type: application/json, date: 'Wed, 04
-        Dec 2013 03:58:16 GMT', server: Apache, x-bc-apilimit-remaining: '938', x-bc-store-version: 7.6.0}
-    status: {code: 204, message: No Content}
-- request: !!python/object:vcr.request.Request
-    body: null
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
-      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
-    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
-    method: GET
-    path: /api/v2/coupons.json
-    port: 443
-    protocol: https
-  response:
-    body: {string: '[{"id":1,"name":"5% off order total","type":"percentage_discount","amount":"5.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"A4CC26E5C5AC0BC","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":2,"name":"10%
-        off order total","type":"percentage_discount","amount":"10.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"4FA3083A1AD4128","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":3,"name":"Free
-        shipping","type":"free_shipping","amount":"0.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"6192C9637A6620D","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":4,"name":"$5
-        off shipping","type":"shipping_discount","amount":"5.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"96596B58A71F415","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null}]'}
-    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 03:58:16 GMT',
-      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '937',
-      x-bc-store-version: 7.6.0}
-    status: {code: 200, message: OK}
-- request: !!python/object:vcr.request.Request
-    body: null
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
-      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
-    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
-    method: GET
-    path: /api/v2/coupons/999999.json
-    port: 443
-    protocol: https
-  response:
-    body: {string: '[{"status":404,"message":"The requested resource was not found."}]'}
-    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 03:58:16 GMT',
-      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '936',
-      x-bc-store-version: 7.6.0}
-    status: {code: 404, message: Not Found}
-- request: !!python/object:vcr.request.Request
-    body: null
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
-      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
-    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
-    method: GET
-    path: /api/v2/countries.json?limit=2&page=3
-    port: 443
-    protocol: https
-  response:
-    body: {string: '[{"id":5,"country":"Andorra","country_iso2":"AD","country_iso3":"AND","states":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/countries\/5\/states.json","resource":"\/countries\/5\/states"}},{"id":6,"country":"Angola","country_iso2":"AO","country_iso3":"AGO","states":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/countries\/6\/states.json","resource":"\/countries\/6\/states"}}]'}
-    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 03:58:17 GMT',
-      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '935',
-      x-bc-store-version: 7.6.0}
-    status: {code: 200, message: OK}
-- request: !!python/object:vcr.request.Request
-    body: null
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
-      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
-    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
-    method: GET
-    path: /api/v2/countries/226.json
-    port: 443
-    protocol: https
-  response:
-    body: {string: '{"id":226,"country":"United States","country_iso2":"US","country_iso3":"USA","states":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/countries\/226\/states.json","resource":"\/countries\/226\/states"}}'}
-    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 03:58:17 GMT',
-      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '934',
-      x-bc-store-version: 7.6.0}
-    status: {code: 200, message: OK}
-- request: !!python/object:vcr.request.Request
-    body: null
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
-      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
-    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
-    method: GET
-    path: /api/v2/countries/226/states/count.json
-    port: 443
-    protocol: https
-  response:
-    body: {string: '{"count":65}'}
-    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 03:58:17 GMT',
-      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '933',
-      x-bc-store-version: 7.6.0}
-    status: {code: 200, message: OK}
-- request: !!python/object:vcr.request.Request
-    body: null
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
-      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
-    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
-    method: GET
-    path: /api/v2/countries/226/states.json?limit=5
-    port: 443
-    protocol: https
-  response:
-    body: {string: '[{"id":1,"state":"Alabama","state_abbreviation":"AL","country_id":226},{"id":2,"state":"Alaska","state_abbreviation":"AK","country_id":226},{"id":3,"state":"American
-        Samoa","state_abbreviation":"AS","country_id":226},{"id":4,"state":"Arizona","state_abbreviation":"AZ","country_id":226},{"id":5,"state":"Arkansas","state_abbreviation":"AR","country_id":226}]'}
-    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 03:58:17 GMT',
-      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '932',
-      x-bc-store-version: 7.6.0}
-    status: {code: 200, message: OK}
-- request: !!python/object:vcr.request.Request
-    body: null
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
-      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
-    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
-    method: GET
-    path: /api/v2/products/33.json
-    port: 443
-    protocol: https
-  response:
-    body: {string: '{"id":33,"keyword_filter":null,"name":"[Sample] Anna, multi-colored
-        bangles","type":"physical","sku":"","description":"<p><strong>How to write
-        product descriptions that sell<\/strong><br \/>One of the best things you
-        can do to make your store successful is invest some time in writing great
-        product descriptions. You want to provide detailed yet concise information
-        that will entice potential customers to buy.<br \/><br \/>Keep three things
-        in mind:<br \/><br \/><strong>Think like a consumer<\/strong><br \/>Think
-        about what you as a consumer would want to know, then include those features
-        in your description. For clothes: materials and fit. For food: ingredients
-        and how it was prepared. Bullets are your friends when listing features &mdash;
-        try to limit each one to 5-8 words.<br \/><br \/><strong>Find differentiators<\/strong><br
-        \/>Pepper your features with details that show how the product stands out
-        against similar offerings. For clothes: is it vintage or hard to find? For
-        art: is the artist well known? For home d&eacute;cor: is it a certain style
-        like mid-century modern? Unique product descriptions not only help you stand
-        out, they improve your SEO.<br \/><br \/><strong>Keep it simple<\/strong><br
-        \/>Provide enough detail to help consumers make an informed decision, but
-        don&rsquo;t overwhelm with a laundry list of features or flowery language.
-        Densely pack your descriptions with useful information and watch products
-        fly off the shelf.<\/p>","search_keywords":null,"availability_description":"","price":"59.0000","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"59.0000","sort_order":0,"is_visible":true,"is_featured":true,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"0.5000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"0.0000","is_free_shipping":false,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Fri,
-        21 Sep 2012 02:46:41 +0000","brand_id":18,"view_count":12,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[14],"date_modified":"Mon,
-        24 Sep 2012 05:28:02 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":13,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/anna-multi-colored-bangles\/","availability":"available","brand":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/brands\/18.json","resource":"\/brands\/18"},"images":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/images.json","resource":"\/products\/33\/images"},"discount_rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/discountrules.json","resource":"\/products\/33\/discountrules"},"configurable_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/configurablefields.json","resource":"\/products\/33\/configurablefields"},"custom_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/customfields.json","resource":"\/products\/33\/customfields"},"videos":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/videos.json","resource":"\/products\/33\/videos"},"skus":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/skus.json","resource":"\/products\/33\/skus"},"rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/rules.json","resource":"\/products\/33\/rules"},"option_set":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/optionsets\/13.json","resource":"\/optionsets\/13"},"options":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/options.json","resource":"\/products\/33\/options"},"tax_class":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}}'}
-    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 03:58:17 GMT',
-      last-modified: 'Mon, 24 Sep 2012 05:28:02 GMT', server: Apache, transfer-encoding: chunked,
-      x-bc-apilimit-remaining: '931', x-bc-store-version: 7.6.0}
-    status: {code: 200, message: OK}
-- request: !!python/object:vcr.request.Request
-    body: null
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
-      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
-    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
-    method: GET
-    path: /api/v2/products/33/images.json
-    port: 443
-    protocol: https
-  response:
-    body: {string: '[{"id":239,"product_id":33,"image_file":"sample_images\/cocolee_anna_92851__19446.jpg","is_thumbnail":true,"sort_order":0,"description":null,"date_created":"Mon,
-        24 Sep 2012 01:06:56 +0000"},{"id":240,"product_id":33,"image_file":"sample_images\/cocolee_anna_92852__63752.jpg","is_thumbnail":false,"sort_order":1,"description":null,"date_created":"Mon,
-        24 Sep 2012 01:07:01 +0000"},{"id":267,"product_id":33,"image_file":"n\/803\/SandstoneUSGOV__39085.jpg","is_thumbnail":false,"sort_order":2,"description":"dont
-        worry im a doctor","date_created":"Wed, 04 Dec 2013 03:44:44 +0000"}]'}
-    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 03:58:18 GMT',
-      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '930',
-      x-bc-store-version: 7.6.0}
-    status: {code: 200, message: OK}
-- request: !!python/object:vcr.request.Request
-    body: '{"description": "NOPE"}'
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Content-Length, !!python/unicode '23']
-      - !!python/tuple [Content-type, application/json]
-      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
-      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
-      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
-    method: PUT
-    path: /api/v2/products/images/267.json
-    port: 443
-    protocol: https
-  response:
-    body: {string: '{"id":267,"product_id":33,"image_file":"n\/803\/SandstoneUSGOV__39085.jpg","is_thumbnail":false,"sort_order":2,"description":"NOPE","date_created":"Wed,
-        04 Dec 2013 03:44:44 +0000"}'}
-    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 03:58:18 GMT',
-      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '929',
-      x-bc-store-version: 7.6.0}
-    status: {code: 200, message: OK}
-- request: !!python/object:vcr.request.Request
-    body: null
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
-      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
-    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
-    method: GET
-    path: /api/v2/products/33/images.json
-    port: 443
-    protocol: https
-  response:
-    body: {string: '[{"id":239,"product_id":33,"image_file":"sample_images\/cocolee_anna_92851__19446.jpg","is_thumbnail":true,"sort_order":0,"description":null,"date_created":"Mon,
-        24 Sep 2012 01:06:56 +0000"},{"id":240,"product_id":33,"image_file":"sample_images\/cocolee_anna_92852__63752.jpg","is_thumbnail":false,"sort_order":1,"description":null,"date_created":"Mon,
-        24 Sep 2012 01:07:01 +0000"},{"id":267,"product_id":33,"image_file":"n\/803\/SandstoneUSGOV__39085.jpg","is_thumbnail":false,"sort_order":2,"description":"NOPE","date_created":"Wed,
-        04 Dec 2013 03:44:44 +0000"}]'}
-    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 03:58:18 GMT',
-      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '928',
-      x-bc-store-version: 7.6.0}
-    status: {code: 200, message: OK}
-- request: !!python/object:vcr.request.Request
-    body: '{"description": "dont worry im a doctor"}'
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Content-type, application/json]
-      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
-      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
-      - !!python/tuple [Content-Length, !!python/unicode '41']
-    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
-    method: PUT
-    path: /api/v2/products/33/images/267.json
-    port: 443
-    protocol: https
-  response:
-    body: {string: '{"id":267,"product_id":33,"image_file":"n\/803\/SandstoneUSGOV__39085.jpg","is_thumbnail":false,"sort_order":2,"description":"dont
-        worry im a doctor","date_created":"Wed, 04 Dec 2013 03:44:44 +0000"}'}
-    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 03:58:18 GMT',
-      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '927',
-      x-bc-store-version: 7.6.0}
-    status: {code: 200, message: OK}
-- request: !!python/object:vcr.request.Request
-    body: null
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
-      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
-    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
-    method: GET
-    path: /api/v2/products/33/images.json
-    port: 443
-    protocol: https
-  response:
-    body: {string: '[{"id":239,"product_id":33,"image_file":"sample_images\/cocolee_anna_92851__19446.jpg","is_thumbnail":true,"sort_order":0,"description":null,"date_created":"Mon,
-        24 Sep 2012 01:06:56 +0000"},{"id":240,"product_id":33,"image_file":"sample_images\/cocolee_anna_92852__63752.jpg","is_thumbnail":false,"sort_order":1,"description":null,"date_created":"Mon,
-        24 Sep 2012 01:07:01 +0000"},{"id":267,"product_id":33,"image_file":"n\/803\/SandstoneUSGOV__39085.jpg","is_thumbnail":false,"sort_order":2,"description":"dont
-        worry im a doctor","date_created":"Wed, 04 Dec 2013 03:44:44 +0000"}]'}
-    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 03:58:18 GMT',
-      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '926',
-      x-bc-store-version: 7.6.0}
-    status: {code: 200, message: OK}
-- request: !!python/object:vcr.request.Request
-    body: null
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
-      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
-      - !!python/tuple [Content-Length, '0']
-    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
-    method: DELETE
-    path: /api/v2/products/33/images/267.json
-    port: 443
-    protocol: https
-  response:
-    body: {string: ''}
-    headers: {content-length: '0', content-type: application/json, date: 'Wed, 04
-        Dec 2013 03:58:18 GMT', server: Apache, x-bc-apilimit-remaining: '925', x-bc-store-version: 7.6.0}
-    status: {code: 204, message: No Content}
-- request: !!python/object:vcr.request.Request
-    body: null
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
-      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
-    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
-    method: GET
-    path: /api/v2/products/33/images.json
-    port: 443
-    protocol: https
-  response:
-    body: {string: '[{"id":239,"product_id":33,"image_file":"sample_images\/cocolee_anna_92851__19446.jpg","is_thumbnail":true,"sort_order":0,"description":null,"date_created":"Mon,
-        24 Sep 2012 01:06:56 +0000"},{"id":240,"product_id":33,"image_file":"sample_images\/cocolee_anna_92852__63752.jpg","is_thumbnail":false,"sort_order":1,"description":null,"date_created":"Mon,
-        24 Sep 2012 01:07:01 +0000"}]'}
-    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 03:58:19 GMT',
-      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '924',
-      x-bc-store-version: 7.6.0}
-    status: {code: 200, message: OK}
-- request: !!python/object:vcr.request.Request
-    body: '{"is_thumbnail": false, "image_file": "http://upload.wikimedia.org/wikipedia/commons/6/61/SandstoneUSGOV.jpg",
-      "sort_order": 2, "description": "dont worry im a doctor"}'
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Content-type, application/json]
-      - !!python/tuple [Content-Length, !!python/unicode '168']
-      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
-      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
-      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
-    method: POST
-    path: /api/v2/products/33/images.json
-    port: 443
-    protocol: https
-  response:
-    body: {string: '{"id":268,"product_id":33,"image_file":"r\/742\/SandstoneUSGOV__80759.jpg","is_thumbnail":false,"sort_order":2,"description":"dont
-        worry im a doctor","date_created":"Wed, 04 Dec 2013 03:58:20 +0000"}'}
-    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 03:58:19 GMT',
-      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '923',
-      x-bc-store-version: 7.6.0}
-    status: {code: 201, message: Created}
-- request: !!python/object:vcr.request.Request
-    body: null
-    headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.5 Darwin/13.0.0]
-      - !!python/tuple [Accept, '*/*']
-      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
-    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
-    method: GET
-    path: /api/v2/products/33/images.json
-    port: 443
-    protocol: https
-  response:
-    body: {string: '[{"id":239,"product_id":33,"image_file":"sample_images\/cocolee_anna_92851__19446.jpg","is_thumbnail":true,"sort_order":0,"description":null,"date_created":"Mon,
-        24 Sep 2012 01:06:56 +0000"},{"id":240,"product_id":33,"image_file":"sample_images\/cocolee_anna_92852__63752.jpg","is_thumbnail":false,"sort_order":1,"description":null,"date_created":"Mon,
-        24 Sep 2012 01:07:01 +0000"},{"id":268,"product_id":33,"image_file":"r\/742\/SandstoneUSGOV__80759.jpg","is_thumbnail":false,"sort_order":2,"description":"dont
-        worry im a doctor","date_created":"Wed, 04 Dec 2013 03:58:20 +0000"}]'}
-    headers: {content-type: application/json, date: 'Wed, 04 Dec 2013 03:58:20 GMT',
-      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '922',
-      x-bc-store-version: 7.6.0}
+        is a description","search_keywords":null,"availability_description":"","price":"1144.4733","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"1144.4733","sort_order":0,"is_visible":true,"is_featured":true,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"0.3000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"10.0000","is_free_shipping":false,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Fri,
+        21 Sep 2012 02:31:01 +0000","brand_id":17,"view_count":4,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[14],"date_modified":"Thu,
+        12 Dec 2013 23:55:33 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":null,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/tomorrow-is-today-red-printed-scarf\/","availability":"available","brand":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/brands\/17.json","resource":"\/brands\/17"},"images":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/images.json","resource":"\/products\/32\/images"},"discount_rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/discountrules.json","resource":"\/products\/32\/discountrules"},"configurable_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/configurablefields.json","resource":"\/products\/32\/configurablefields"},"custom_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/customfields.json","resource":"\/products\/32\/customfields"},"videos":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/videos.json","resource":"\/products\/32\/videos"},"skus":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/skus.json","resource":"\/products\/32\/skus"},"rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/rules.json","resource":"\/products\/32\/rules"},"option_set":null,"options":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/32\/options.json","resource":"\/products\/32\/options"},"tax_class":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}}'}
+    headers: {content-type: application/json, date: 'Thu, 12 Dec 2013 23:55:33 GMT',
+      last-modified: 'Thu, 12 Dec 2013 23:55:33 GMT', server: Apache, transfer-encoding: chunked,
+      x-bc-apilimit-remaining: '973', x-bc-store-version: 7.6.0}
     status: {code: 200, message: OK}
