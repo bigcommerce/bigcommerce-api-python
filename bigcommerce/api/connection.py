@@ -59,6 +59,8 @@ class Connection():
         self.base_url = base_url
         self.auth = auth
         
+        self.timeout = 7.0 # need to catch timeout?
+        
         log.info("API Host: %s/%s" % (self.host, self.base_url))
         log.debug("Accepting json") #, auth: Basic %s" % self.auth)
         
@@ -103,30 +105,31 @@ class Connection():
     
     # could use a session to save the auth and __headers - keeping as is for now
     
+    def _run_method(self, method, url, headers, data=None, query={}):
+        qs = urllib.urlencode(query)
+        if qs: qs = "?" + qs
+        url = self.full_path("%s%s" % (url, qs))
+        if data:
+            data = simplejson.dumps(data)
+            headers = dict({'Content-Type' : 'application/json'}, **headers)
+        log.debug("%s %s%s" % (method, url, qs))
+        
+        return method(url, auth=self.auth, headers=headers, data=data, timeout=self.timeout)
+    
     def get(self, url="", query={}):
         """
         Perform the GET request and return the parsed results
         """
-        qs = urllib.urlencode(query)
-        if qs:
-            qs = "?%s" % qs
-        log.debug("GET %s%s" % (url, qs))
-        url = self.full_path("%s%s" % (url, qs))
-        
-        response = requests.get(url, auth=self.auth, headers=self.__headers)
-        
+        response = self._run_method(requests.get, url, self.__headers, query=query)
         log.debug("GET %s status %d" % (url,response.status_code))
-        
         return self._handle_response(url, response)
         
     def update(self, url, updates):
         """
         Make a PUT request to save updates
         """
-        log.debug("PUT %s" % (url))
-        url = self.full_path(url)
-        response = requests.put(url, auth=self.auth, data=updates, headers=self.__headers)
-        
+        response = self._run_method(requests.put, url, self.__headers, 
+                                    data=updates)
         log.debug("PUT %s status %d" % (url,response.status_code))
         log.debug("OUTPUT: %s" % response.content)
         return self._handle_response(url, response)
@@ -135,13 +138,12 @@ class Connection():
         """
         POST request for creating new objects.
         """
-        url = self.full_path(url)
-        response = requests.post(url, auth=self.auth, data=data, headers=self.__headers)
+        response = self._run_method(requests.post, url, self.__headers, 
+                                    data=data)
         return self._handle_response(url, response)
         
     def delete(self, url):
-        url = self.full_path(url)
-        response = requests.delete(url, auth=self.auth, headers=self.__headers)
+        response = self._run_method(requests.delete, url, self.__headers)
         return self._handle_response(url, response, suppress_empty=True)
     
     def _handle_response(self, url, res, suppress_empty=False):

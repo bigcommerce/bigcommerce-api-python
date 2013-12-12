@@ -3,6 +3,24 @@ from bigcommerce import *
 import unittest
 import vcr
 
+"""
+config:
+my_vcr = vcr.VCR(
+    serializer = 'json',
+    cassette_library_dir = 'fixtures/cassettes',
+    record_mode = 'once',
+    match_on = ['url', 'method'],     <--- this is default
+)
+
+we probably want match_on to include other stuff - options
+    method (for example, POST or GET)
+    url (the full URL, including the protocol)
+    host (the hostname of the server receiving the request)
+    path (excluding the hostname)
+    body (the entire request body)
+    headers (the headers of the request)
+"""
+
 class TestGeneralCRUD(unittest.TestCase):
     
     def setUp(self):

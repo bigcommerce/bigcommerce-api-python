@@ -5,7 +5,7 @@ STORE_USERID = "admin"
 import sys
 import logging
 from pprint import pprint
-from Bigcommerce.api import ApiClient
+from bigcommerce import *
 
 logging.basicConfig(level=logging.DEBUG, 
                     stream=sys.stdout,
@@ -19,15 +19,12 @@ if __name__ == "__main__":
     
     filters = api.Products.filters()
     
-    
     # List 10 products starting at offset 10
     for product in api.Products.enumerate(start=10, limit=10, query=filters):
         print product.id, product.sku, product.name, product.price
-        pass
-    
     
     order = api.Orders.get(101)
-    if order !== None:
+    if order != None:
         print "Order", order.id, order.date_created
         for product in order.products:
             print product.quantity, product.name
