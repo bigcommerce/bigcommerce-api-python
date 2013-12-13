@@ -3,20 +3,48 @@ Connection Module
 
 Handles put and get operations to the Bigcommerce REST API
 """
-import sys
-import urllib
+
+import urllib # only used for urlencode querystr
 import logging
 import simplejson
-from urlparse import urlparse
-from pprint import pprint, pformat
-from httplib import HTTPSConnection, HTTPException
+from pprint import pformat # only used once, in __load_urls
 
- 
+import requests
+
 log = logging.getLogger("BigCommerce.con")
 
-class EmptyResponseWarning(HTTPException):
-    pass
+class HttpException(Exception):
+    """
+    Class for representing http errors. Contains headers and content of
+    the error response.
+    """
+    def __init__(self, msg, status_code, headers=None, content=None):
+        super(Exception, self).__init__(msg)
+        self.status_code = status_code
+        self.headers = headers
+        self.content = content
+  
+# 204
+class EmptyResponseWarning(HttpException): pass
+    
+# 4xx codes
+class ClientRequestException(HttpException): pass
+# class Unauthorised(ClientRequestException): pass
+# class AccessForbidden(ClientRequestException): pass
+# class ResourceNotFound(ClientRequestException): pass
+# class ContentNotAcceptable(ClientRequestException): pass
 
+# 5xx codes
+class ServerException(HttpException): pass
+# class ServiceUnavailable(ServerException): pass
+# class StorageCapacityError(ServerException): pass
+# class BandwidthExceeded(ServerException): pass
+
+# 405 and 501 - still just means the client has to change their request
+# class UnsupportedRequest(ClientRequestException, ServerException): pass
+
+# 3xx codes
+class RedirectionException(HttpException): pass
 
 class Connection():
     """
@@ -25,27 +53,28 @@ class Connection():
     
     def __init__(self, host, base_url, auth):
         """
-        Constructor
-        
-        On creation, an initial call is made to load the mappings of resources to URLS
+        On creation, an initial call is made to load the mappings of resources to URLs
         """
         self.host = host
         self.base_url = base_url
         self.auth = auth
         
-        log.info("API Host: %s/%s" % (self.host, self.base_url))
-        log.debug("Accepting json, auth: Basic %s" % self.auth)
-        self.__headers = {"Authorization": "Basic %s" % self.auth,
-                        "Accept": "application/json"}
+        self.timeout = 7.0 # need to catch timeout?
         
+        log.info("API Host: %s/%s" % (self.host, self.base_url))
+        log.debug("Accepting json") #, auth: Basic %s" % self.auth)
+        
+        # TODO: would like to let people use Connection directly and grab XML data if they want
+        # maybe just an xml_mode flag would be enough
+        self.__headers = {"Accept" : "application/json"}
+
         self.__resource_meta = {}
-        self.__connection = HTTPSConnection(self.host)
         self.__load_urls()
         
         
     def meta_data(self):
         """
-        Return a string representation of resource-to-url mappings 
+        Return a JSON string representation of resource-to-url mappings 
         """
         return simplejson.dumps(self.__resource_meta)    
         
@@ -59,100 +88,85 @@ class Connection():
         log.debug("Registry")
         log.debug(pformat(self.__resource_meta))
         
-    
-    def get(self, url="", query={}):
-        """
-        Perform the GET request and return the parsed results
-        """
-        qs = urllib.urlencode(query)
-        if qs:
-            qs = "?%s" % qs
-            
-        url = "%s%s%s" % (self.base_url, url, qs)
-        log.debug("GET %s" % (url))
-        
-        self.__connection.connect()
-        request = self.__connection.request("GET", url, None, self.__headers)
-        response = self.__connection.getresponse()
-        data = response.read()
-        self.__connection.close()
-        
-        log.debug("GET %s status %d" % (url,response.status))
-        result = {}
-        
-        # Check the return status
-        if response.status == 200:
-            result = simplejson.loads(data)
-            
-        elif response.status == 204:
-            raise EmptyResponseWarning("%d %s @ https://%s%s" % (response.status, response.reason, self.host, url))
-        
-        elif response.status == 404:
-            log.debug("%s returned 404 status" % url)
-            raise HTTPException("%d %s @ https://%s%s" % (response.status, response.reason, self.host, url))
-        
-        elif response.status >= 400:
-            _result = simplejson.loads(data)
-            log.debug("OUTPUT %s" % _result)
-            raise HTTPException("%d %s @ https://%s%s" % (response.status, response.reason, self.host, url))
-        
-        return result
-    
-    
     def get_url(self, resource_name):
         """
         Lookup the "url" for the resource name from the internally stored resource mappings
         """
-        return self.__resource_meta.get(resource_name,{}).get("url", None)
+        return self.__resource_meta.get(resource_name, {}).get("url", None)
     
     def get_resource_url(self, resource_name):
         """
         Lookup the "resource" for the resource name from the internally stored resource mappings
         """
-        return self.__resource_meta.get(resource_name,{}).get("resource", None)
+        return self.__resource_meta.get(resource_name, {}).get("resource", None)
+
+    def full_path(self, url):
+        return "https://" + self.host + self.base_url + url
+    
+    # could use a session to save the auth and __headers - keeping as is for now
+    
+    def _run_method(self, method, url, headers, data=None, query={}):
+        qs = urllib.urlencode(query)
+        if qs: qs = "?" + qs
+        url = self.full_path("%s%s" % (url, qs))
+        if data:
+            data = simplejson.dumps(data)
+            headers = dict({'Content-Type' : 'application/json'}, **headers)
+        log.debug("%s %s%s" % (method, url, qs))
         
+        return method(url, auth=self.auth, headers=headers, data=data, timeout=self.timeout)
+    
+    def get(self, url="", query={}):
+        """
+        Perform the GET request and return the parsed results
+        """
+        response = self._run_method(requests.get, url, self.__headers, query=query)
+        log.debug("GET %s status %d" % (url,response.status_code))
+        return self._handle_response(url, response)
         
     def update(self, url, updates):
         """
         Make a PUT request to save updates
         """
-        url = "%s%s" % (self.base_url, url)
-        log.debug("PUT %s" % (url))
-        self.__connection.connect()
+        response = self._run_method(requests.put, url, self.__headers, 
+                                    data=updates)
+        log.debug("PUT %s status %d" % (url,response.status_code))
+        log.debug("OUTPUT: %s" % response.content)
+        return self._handle_response(url, response)
+    
+    def create(self, url, data):
+        """
+        POST request for creating new objects.
+        """
+        response = self._run_method(requests.post, url, self.__headers, 
+                                    data=data)
+        return self._handle_response(url, response)
         
-        put_headers = {"Content-Type": "application/json"}
-        put_headers.update(self.__headers)
-        request = self.__connection.request("PUT", url, simplejson.dumps(updates), put_headers)
-        response = self.__connection.getresponse()
-        data = response.read()
-        self.__connection.close()
-        
-        log.debug("PUT %s status %d" % (url,response.status))
-        log.debug("OUTPUT: %s" % data)
-        
+    def delete(self, url):
+        response = self._run_method(requests.delete, url, self.__headers)
+        return self._handle_response(url, response, suppress_empty=True)
+    
+    def _handle_response(self, url, res, suppress_empty=False):
+        """
+        Returns parsed JSON or raises an exception appropriately.
+        """
         result = {}
-        if response.status == 200:
-            result = simplejson.loads(data)
-        
-        elif response.status == 204:
-            raise EmptyResponseWarning("%d %s @ https://%s%s" % (response.status, response.reason, self.host, url))
-        
-        elif response.status == 404:
-            log.debug("%s returned 404 status" % url)
-            raise HTTPException("%d %s @ https://%s%s" % (response.status, response.reason, self.host, url))
-        
-        elif response.status >= 400:
-            _result = simplejson.loads(data)
-            log.debug("OUTPUT %s" % _result)
-            raise HTTPException("%d %s @ https://%s%s" % (response.status, response.reason, self.host, url))
-        
+        if res.status_code in (200, 201, 202):
+            result = res.json()
+        elif res.status_code == 204 and not suppress_empty:
+            raise EmptyResponseWarning("%d %s @ %s" % (res.status_code, res.reason, url), 
+                                         res.status_code, res.headers, res.content)
+        elif res.status_code >= 500:
+            raise ServerException("%d %s @ %s" % (res.status_code, res.reason, url), 
+                                  res.status_code, res.headers, res.content)
+        elif res.status_code >= 400:
+            log.debug("OUTPUT %s" % res.json())
+            raise ClientRequestException("%d %s @ %s" % (res.status_code, res.reason, url), 
+                                         res.status_code, res.headers, res.content)
+        elif res.status_code >= 300:
+            raise RedirectionException("%d %s @ %s" % (res.status_code, res.reason, url), 
+                                         res.status_code, res.headers, res.content)
         return result
-    
-    
+
     def __repr__(self):
-        return "Connection %s" % (self.host)
-    
-    
-
-
-    
+        return "Connection %s" % (self.host)    

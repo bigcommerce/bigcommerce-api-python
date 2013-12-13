@@ -1,19 +1,43 @@
 BigCommerce API V2 - Python Client
 ==================================
 
+THIS ISN'T ACCURATE / UP TO DATE
+
 This module provides an object-oriented wrapper around the BigCommerce V2 API
 for use in Python projects or via the Python shell.
 
 Requirements:
 
 - Python 2.6+
+- requests : `pip install requests`
 
+The test also requires vcrpy : `pip install vcrpy`
 
-A valid API key is required to authenticate requests. To grant API access for
-user, go to Control Panel > Users > Edit User and make sure that the
-'Enable the XML API?' checkbox is ticked.
+For a given user, a valid API key is required to authenticate requests. To grant 
+API access for user, go to Control Panel > Users > Edit User and make sure that the
+'Enable the API' checkbox is ticked.
 
-Usage:
+### Connection-Only Usage
+
+The Connection class in connection.py is a simple wrapper around the requests library, providing
+class methods that can be used by themselves if you do not need the object-oriented features:
+
+```
+# after setting up host, user, api key, etc
+products = Connection.get('/products.json', limit=20) # or leave out .json if you like xml
+
+Connection.put('/products/32.json', {'description' : "This is a new description"})
+
+new_coupon = Connection.post('/coupons.json', {'name' : "70% off order total", 
+                                               'amount' : 70.00, 
+                                               'code' : "HT75", 
+                                               'type' : "percentage_discount", 
+                                               'applies_to' : {'entity' : "products", 'ids' : [32]}})
+
+Connection.delete('/coupons/{}.json'.format(new_coupon['id']))
+```
+
+#### Usage:
 
 ```
 #!/usr/bin/python
@@ -23,11 +47,11 @@ api = ApiClient(STORE_HOST, STORE_TOKEN, STORE_USERID)
     
 filters = api.Products.filters()
 filters.min_id.set(73873)
-	    
+        
 # List 10 products starting at offset 10
 for product in api.Products.enumerate(start=10, limit=10, query=filters):
-	print product.id, product.sku, product.name, product.price
-	
+    print product.id, product.sku, product.name, product.price
+    
 
 # How to update a resource
 product = api.Products.get(14)
@@ -40,7 +64,7 @@ product.images[1].is_thumbnail = True
 product.images[1].save()
 
 
-	
+    
 ```
 
 Features
@@ -62,8 +86,8 @@ logging.basicConfig(level=logging.DEBUG,
 order = api.Orders.get(121000980)
 print "Order", order.id, order.date_created
 for product in order.products:
-	print product.quantity, product.name
-	
+    print product.quantity, product.name
+    
 ```
 
 ```
@@ -148,13 +172,3 @@ class Products(ResourceObject):
                       max_number_sold = NumberFilter(),
                       ) 
 ```
-
-
-
-
-
-
-
-
-
-
