@@ -43,7 +43,7 @@ class Orders(ResourceObject):
             url = "%s/shipments" % self.get_url()
             _con = SubResourceAccessor(subresource.Shipments, url, self._connection, self)
             _list = []
-            for sub_res in _con.enumerate():
+            for sub_res in _con.get_all():
                 _list.append(sub_res)
             
             self._fields["shipments"] = _list 

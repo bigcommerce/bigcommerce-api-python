@@ -47,7 +47,7 @@ class ResourceAccessor(object):
         return self._connection.get(self._url, _query)
     
     
-    def enumerate(self, start=0, limit=0, query={}, max_per_page=50):
+    def get_all(self, start=0, limit=0, query={}, max_per_page=50):
         """
         Enumerate resources
         
@@ -109,7 +109,6 @@ class ResourceAccessor(object):
         except:
             return None
     
-    
     def get_count(self, query={}):
         
         if query:
@@ -119,20 +118,32 @@ class ResourceAccessor(object):
         result = self._connection.get("%s/%s" % (self._url, "count"), _query)
         return result.get("count")
     
+    def get_subresources(self):
+        return self._klass.sub_resources
+    
     def filters(self):
         try:
             return self._klass.filter_set()
         except:
             return FilterSet()
     
-    def get_name(self):
+    @property
+    def name(self):
         return self.__resource_name
     
     
-    def get_subresources(self):
-        return self._klass.sub_resources
-    
-    name = property(fget=get_name)
+#     
+#     client.Products.images.create(data) <=> POST /products/images/
+#     
+#     client.Products.create('images', data)
+#     
+#     (client.Products or any other resource is a ResourceAccessor)
+#     
+#     some_product = client.Products.get(id)
+#     some_product.images.create(data) <=> POST /products/id/images
+#     
+#     some_product.create('images', data)
+#     
     
     
 class SubResourceAccessor(ResourceAccessor):
@@ -199,7 +210,7 @@ class ResourceObject(object):
                 # If the subresource is a list of objects
                 if not self.sub_resources[attrname].get("single", False):
                     _list = []
-                    for sub_res in _con.enumerate():
+                    for sub_res in _con.get_all():
                         _list.append(sub_res)
                     self._fields[attrname] = _list
                 
@@ -241,7 +252,7 @@ class ResourceObject(object):
         log.info("Creating %s" % self.get_url())
         
     
-    def save(self):
+    def update(self):
         """
         Save any updates and set the fields to the values received 
         from the return value and clear the updates dictionary
