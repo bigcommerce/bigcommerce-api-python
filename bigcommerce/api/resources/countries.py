@@ -1,9 +1,9 @@
-from . import ResourceObject
-import SubResources
+from resource import ResourceObject
+import subresource
 from bigcommerce.api.filters import FilterSet, StringFilter, NumberFilter, DateFilter, BoolFilter
 
 class Countries(ResourceObject):
-    sub_resources = Mapping(states = Mapping(klass = SubResource.States))
+    sub_resources = Mapping(states = Mapping(klass = subresource.States))
     
     @classmethod
     def filter_set(cls):

@@ -1,4 +1,4 @@
-from . import ResourceObject
+from resource import ResourceObject
 
 
 class OrderStatuses(ResourceObject):

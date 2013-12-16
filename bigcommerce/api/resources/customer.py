@@ -1,6 +1,6 @@
 from bigcommerce.api.mapping import Mapping
-from . import ResourceObject
-import SubResources
+from resource import ResourceObject
+import subresource
 
 class Customers(ResourceObject):
     """

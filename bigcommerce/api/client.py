@@ -3,7 +3,7 @@ import sys
 import logging
 
 from bigcommerce.api.connection import Connection
-from bigcommerce.api.resource import ResourceAccessor
+from bigcommerce.api.resources.resource import ResourceAccessor
 
 log = logging.getLogger("Bigcommerce.api")
 

@@ -25,9 +25,8 @@ class ResourceAccessor(object):
         self._parent = None
         self.__resource_name = resource_name
         self._connection = connection
-        
         try:
-            mod = __import__('%s' % resource_name, globals(), locals(), [resource_name], -1)
+            mod = __import__('%s' % resource_name.lower(), globals(), locals(), [resource_name], -1)
             self._klass = getattr(mod, resource_name)
         except:
             self._klass = ResourceObject
@@ -190,11 +189,9 @@ class ResourceObject(object):
         if data is None:
             return data
         else:
-            
             # if we are dealing with a sub resource and we have not 
             # already made the call to inflate it - do so
             if self.sub_resources.has_key(attrname) and isinstance(data, dict):
-                
                 _con = SubResourceAccessor(self.sub_resources[attrname].get("klass", ResourceObject), 
                                            data, self._connection, 
                                            self)

@@ -15,14 +15,21 @@ log = logging.getLogger("BigCommerce.con")
 
 class HttpException(Exception):
     """
-    Class for representing http errors. Contains headers and content of
-    the error response.
+    Class for representing http errors. Contains the response.
     """
-    def __init__(self, msg, status_code, headers=None, content=None):
+    def __init__(self, msg, res):
         super(Exception, self).__init__(msg)
-        self.status_code = status_code
-        self.headers = headers
-        self.content = content
+        self.response = res
+        
+    @property
+    def status_code(self):
+        return self.response.status_code
+    @property
+    def headers(self):
+        return self.response.headers
+    @property
+    def content(self):
+        return self.response.content
   
 # 204
 class EmptyResponseWarning(HttpException): pass
@@ -155,17 +162,17 @@ class Connection():
             result = res.json()
         elif res.status_code == 204 and not suppress_empty:
             raise EmptyResponseWarning("%d %s @ %s" % (res.status_code, res.reason, url), 
-                                         res.status_code, res.headers, res.content)
+                                         res)
         elif res.status_code >= 500:
             raise ServerException("%d %s @ %s" % (res.status_code, res.reason, url), 
-                                  res.status_code, res.headers, res.content)
+                                  res)
         elif res.status_code >= 400:
             log.debug("OUTPUT %s" % res.json())
             raise ClientRequestException("%d %s @ %s" % (res.status_code, res.reason, url), 
-                                         res.status_code, res.headers, res.content)
+                                         res)
         elif res.status_code >= 300:
             raise RedirectionException("%d %s @ %s" % (res.status_code, res.reason, url), 
-                                         res.status_code, res.headers, res.content)
+                                         res)
         return result
 
     def __repr__(self):
