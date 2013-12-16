@@ -1,6 +1,6 @@
 import sys
 import logging
-from bigcommerce.api.mapping import Mapping
+from mapping import Mapping
 from bigcommerce.api.filters import FilterSet
 from bigcommerce.api.connection import EmptyResponseWarning
 
@@ -32,7 +32,7 @@ class ResourceAccessor(object):
             self._klass = ResourceObject
             
         # Work around for option values URL being incorrect
-        if resource_name == "OptionValues":
+        if resource_name == "OptionValues": # only needed if OptionValues is accessed as a resouce (not subres)
             self._url = "/options/values"
         else:
             self._url = self._connection.get_resource_url(self.__resource_name.lower())
@@ -47,14 +47,14 @@ class ResourceAccessor(object):
         return self._connection.get(self._url, _query)
     
     
-    def get_all(self, start=0, limit=0, query={}, max_per_page=50):
+    def get_all(self, start=1, limit=0, query={}, max_per_page=50):
         """
         Enumerate resources
         
-        @param start: The instance to start on
-        @type pages: int
+        @param start: Start retrieving from the 'start'th resource.
+        @type start: int
         @param limit: The number of items to return, Set to 0 to return all items
-        @type start_page: int
+        @type limit: int
         @param query: Search criteria
         @type query: FilterSet
         @param max_per_page: Number of items to return per request
@@ -63,7 +63,7 @@ class ResourceAccessor(object):
         _query = {}
         if query:
             _query = query.query_dict()
-        
+        start -= 1
             
         requested_items = limit if limit else sys.maxint
         max_per_page = min(max_per_page, 250)
@@ -72,7 +72,6 @@ class ResourceAccessor(object):
         current_page = int( start / max_per_page )
         offset = start % max_per_page
          
-        #while current_page < total_pages and requested_items:
         while requested_items:
             current_page += 1
             page_index = 0
@@ -99,15 +98,13 @@ class ResourceAccessor(object):
             except:
                 raise
                     
-
-
     def get(self, id):
+        """
+        Retrieves resource with given id. Raises exception if fail.
+        """
         url = "%s/%s" % (self._url, id)
-        try:
-            result = self._connection.get(url)
-            return self._klass(self._connection, self._url, result, self._parent)
-        except:
-            return None
+        result = self._connection.get(url)
+        return self._klass(self._connection, self._url, result, self._parent)
     
     def get_count(self, query={}):
         
@@ -121,6 +118,21 @@ class ResourceAccessor(object):
     def get_subresources(self):
         return self._klass.sub_resources
     
+    def create(self, data):
+        """
+        Creates and returns a new resource, according to given data (dictionary).
+        """
+        # if we don't want user to have to look at reference, should include a "required list" somewhere
+        new = self._connection.create(self._url, data) # TODO: which exception is thrown when this fails? bad req (400)?
+        return self._klass(self._connection, self._url, new, self._parent)
+    
+    def delete_from_id(self, id):
+        """
+        Deletes the resource with given ID.
+        Equivalent to calling the delete method on the resource.
+        """
+        self._connection.delete("{}/{}".format(self._url, id))
+    
     def filters(self):
         try:
             return self._klass.filter_set()
@@ -131,21 +143,7 @@ class ResourceAccessor(object):
     def name(self):
         return self.__resource_name
     
-    
-#     
-#     client.Products.images.create(data) <=> POST /products/images/
-#     
-#     client.Products.create('images', data)
-#     
-#     (client.Products or any other resource is a ResourceAccessor)
-#     
-#     some_product = client.Products.get(id)
-#     some_product.images.create(data) <=> POST /products/id/images
-#     
-#     some_product.create('images', data)
-#     
-    
-    
+
 class SubResourceAccessor(ResourceAccessor):
     
     def __init__(self, klass, url, connection, parent):
@@ -155,7 +153,6 @@ class SubResourceAccessor(ResourceAccessor):
         self._connection = connection
         self._klass = klass
         self._url = url if isinstance(url, basestring) else url["resource"]
-        
     
 
 class ResourceObject(object):
@@ -193,7 +190,7 @@ class ResourceObject(object):
             return self._updates[attrname]
         
         if not self._fields.has_key(attrname):
-            raise AttributeError("%s not available" % attrname)
+            raise AttributeError("No attribute '%s' found" % attrname)
         # Look up the value in the _fields
         data = self._fields.get(attrname,None)
         
@@ -248,9 +245,11 @@ class ResourceObject(object):
     def get_url(self):
         return self._url
     
-    def create(self, data):
-        log.info("Creating %s" % self.get_url())
+#     def create(self, data): - left here by jtall? the design doesn't support this well
+#         log.info("Creating %s" % self.get_url())
         
+    def delete(self):
+        self._connection.delete(self._url)
     
     def update(self):
         """
@@ -265,7 +264,6 @@ class ResourceObject(object):
             self._updates.clear()
             self._fields = results
                      
-        
     def __repr__(self):
         return str(self._fields)
     

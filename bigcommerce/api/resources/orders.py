@@ -1,4 +1,4 @@
-from bigcommerce.api.mapping import Mapping
+from mapping import Mapping
 from bigcommerce.api.filters import FilterSet, StringFilter, NumberFilter, DateFilter, BoolFilter
 from resource import ResourceObject, SubResourceAccessor
 import subresource

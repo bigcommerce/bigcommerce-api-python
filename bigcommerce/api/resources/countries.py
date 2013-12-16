@@ -1,6 +1,7 @@
 from resource import ResourceObject
 import subresource
 from bigcommerce.api.filters import FilterSet, StringFilter, NumberFilter, DateFilter, BoolFilter
+from mapping import Mapping
 
 class Countries(ResourceObject):
     sub_resources = Mapping(states = Mapping(klass = subresource.States))

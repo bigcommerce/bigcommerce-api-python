@@ -161,17 +161,17 @@ class Connection():
         if res.status_code in (200, 201, 202):
             result = res.json()
         elif res.status_code == 204 and not suppress_empty:
-            raise EmptyResponseWarning("%d %s @ %s" % (res.status_code, res.reason, url), 
+            raise EmptyResponseWarning("%d %s @ %s: %s" % (res.status_code, res.reason, url, res.content), 
                                          res)
         elif res.status_code >= 500:
-            raise ServerException("%d %s @ %s" % (res.status_code, res.reason, url), 
+            raise ServerException("%d %s @ %s: %s" % (res.status_code, res.reason, url, res.content), 
                                   res)
         elif res.status_code >= 400:
             log.debug("OUTPUT %s" % res.json())
-            raise ClientRequestException("%d %s @ %s" % (res.status_code, res.reason, url), 
+            raise ClientRequestException("%d %s @ %s: %s" % (res.status_code, res.reason, url, res.content), 
                                          res)
         elif res.status_code >= 300:
-            raise RedirectionException("%d %s @ %s" % (res.status_code, res.reason, url), 
+            raise RedirectionException("%d %s @ %s: %s" % (res.status_code, res.reason, url, res.content), 
                                          res)
         return result
 
