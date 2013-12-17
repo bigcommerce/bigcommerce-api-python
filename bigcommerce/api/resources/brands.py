@@ -1,4 +1,4 @@
-from bigcommerce.api.resource import ResourceObject
+from bigcommerce.api.resources import ResourceObject
 
 
 class Brands(ResourceObject):

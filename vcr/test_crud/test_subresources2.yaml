@@ -1,0 +1,381 @@
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.6 Darwin/13.0.0]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: GET
+    path: /api/v2/products/33
+    port: 443
+    protocol: https
+  response:
+    body: {string: '{"id":33,"keyword_filter":null,"name":"[Sample] Anna, multi-colored
+        bangles","type":"physical","sku":"","description":"<p><strong>How to write
+        product descriptions that sell<\/strong><br \/>One of the best things you
+        can do to make your store successful is invest some time in writing great
+        product descriptions. You want to provide detailed yet concise information
+        that will entice potential customers to buy.<br \/><br \/>Keep three things
+        in mind:<br \/><br \/><strong>Think like a consumer<\/strong><br \/>Think
+        about what you as a consumer would want to know, then include those features
+        in your description. For clothes: materials and fit. For food: ingredients
+        and how it was prepared. Bullets are your friends when listing features &mdash;
+        try to limit each one to 5-8 words.<br \/><br \/><strong>Find differentiators<\/strong><br
+        \/>Pepper your features with details that show how the product stands out
+        against similar offerings. For clothes: is it vintage or hard to find? For
+        art: is the artist well known? For home d&eacute;cor: is it a certain style
+        like mid-century modern? Unique product descriptions not only help you stand
+        out, they improve your SEO.<br \/><br \/><strong>Keep it simple<\/strong><br
+        \/>Provide enough detail to help consumers make an informed decision, but
+        don&rsquo;t overwhelm with a laundry list of features or flowery language.
+        Densely pack your descriptions with useful information and watch products
+        fly off the shelf.<\/p>","search_keywords":null,"availability_description":"","price":"59.0000","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"59.0000","sort_order":0,"is_visible":true,"is_featured":true,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"0.5000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"0.0000","is_free_shipping":false,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Fri,
+        21 Sep 2012 02:46:41 +0000","brand_id":18,"view_count":12,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[14],"date_modified":"Mon,
+        24 Sep 2012 05:28:02 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":13,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/anna-multi-colored-bangles\/","availability":"available","brand":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/brands\/18.json","resource":"\/brands\/18"},"images":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/images.json","resource":"\/products\/33\/images"},"discount_rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/discountrules.json","resource":"\/products\/33\/discountrules"},"configurable_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/configurablefields.json","resource":"\/products\/33\/configurablefields"},"custom_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/customfields.json","resource":"\/products\/33\/customfields"},"videos":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/videos.json","resource":"\/products\/33\/videos"},"skus":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/skus.json","resource":"\/products\/33\/skus"},"rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/rules.json","resource":"\/products\/33\/rules"},"option_set":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/optionsets\/13.json","resource":"\/optionsets\/13"},"options":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/options.json","resource":"\/products\/33\/options"},"tax_class":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}}'}
+    headers: {content-type: application/json, date: 'Tue, 17 Dec 2013 02:19:53 GMT',
+      last-modified: 'Mon, 24 Sep 2012 05:28:02 GMT', server: Apache, transfer-encoding: chunked,
+      x-bc-apilimit-remaining: '602', x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.6 Darwin/13.0.0]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: GET
+    path: /api/v2/products/33/images?limit=50&page=1
+    port: 443
+    protocol: https
+  response:
+    body: {string: '[{"id":239,"product_id":33,"image_file":"sample_images\/cocolee_anna_92851__19446.jpg","is_thumbnail":true,"sort_order":0,"description":null,"date_created":"Mon,
+        24 Sep 2012 01:06:56 +0000"},{"id":240,"product_id":33,"image_file":"sample_images\/cocolee_anna_92852__63752.jpg","is_thumbnail":false,"sort_order":2,"description":"YEAP","date_created":"Mon,
+        24 Sep 2012 01:07:01 +0000"},{"id":276,"product_id":33,"image_file":"h\/872\/py__71051.png","is_thumbnail":false,"sort_order":1,"description":"YEAP","date_created":"Tue,
+        17 Dec 2013 02:17:31 +0000"}]'}
+    headers: {content-type: application/json, date: 'Tue, 17 Dec 2013 02:19:54 GMT',
+      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '601',
+      x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: '{"description": "don''t worry im a doctor"}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.6 Darwin/13.0.0]
+      - !!python/tuple [Content-Type, application/json]
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [Content-Length, !!python/unicode '42']
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: PUT
+    path: /api/v2/products/33/images/276
+    port: 443
+    protocol: https
+  response:
+    body: {string: '{"id":276,"product_id":33,"image_file":"h\/872\/py__71051.png","is_thumbnail":false,"sort_order":1,"description":"don''t
+        worry im a doctor","date_created":"Tue, 17 Dec 2013 02:17:31 +0000"}'}
+    headers: {content-type: application/json, date: 'Tue, 17 Dec 2013 02:19:54 GMT',
+      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '600',
+      x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.6 Darwin/13.0.0]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: GET
+    path: /api/v2/products/33
+    port: 443
+    protocol: https
+  response:
+    body: {string: '{"id":33,"keyword_filter":null,"name":"[Sample] Anna, multi-colored
+        bangles","type":"physical","sku":"","description":"<p><strong>How to write
+        product descriptions that sell<\/strong><br \/>One of the best things you
+        can do to make your store successful is invest some time in writing great
+        product descriptions. You want to provide detailed yet concise information
+        that will entice potential customers to buy.<br \/><br \/>Keep three things
+        in mind:<br \/><br \/><strong>Think like a consumer<\/strong><br \/>Think
+        about what you as a consumer would want to know, then include those features
+        in your description. For clothes: materials and fit. For food: ingredients
+        and how it was prepared. Bullets are your friends when listing features &mdash;
+        try to limit each one to 5-8 words.<br \/><br \/><strong>Find differentiators<\/strong><br
+        \/>Pepper your features with details that show how the product stands out
+        against similar offerings. For clothes: is it vintage or hard to find? For
+        art: is the artist well known? For home d&eacute;cor: is it a certain style
+        like mid-century modern? Unique product descriptions not only help you stand
+        out, they improve your SEO.<br \/><br \/><strong>Keep it simple<\/strong><br
+        \/>Provide enough detail to help consumers make an informed decision, but
+        don&rsquo;t overwhelm with a laundry list of features or flowery language.
+        Densely pack your descriptions with useful information and watch products
+        fly off the shelf.<\/p>","search_keywords":null,"availability_description":"","price":"59.0000","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"59.0000","sort_order":0,"is_visible":true,"is_featured":true,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"0.5000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"0.0000","is_free_shipping":false,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Fri,
+        21 Sep 2012 02:46:41 +0000","brand_id":18,"view_count":12,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[14],"date_modified":"Mon,
+        24 Sep 2012 05:28:02 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":13,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/anna-multi-colored-bangles\/","availability":"available","brand":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/brands\/18.json","resource":"\/brands\/18"},"images":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/images.json","resource":"\/products\/33\/images"},"discount_rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/discountrules.json","resource":"\/products\/33\/discountrules"},"configurable_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/configurablefields.json","resource":"\/products\/33\/configurablefields"},"custom_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/customfields.json","resource":"\/products\/33\/customfields"},"videos":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/videos.json","resource":"\/products\/33\/videos"},"skus":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/skus.json","resource":"\/products\/33\/skus"},"rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/rules.json","resource":"\/products\/33\/rules"},"option_set":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/optionsets\/13.json","resource":"\/optionsets\/13"},"options":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/options.json","resource":"\/products\/33\/options"},"tax_class":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}}'}
+    headers: {content-type: application/json, date: 'Tue, 17 Dec 2013 02:19:54 GMT',
+      last-modified: 'Mon, 24 Sep 2012 05:28:02 GMT', server: Apache, transfer-encoding: chunked,
+      x-bc-apilimit-remaining: '599', x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.6 Darwin/13.0.0]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: GET
+    path: /api/v2/products/33/images?limit=50&page=1
+    port: 443
+    protocol: https
+  response:
+    body: {string: '[{"id":239,"product_id":33,"image_file":"sample_images\/cocolee_anna_92851__19446.jpg","is_thumbnail":true,"sort_order":0,"description":null,"date_created":"Mon,
+        24 Sep 2012 01:06:56 +0000"},{"id":240,"product_id":33,"image_file":"sample_images\/cocolee_anna_92852__63752.jpg","is_thumbnail":false,"sort_order":2,"description":"YEAP","date_created":"Mon,
+        24 Sep 2012 01:07:01 +0000"},{"id":276,"product_id":33,"image_file":"h\/872\/py__71051.png","is_thumbnail":false,"sort_order":1,"description":"don''t
+        worry im a doctor","date_created":"Tue, 17 Dec 2013 02:17:31 +0000"}]'}
+    headers: {content-type: application/json, date: 'Tue, 17 Dec 2013 02:19:54 GMT',
+      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '598',
+      x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: '{"description": "YEAP"}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Content-Length, !!python/unicode '23']
+      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.6 Darwin/13.0.0]
+      - !!python/tuple [Content-Type, application/json]
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: PUT
+    path: /api/v2/products/33/images/276
+    port: 443
+    protocol: https
+  response:
+    body: {string: '{"id":276,"product_id":33,"image_file":"h\/872\/py__71051.png","is_thumbnail":false,"sort_order":1,"description":"YEAP","date_created":"Tue,
+        17 Dec 2013 02:17:31 +0000"}'}
+    headers: {content-type: application/json, date: 'Tue, 17 Dec 2013 02:19:54 GMT',
+      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '597',
+      x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.6 Darwin/13.0.0]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: GET
+    path: /api/v2/products/33
+    port: 443
+    protocol: https
+  response:
+    body: {string: '{"id":33,"keyword_filter":null,"name":"[Sample] Anna, multi-colored
+        bangles","type":"physical","sku":"","description":"<p><strong>How to write
+        product descriptions that sell<\/strong><br \/>One of the best things you
+        can do to make your store successful is invest some time in writing great
+        product descriptions. You want to provide detailed yet concise information
+        that will entice potential customers to buy.<br \/><br \/>Keep three things
+        in mind:<br \/><br \/><strong>Think like a consumer<\/strong><br \/>Think
+        about what you as a consumer would want to know, then include those features
+        in your description. For clothes: materials and fit. For food: ingredients
+        and how it was prepared. Bullets are your friends when listing features &mdash;
+        try to limit each one to 5-8 words.<br \/><br \/><strong>Find differentiators<\/strong><br
+        \/>Pepper your features with details that show how the product stands out
+        against similar offerings. For clothes: is it vintage or hard to find? For
+        art: is the artist well known? For home d&eacute;cor: is it a certain style
+        like mid-century modern? Unique product descriptions not only help you stand
+        out, they improve your SEO.<br \/><br \/><strong>Keep it simple<\/strong><br
+        \/>Provide enough detail to help consumers make an informed decision, but
+        don&rsquo;t overwhelm with a laundry list of features or flowery language.
+        Densely pack your descriptions with useful information and watch products
+        fly off the shelf.<\/p>","search_keywords":null,"availability_description":"","price":"59.0000","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"59.0000","sort_order":0,"is_visible":true,"is_featured":true,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"0.5000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"0.0000","is_free_shipping":false,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Fri,
+        21 Sep 2012 02:46:41 +0000","brand_id":18,"view_count":12,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[14],"date_modified":"Mon,
+        24 Sep 2012 05:28:02 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":13,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/anna-multi-colored-bangles\/","availability":"available","brand":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/brands\/18.json","resource":"\/brands\/18"},"images":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/images.json","resource":"\/products\/33\/images"},"discount_rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/discountrules.json","resource":"\/products\/33\/discountrules"},"configurable_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/configurablefields.json","resource":"\/products\/33\/configurablefields"},"custom_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/customfields.json","resource":"\/products\/33\/customfields"},"videos":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/videos.json","resource":"\/products\/33\/videos"},"skus":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/skus.json","resource":"\/products\/33\/skus"},"rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/rules.json","resource":"\/products\/33\/rules"},"option_set":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/optionsets\/13.json","resource":"\/optionsets\/13"},"options":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/options.json","resource":"\/products\/33\/options"},"tax_class":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}}'}
+    headers: {content-type: application/json, date: 'Tue, 17 Dec 2013 02:19:54 GMT',
+      last-modified: 'Mon, 24 Sep 2012 05:28:02 GMT', server: Apache, transfer-encoding: chunked,
+      x-bc-apilimit-remaining: '596', x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.6 Darwin/13.0.0]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: GET
+    path: /api/v2/products/33/images?limit=50&page=1
+    port: 443
+    protocol: https
+  response:
+    body: {string: '[{"id":239,"product_id":33,"image_file":"sample_images\/cocolee_anna_92851__19446.jpg","is_thumbnail":true,"sort_order":0,"description":null,"date_created":"Mon,
+        24 Sep 2012 01:06:56 +0000"},{"id":240,"product_id":33,"image_file":"sample_images\/cocolee_anna_92852__63752.jpg","is_thumbnail":false,"sort_order":2,"description":"YEAP","date_created":"Mon,
+        24 Sep 2012 01:07:01 +0000"},{"id":276,"product_id":33,"image_file":"h\/872\/py__71051.png","is_thumbnail":false,"sort_order":1,"description":"YEAP","date_created":"Tue,
+        17 Dec 2013 02:17:31 +0000"}]'}
+    headers: {content-type: application/json, date: 'Tue, 17 Dec 2013 02:19:55 GMT',
+      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '595',
+      x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.6 Darwin/13.0.0]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+      - !!python/tuple [Content-Length, '0']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: DELETE
+    path: /api/v2/products/33/images/276
+    port: 443
+    protocol: https
+  response:
+    body: {string: ''}
+    headers: {content-length: '0', content-type: application/json, date: 'Tue, 17
+        Dec 2013 02:19:55 GMT', server: Apache, x-bc-apilimit-remaining: '594', x-bc-store-version: 7.6.0}
+    status: {code: 204, message: No Content}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.6 Darwin/13.0.0]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: GET
+    path: /api/v2/products/33
+    port: 443
+    protocol: https
+  response:
+    body: {string: '{"id":33,"keyword_filter":null,"name":"[Sample] Anna, multi-colored
+        bangles","type":"physical","sku":"","description":"<p><strong>How to write
+        product descriptions that sell<\/strong><br \/>One of the best things you
+        can do to make your store successful is invest some time in writing great
+        product descriptions. You want to provide detailed yet concise information
+        that will entice potential customers to buy.<br \/><br \/>Keep three things
+        in mind:<br \/><br \/><strong>Think like a consumer<\/strong><br \/>Think
+        about what you as a consumer would want to know, then include those features
+        in your description. For clothes: materials and fit. For food: ingredients
+        and how it was prepared. Bullets are your friends when listing features &mdash;
+        try to limit each one to 5-8 words.<br \/><br \/><strong>Find differentiators<\/strong><br
+        \/>Pepper your features with details that show how the product stands out
+        against similar offerings. For clothes: is it vintage or hard to find? For
+        art: is the artist well known? For home d&eacute;cor: is it a certain style
+        like mid-century modern? Unique product descriptions not only help you stand
+        out, they improve your SEO.<br \/><br \/><strong>Keep it simple<\/strong><br
+        \/>Provide enough detail to help consumers make an informed decision, but
+        don&rsquo;t overwhelm with a laundry list of features or flowery language.
+        Densely pack your descriptions with useful information and watch products
+        fly off the shelf.<\/p>","search_keywords":null,"availability_description":"","price":"59.0000","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"59.0000","sort_order":0,"is_visible":true,"is_featured":true,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"0.5000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"0.0000","is_free_shipping":false,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Fri,
+        21 Sep 2012 02:46:41 +0000","brand_id":18,"view_count":12,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[14],"date_modified":"Mon,
+        24 Sep 2012 05:28:02 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":13,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/anna-multi-colored-bangles\/","availability":"available","brand":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/brands\/18.json","resource":"\/brands\/18"},"images":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/images.json","resource":"\/products\/33\/images"},"discount_rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/discountrules.json","resource":"\/products\/33\/discountrules"},"configurable_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/configurablefields.json","resource":"\/products\/33\/configurablefields"},"custom_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/customfields.json","resource":"\/products\/33\/customfields"},"videos":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/videos.json","resource":"\/products\/33\/videos"},"skus":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/skus.json","resource":"\/products\/33\/skus"},"rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/rules.json","resource":"\/products\/33\/rules"},"option_set":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/optionsets\/13.json","resource":"\/optionsets\/13"},"options":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/options.json","resource":"\/products\/33\/options"},"tax_class":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}}'}
+    headers: {content-type: application/json, date: 'Tue, 17 Dec 2013 02:19:55 GMT',
+      last-modified: 'Mon, 24 Sep 2012 05:28:02 GMT', server: Apache, transfer-encoding: chunked,
+      x-bc-apilimit-remaining: '593', x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.6 Darwin/13.0.0]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: GET
+    path: /api/v2/products/33/images?limit=50&page=1
+    port: 443
+    protocol: https
+  response:
+    body: {string: '[{"id":239,"product_id":33,"image_file":"sample_images\/cocolee_anna_92851__19446.jpg","is_thumbnail":true,"sort_order":0,"description":null,"date_created":"Mon,
+        24 Sep 2012 01:06:56 +0000"},{"id":240,"product_id":33,"image_file":"sample_images\/cocolee_anna_92852__63752.jpg","is_thumbnail":false,"sort_order":1,"description":"YEAP","date_created":"Mon,
+        24 Sep 2012 01:07:01 +0000"}]'}
+    headers: {content-type: application/json, date: 'Tue, 17 Dec 2013 02:19:55 GMT',
+      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '592',
+      x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: '{"is_thumbnail": false, "image_file": "http://docs.python.org/2/_static/py.png",
+      "sort_order": 1, "description": "YEAP"}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Content-Length, !!python/unicode '120']
+      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.6 Darwin/13.0.0]
+      - !!python/tuple [Content-Type, application/json]
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: POST
+    path: /api/v2/products/33/images
+    port: 443
+    protocol: https
+  response:
+    body: {string: '{"id":277,"product_id":33,"image_file":"l\/793\/py__19050.png","is_thumbnail":false,"sort_order":1,"description":"YEAP","date_created":"Tue,
+        17 Dec 2013 02:19:57 +0000"}'}
+    headers: {content-type: application/json, date: 'Tue, 17 Dec 2013 02:19:55 GMT',
+      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '591',
+      x-bc-store-version: 7.6.0}
+    status: {code: 201, message: Created}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.6 Darwin/13.0.0]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: GET
+    path: /api/v2/products/33
+    port: 443
+    protocol: https
+  response:
+    body: {string: '{"id":33,"keyword_filter":null,"name":"[Sample] Anna, multi-colored
+        bangles","type":"physical","sku":"","description":"<p><strong>How to write
+        product descriptions that sell<\/strong><br \/>One of the best things you
+        can do to make your store successful is invest some time in writing great
+        product descriptions. You want to provide detailed yet concise information
+        that will entice potential customers to buy.<br \/><br \/>Keep three things
+        in mind:<br \/><br \/><strong>Think like a consumer<\/strong><br \/>Think
+        about what you as a consumer would want to know, then include those features
+        in your description. For clothes: materials and fit. For food: ingredients
+        and how it was prepared. Bullets are your friends when listing features &mdash;
+        try to limit each one to 5-8 words.<br \/><br \/><strong>Find differentiators<\/strong><br
+        \/>Pepper your features with details that show how the product stands out
+        against similar offerings. For clothes: is it vintage or hard to find? For
+        art: is the artist well known? For home d&eacute;cor: is it a certain style
+        like mid-century modern? Unique product descriptions not only help you stand
+        out, they improve your SEO.<br \/><br \/><strong>Keep it simple<\/strong><br
+        \/>Provide enough detail to help consumers make an informed decision, but
+        don&rsquo;t overwhelm with a laundry list of features or flowery language.
+        Densely pack your descriptions with useful information and watch products
+        fly off the shelf.<\/p>","search_keywords":null,"availability_description":"","price":"59.0000","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"59.0000","sort_order":0,"is_visible":true,"is_featured":true,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"0.5000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"0.0000","is_free_shipping":false,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Fri,
+        21 Sep 2012 02:46:41 +0000","brand_id":18,"view_count":12,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[14],"date_modified":"Mon,
+        24 Sep 2012 05:28:02 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":13,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/anna-multi-colored-bangles\/","availability":"available","brand":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/brands\/18.json","resource":"\/brands\/18"},"images":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/images.json","resource":"\/products\/33\/images"},"discount_rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/discountrules.json","resource":"\/products\/33\/discountrules"},"configurable_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/configurablefields.json","resource":"\/products\/33\/configurablefields"},"custom_fields":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/customfields.json","resource":"\/products\/33\/customfields"},"videos":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/videos.json","resource":"\/products\/33\/videos"},"skus":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/skus.json","resource":"\/products\/33\/skus"},"rules":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/rules.json","resource":"\/products\/33\/rules"},"option_set":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/optionsets\/13.json","resource":"\/optionsets\/13"},"options":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/products\/33\/options.json","resource":"\/products\/33\/options"},"tax_class":{"url":"https:\/\/somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}}'}
+    headers: {content-type: application/json, date: 'Tue, 17 Dec 2013 02:19:57 GMT',
+      last-modified: 'Mon, 24 Sep 2012 05:28:02 GMT', server: Apache, transfer-encoding: chunked,
+      x-bc-apilimit-remaining: '590', x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.6 Darwin/13.0.0]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: GET
+    path: /api/v2/products/33/images?limit=50&page=1
+    port: 443
+    protocol: https
+  response:
+    body: {string: '[{"id":239,"product_id":33,"image_file":"sample_images\/cocolee_anna_92851__19446.jpg","is_thumbnail":true,"sort_order":0,"description":null,"date_created":"Mon,
+        24 Sep 2012 01:06:56 +0000"},{"id":240,"product_id":33,"image_file":"sample_images\/cocolee_anna_92852__63752.jpg","is_thumbnail":false,"sort_order":2,"description":"YEAP","date_created":"Mon,
+        24 Sep 2012 01:07:01 +0000"},{"id":277,"product_id":33,"image_file":"l\/793\/py__19050.png","is_thumbnail":false,"sort_order":1,"description":"YEAP","date_created":"Tue,
+        17 Dec 2013 02:19:57 +0000"}]'}
+    headers: {content-type: application/json, date: 'Tue, 17 Dec 2013 02:19:57 GMT',
+      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '589',
+      x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}

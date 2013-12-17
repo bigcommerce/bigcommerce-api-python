@@ -31,20 +31,20 @@ class ResourceAccessor(object):
     # resource metadata from API doesn't show sub-resource URLs,
     # so to support calls like client.Images.get,create,delete_from_id,
     # we hardcode them here
-    _subres_urls = {"States" : "countries/states",
-                    "OptionValues" : "options/values",
-                    "ShippingAddresses" : "orders/shippingaddresses",
-                    "OrderProducts" : "orders/products",
-                    "Shipments" : "orders/shipments",
-                    "ConfigurableFields" : "products/configurablefields",
-                    "CustomFields" : "products/customfields",
-                    "SKU" : "products/skus",
-                    "ProductOptions" : "products/options",
-                    "Images" : "products/images",
-                    "Videos" : "products/videos",
-                    "Rules" : "products/rules",
-                    "DiscountRules" : "products/discountrules",
-                    "ShippingMethods" : "shipping/methods"
+    _subres_urls = {"States" : "/countries/states",
+                    "OptionValues" : "/options/values",
+                    "ShippingAddresses" : "/orders/shippingaddresses",
+                    "OrderProducts" : "/orders/products",
+                    "Shipments" : "/orders/shipments",
+                    "ConfigurableFields" : "/products/configurablefields",
+                    "CustomFields" : "/products/customfields",
+                    "SKU" : "/products/skus",
+                    "ProductOptions" : "/products/options",
+                    "Images" : "/products/images",
+                    "Videos" : "/products/videos",
+                    "Rules" : "/products/rules",
+                    "DiscountRules" : "/products/discountrules",
+                    "ShippingMethods" : "/shipping/methods"
                      }
 
     def __init__(self, resource_name, connection):
@@ -153,13 +153,19 @@ class ResourceAccessor(object):
     def get_subresources(self):
         return self._klass.sub_resources
     
-    def create(self, data):
+    def create(self, data, parent_id=None):
         """
         Creates and returns a new resource, according to given data (dictionary).
+        If parent_id is given, this is treated as for creating a sub-resource under
+        the given id.
         """
         # if we don't want user to have to look at reference, should include a "required list" somewhere
-        new = self._connection.create(self._url, data) # TODO: which exception is thrown when this fails? bad req (400)?
-        return self._klass(self._connection, self._url, new, self._parent)
+        if parent_id:
+            _, parent, sub = self._url.split('/')
+            url = "/{}/{}/{}".format(parent, parent_id, sub)
+        else: url = self._url
+        new = self._connection.create(url, data) # TODO: which exception is thrown when this fails? bad req (400)?
+        return self._klass(self._connection, url, new, self._parent)
     
     def delete_from_id(self, id):
         """
@@ -234,6 +240,7 @@ class ResourceObject(object):
         else:
             # if we are dealing with a sub resource and we have not 
             # already made the call to inflate it - do so
+            # TODO: there's currentlyno way to "refresh" an object's subresources
             if self.sub_resources.has_key(attrname) and isinstance(data, dict):
                 _con = SubResourceAccessor(self.sub_resources[attrname].get("klass", ResourceObject), 
                                            data, self._connection, 
@@ -241,9 +248,7 @@ class ResourceObject(object):
                 
                 # If the subresource is a list of objects
                 if not self.sub_resources[attrname].get("single", False):
-                    _list = []
-                    for sub_res in _con.get_all():
-                        _list.append(sub_res)
+                    _list = list(_con.get_all())
                     self._fields[attrname] = _list
                 
                 # if the subresource is a single object    
@@ -280,9 +285,6 @@ class ResourceObject(object):
     def get_url(self):
         return self._url
     
-#     def create(self, data): - left here by jtall? the design doesn't support this well
-#         log.info("Creating %s" % self.get_url())
-        
     def delete(self):
         self._connection.delete(self._url)
     
@@ -297,7 +299,7 @@ class ResourceObject(object):
             
             results = self._connection.update(self.get_url(), self._updates)
             self._updates.clear()
-            self._fields = results
+            self._fields = results # TODO: needs testing - didn't work quite right
                      
     def __repr__(self):
         return str(self._fields)

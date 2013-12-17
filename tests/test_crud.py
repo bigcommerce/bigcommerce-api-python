@@ -114,63 +114,79 @@ class TestGeneralCRUD(unittest.TestCase):
             self.assertTrue(len(states) == 5)
             for i, val in enumerate(expected):
                 self.assertTrue(states[i].id == val[0])
-#             
-#     def test_subresources2(self):
-#         # get, update, update, delete, create
-#         with my_vcr.use_cassette('vcr/test4.yaml'):
-#             something = Products.get_by_id(33)
-#             expected = [(239, 33, "sample_images/cocolee_anna_92851__19446.jpg", None),
-#                         (240, 33, "sample_images/cocolee_anna_92852__63752.jpg", None),
-#                         (270, 33, "j/603/SandstoneUSGOV__36595.jpg", "dont worry im a doctor")]
-#             
-#             imgs = something.subresources.get(ProductImage)
-#             img = imgs[len(imgs) -1]
-#             for i, val in enumerate(expected):
-#                 self.assertTrue(imgs[i].id == val[0], "{} {}".format(imgs[i].id, val[0]))
-#                 self.assertTrue(imgs[i].product_id == val[1])
-#                 self.assertTrue(imgs[i].image_file == val[2])
-#                 self.assertTrue(imgs[i].description == val[3])
-#             
-#             img_data = {'image_file' : "http://upload.wikimedia.org/wikipedia/commons/6/61/SandstoneUSGOV.jpg",
-#                         'is_thumbnail' : img.is_thumbnail,
-#                         'sort_order' : img.sort_order,
-#                         'description' : "dont worry im a doctor"}
-#             img.description = "NOPE"
-#             img.update()
-#             
-#             imgs = something.subresources.get(ProductImage)
-#             expected[len(imgs) -1] = (270, 33, "j/603/SandstoneUSGOV__36595.jpg", "NOPE")
-#             for i, val in enumerate(expected):
-#                 self.assertTrue(imgs[i].id == val[0], "{} {}".format(imgs[i].id, val[0]))
-#                 self.assertTrue(imgs[i].product_id == val[1])
-#                 self.assertTrue(imgs[i].image_file == val[2])
-#                 self.assertTrue(imgs[i].description == val[3])
-#             
-#             img.description = img_data['description'] or "itdoesntlikenullvalues"
-#             something.subresources.update(img)
-#             imgs = something.subresources.get(ProductImage)
-#             expected[len(imgs) -1] = (270, 33, "j/603/SandstoneUSGOV__36595.jpg", "dont worry im a doctor")    
-#             for i, val in enumerate(expected):
-#                 self.assertTrue(imgs[i].id == val[0], "{} {}".format(imgs[i].id, val[0]))
-#                 self.assertTrue(imgs[i].product_id == val[1])
-#                 self.assertTrue(imgs[i].image_file == val[2])
-#                 self.assertTrue(imgs[i].description == val[3], "{} {}".format(imgs[i].description, val[3]))
-#             
-#             something.subresources.delete(img)
-#             imgs = something.subresources.get(ProductImage)
-#             expected.pop()
-#             self.assertTrue(len(imgs) == 2)
-#             for i, val in enumerate(expected):
-#                 self.assertTrue(imgs[i].id == val[0], "{} {}".format(imgs[i].id, val[0]))
-#                 self.assertTrue(imgs[i].product_id == val[1])
-#                 self.assertTrue(imgs[i].image_file == val[2])
-#                 self.assertTrue(imgs[i].description == val[3])
-#                 
-#             something.subresources.create(ProductImage, img_data)
-#             imgs = something.subresources.get(ProductImage)
-#             expected.append((271, 33, "k/069/SandstoneUSGOV__85011.jpg", "dont worry im a doctor"))
-#             for i, val in enumerate(expected):
-#                 self.assertTrue(imgs[i].id == val[0], "{} {}".format(imgs[i].id, val[0]))
-#                 self.assertTrue(imgs[i].product_id == val[1])
-#                 self.assertTrue(imgs[i].image_file == val[2])
-#                 self.assertTrue(imgs[i].description == val[3])
+             
+    def test_subresources2(self):
+        # get, update, update, delete, create
+        with my_vcr.use_cassette('vcr/test_crud/test_subresources2.yaml'):
+            something = self.client.Products.get(33)
+            expected = [(239, 33, "sample_images/cocolee_anna_92851__19446.jpg", None),
+                        (240, 33, "sample_images/cocolee_anna_92852__63752.jpg", "YEAP"),
+                        (276, 33, "h/872/py__71051.png", "YEAP")]
+              
+              
+            imgs = something.images
+            img = imgs[len(imgs) -1]
+            for i, val in enumerate(expected):
+                self.assertTrue(imgs[i].id == val[0], "{} {}".format(imgs[i].id, val[0]))
+                self.assertTrue(imgs[i].product_id == val[1])
+                self.assertTrue(imgs[i].image_file == val[2])
+                self.assertTrue(imgs[i].description == val[3])
+ 
+            # save it for later
+            img_data = {'image_file' : "h/872/py__71051.png",
+                        'is_thumbnail' : img.is_thumbnail,
+                        'sort_order' : img.sort_order,
+                        'description' : "YEAP"}
+            
+            img.description = "don't worry im a doctor"
+            img.update()
+               
+            # no good support for "refreshing", so have to re-retrieve the product
+            something = self.client.Products.get(33)
+            imgs = something.images
+            
+            expected[len(imgs) -1] = (276, 33, "h/872/py__71051.png", "don't worry im a doctor")
+            for i, val in enumerate(expected):
+                self.assertTrue(imgs[i].id == val[0], "{} {}".format(imgs[i].id, val[0]))
+                self.assertTrue(imgs[i].product_id == val[1])
+                self.assertTrue(imgs[i].image_file == val[2])
+                self.assertTrue(imgs[i].description == val[3])
+               
+            # update it back to what it was
+            img.description = img_data['description']
+            img.update()
+            #imgs = something.subresources.get(ProductImage)
+            something = self.client.Products.get(33)
+            imgs = something.images
+            expected[len(imgs) -1] = (276, 33, "h/872/py__71051.png", "YEAP")
+            for i, val in enumerate(expected):
+                self.assertTrue(imgs[i].id == val[0], "{} {}".format(imgs[i].id, val[0]))
+                self.assertTrue(imgs[i].product_id == val[1])
+                self.assertTrue(imgs[i].image_file == val[2])
+                self.assertTrue(imgs[i].description == val[3], "{} {}".format(imgs[i].description, val[3]))
+               
+            # delete and recreate
+            img.delete()
+            #
+            something = self.client.Products.get(33)
+            imgs = something.images
+            
+            expected.pop()
+            self.assertTrue(len(imgs) == 2)
+            for i, val in enumerate(expected):
+                self.assertTrue(imgs[i].id == val[0], "{} {}".format(imgs[i].id, val[0]))
+                self.assertTrue(imgs[i].product_id == val[1])
+                self.assertTrue(imgs[i].image_file == val[2])
+                self.assertTrue(imgs[i].description == val[3])
+            
+            img_data.update({'image_file' : "http://docs.python.org/2/_static/py.png"}) # since things go unavailable a lot
+            self.client.Images.create(img_data, something.id)
+            #
+            something = self.client.Products.get(33)
+            imgs = something.images
+            expected.append((277, 33, "l/793/py__19050.png", "YEAP"))
+            for i, val in enumerate(expected):
+                self.assertTrue(imgs[i].id == val[0], "{} {}".format(imgs[i].id, val[0]))
+                self.assertTrue(imgs[i].product_id == val[1])
+                self.assertTrue(imgs[i].image_file == val[2])
+                self.assertTrue(imgs[i].description == val[3])
