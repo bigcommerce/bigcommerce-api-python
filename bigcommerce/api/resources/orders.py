@@ -1,7 +1,7 @@
-from bigcommerce.api.mapping import Mapping
+from mapping import Mapping
 from bigcommerce.api.filters import FilterSet, StringFilter, NumberFilter, DateFilter, BoolFilter
-from . import ResourceObject, SubResourceAccessor
-import SubResources
+from resource import ResourceObject, SubResourceAccessor
+import subresource
 
 class Orders(ResourceObject):
     """
@@ -11,13 +11,13 @@ class Orders(ResourceObject):
     writeable = ["is_deleted", "status_id"]
     sub_resources = Mapping(
                             shipping_addresses = Mapping(
-                                                       klass = SubResources.ShippingAddresses,
+                                                       klass = subresource.ShippingAddresses,
                                                        single = False),
                             coupons = Mapping(
-                                              klass = SubResources.Coupons,
+                                              klass = subresource.Coupons,
                                               single = False),
                             products = Mapping(
-                                               klass = SubResources.OrderProducts,
+                                               klass = subresource.OrderProducts,
                                                single = False)
                             )
     
@@ -41,9 +41,9 @@ class Orders(ResourceObject):
             return self._fields["shipments"]
         else:
             url = "%s/shipments" % self.get_url()
-            _con = SubResourceAccessor(SubResources.Shipments, url, self._connection, self)
+            _con = SubResourceAccessor(subresource.Shipments, url, self._connection, self)
             _list = []
-            for sub_res in _con.enumerate():
+            for sub_res in _con.get_all():
                 _list.append(sub_res)
             
             self._fields["shipments"] = _list 

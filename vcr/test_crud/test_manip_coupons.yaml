@@ -1,0 +1,161 @@
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.6 Darwin/13.0.0]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: GET
+    path: /api/v2/coupons?limit=50&page=1
+    port: 443
+    protocol: https
+  response:
+    body: {string: '[{"id":1,"name":"5% off order total","type":"percentage_discount","amount":"5.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"A4CC26E5C5AC0BC","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":2,"name":"10%
+        off order total","type":"percentage_discount","amount":"10.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"4FA3083A1AD4128","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":3,"name":"Free
+        shipping","type":"free_shipping","amount":"0.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"6192C9637A6620D","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":4,"name":"$5
+        off shipping","type":"shipping_discount","amount":"5.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"96596B58A71F415","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null}]'}
+    headers: {content-type: application/json, date: 'Mon, 16 Dec 2013 05:49:16 GMT',
+      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '871',
+      x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: '{"amount": 20.0, "code": "AZ21", "type": "percentage_discount", "name":
+      "20% off order total v2", "applies_to": {"ids": [32], "entity": "products"}}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.6 Darwin/13.0.0]
+      - !!python/tuple [Content-Type, application/json]
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Content-Length, !!python/unicode '148']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: POST
+    path: /api/v2/coupons
+    port: 443
+    protocol: https
+  response:
+    body: {string: '{"id":146,"name":"20% off order total v2","type":"percentage_discount","amount":"20.0000","min_purchase":"0.0000","expires":"","enabled":false,"code":"AZ21","applies_to":{"entity":"products","ids":[32]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null}'}
+    headers: {content-type: application/json, date: 'Mon, 16 Dec 2013 05:49:16 GMT',
+      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '870',
+      x-bc-store-version: 7.6.0}
+    status: {code: 201, message: Created}
+- request: !!python/object:vcr.request.Request
+    body: '{"amount": 30.0, "code": "AZ31", "type": "percentage_discount", "name":
+      "30% off order total v2", "applies_to": {"ids": [32], "entity": "products"}}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.6 Darwin/13.0.0]
+      - !!python/tuple [Content-Type, application/json]
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Content-Length, !!python/unicode '148']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: POST
+    path: /api/v2/coupons
+    port: 443
+    protocol: https
+  response:
+    body: {string: '{"id":147,"name":"30% off order total v2","type":"percentage_discount","amount":"30.0000","min_purchase":"0.0000","expires":"","enabled":false,"code":"AZ31","applies_to":{"entity":"products","ids":[32]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null}'}
+    headers: {content-type: application/json, date: 'Mon, 16 Dec 2013 05:49:16 GMT',
+      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '869',
+      x-bc-store-version: 7.6.0}
+    status: {code: 201, message: Created}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.6 Darwin/13.0.0]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: GET
+    path: /api/v2/coupons?limit=50&page=1
+    port: 443
+    protocol: https
+  response:
+    body: {string: '[{"id":1,"name":"5% off order total","type":"percentage_discount","amount":"5.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"A4CC26E5C5AC0BC","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":2,"name":"10%
+        off order total","type":"percentage_discount","amount":"10.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"4FA3083A1AD4128","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":3,"name":"Free
+        shipping","type":"free_shipping","amount":"0.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"6192C9637A6620D","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":4,"name":"$5
+        off shipping","type":"shipping_discount","amount":"5.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"96596B58A71F415","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":146,"name":"20%
+        off order total v2","type":"percentage_discount","amount":"20.0000","min_purchase":"0.0000","expires":"","enabled":false,"code":"AZ21","applies_to":{"entity":"products","ids":[32]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":147,"name":"30%
+        off order total v2","type":"percentage_discount","amount":"30.0000","min_purchase":"0.0000","expires":"","enabled":false,"code":"AZ31","applies_to":{"entity":"products","ids":[32]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null}]'}
+    headers: {content-type: application/json, date: 'Mon, 16 Dec 2013 05:49:17 GMT',
+      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '868',
+      x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.6 Darwin/13.0.0]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+      - !!python/tuple [Content-Length, '0']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: DELETE
+    path: /api/v2/coupons/146
+    port: 443
+    protocol: https
+  response:
+    body: {string: ''}
+    headers: {content-length: '0', content-type: application/json, date: 'Mon, 16
+        Dec 2013 05:49:17 GMT', server: Apache, x-bc-apilimit-remaining: '867', x-bc-store-version: 7.6.0}
+    status: {code: 204, message: No Content}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.6 Darwin/13.0.0]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+      - !!python/tuple [Content-Length, '0']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: DELETE
+    path: /api/v2/coupons/147
+    port: 443
+    protocol: https
+  response:
+    body: {string: ''}
+    headers: {content-length: '0', content-type: application/json, date: 'Mon, 16
+        Dec 2013 05:49:17 GMT', server: Apache, x-bc-apilimit-remaining: '866', x-bc-store-version: 7.6.0}
+    status: {code: 204, message: No Content}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.6 Darwin/13.0.0]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: GET
+    path: /api/v2/coupons?limit=50&page=1
+    port: 443
+    protocol: https
+  response:
+    body: {string: '[{"id":1,"name":"5% off order total","type":"percentage_discount","amount":"5.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"A4CC26E5C5AC0BC","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":2,"name":"10%
+        off order total","type":"percentage_discount","amount":"10.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"4FA3083A1AD4128","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":3,"name":"Free
+        shipping","type":"free_shipping","amount":"0.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"6192C9637A6620D","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":4,"name":"$5
+        off shipping","type":"shipping_discount","amount":"5.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"96596B58A71F415","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null}]'}
+    headers: {content-type: application/json, date: 'Mon, 16 Dec 2013 05:49:17 GMT',
+      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '865',
+      x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Accept, application/json]
+      - !!python/tuple [User-Agent, python-requests/2.0.1 CPython/2.7.6 Darwin/13.0.0]
+      - !!python/tuple [Authorization, !!python/unicode 'Basic YWRtaW46YTJlNzc3ZmJiMmQ5OGZkMDQ0NjFkNzAwNDYzYThlZDcxNzgyZTQ3NQ==']
+    host: somethingequallycreative-jackie-huynh.dev1.syd1bc.bigcommerce.net
+    method: GET
+    path: /api/v2/coupons/999999
+    port: 443
+    protocol: https
+  response:
+    body: {string: '[{"status":404,"message":"The requested resource was not found."}]'}
+    headers: {content-type: application/json, date: 'Mon, 16 Dec 2013 05:49:17 GMT',
+      server: Apache, transfer-encoding: chunked, x-bc-apilimit-remaining: '864',
+      x-bc-store-version: 7.6.0}
+    status: {code: 404, message: Not Found}

@@ -1,6 +1,6 @@
-from . import ResourceObject
-from OptionValues import OptionValues
-from bigcommerce.api.mapping import Mapping
+from resource import ResourceObject
+from optionvalues import OptionValues
+from mapping import Mapping
 from bigcommerce.api.filters import FilterSet, StringFilter, NumberFilter, DateFilter, BoolFilter
 
 class Options(ResourceObject):

@@ -1,5 +1,5 @@
-from . import ResourceObject
-from bigcommerce.api.mapping import Mapping
+from resource import ResourceObject
+from mapping import Mapping
 from bigcommerce.api.filters import FilterSet, StringFilter, NumberFilter, DateFilter, BoolFilter
 
 class Customers(ResourceObject):

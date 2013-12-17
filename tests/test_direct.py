@@ -3,13 +3,11 @@ from bigcommerce import *
 import unittest
 import vcr
 
-
 my_vcr = vcr.VCR(match_on = ['url', 'method', 'body']) # headers too?
 
 class TestDirectCalls(unittest.TestCase):
     """
-    Almost exactly the same as TestGeneralCRUD, but uses direct 
-    (through Connection) calls.
+    Test using direct calls through Connection
     """
     
     def setUp(self):
@@ -42,7 +40,7 @@ class TestDirectCalls(unittest.TestCase):
             self.connection.update('/products/32.json', updates)
             
             speakers = self.connection.get('/products/32.json')
-            self.assertTrue(float(speakers['price']) == 1144.4733) # rounding up
+            self.assertTrue(float(speakers['price']) == round(new_price, 4))
             
     def test_manip_coupons(self):
         with my_vcr.use_cassette('vcr/test1.yaml'):

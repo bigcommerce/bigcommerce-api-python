@@ -1,17 +1,52 @@
 import sys
 import logging
-from bigcommerce.api.mapping import Mapping
+from mapping import Mapping
 from bigcommerce.api.filters import FilterSet
 from bigcommerce.api.connection import EmptyResponseWarning
 
 log = logging.getLogger("bc_api")
 
+# TODO: support for delete all op - e.g. DELETE products/images
+# create also needs self._url set, but also needs a way to pass in an ID of parent resource (optional kwarg is fine)
+
+# TODO: sub-res access doesn't set _klass properly (client.Images uses class ResourceObject)
+
+# TODO: the _parent fields don't appear to be used anywhere
 
 class ResourceAccessor(object):
     """
-    Provides methods that will create, get, and enumerate resourcesObjects.
+    Provides methods that will create, get, and enumerate ResourceObjects.
+    
+    This client doesn't provide classes for all [sub-]resources in the Bigcommerce v2 API,
+    but those resources can still be accessed; for instance, do client.Redirects for redirects.
+    The "class name" for resources that do not have classes are:
+        Redirects                ->    redirects
+        ShippingMethods          ->    shipping/methods
+        Videos                   ->    products/videos
+        Rules                    ->    products/rules
+        DiscountRules            ->    products/discountrules
+        CustomFields             ->    products/customfields
     """
     
+    # resource metadata from API doesn't show sub-resource URLs,
+    # so to support calls like client.Images.get,create,delete_from_id,
+    # we hardcode them here
+    _subres_urls = {"States" : "/countries/states",
+                    "OptionValues" : "/options/values",
+                    "ShippingAddresses" : "/orders/shippingaddresses",
+                    "OrderProducts" : "/orders/products",
+                    "Shipments" : "/orders/shipments",
+                    "ConfigurableFields" : "/products/configurablefields",
+                    "CustomFields" : "/products/customfields",
+                    "SKU" : "/products/skus",
+                    "ProductOptions" : "/products/options",
+                    "Images" : "/products/images",
+                    "Videos" : "/products/videos",
+                    "Rules" : "/products/rules",
+                    "DiscountRules" : "/products/discountrules",
+                    "ShippingMethods" : "/shipping/methods"
+                     }
+
     def __init__(self, resource_name, connection):
         """
         Constructor
@@ -25,19 +60,18 @@ class ResourceAccessor(object):
         self._parent = None
         self.__resource_name = resource_name
         self._connection = connection
-        
-        try:
-            mod = __import__('%s' % resource_name, globals(), locals(), [resource_name], -1)
+        try: # TODO: I don't think globals() and locals() does anything here... using importlib would be better, too
+            mod = __import__('%s' % resource_name.lower(), globals(), locals(), [resource_name], -1)
             self._klass = getattr(mod, resource_name)
-        except:
-            self._klass = ResourceObject
-            
-        # Work around for option values URL being incorrect
-        if resource_name == "OptionValues":
-            self._url = "/options/values"
-        else:
-            self._url = self._connection.get_resource_url(self.__resource_name.lower())
-            
+        except: # TODO: ImportError? KeyError?
+            try: # try set it as a sub-resource
+                mod = __import__('subresource', globals(), locals(), [resource_name], -1)
+                self._klass = getattr(mod, resource_name)
+            except:
+                self._klass = ResourceObject
+ 
+        self._url = self._subres_urls.get(resource_name, 
+                                          self._connection.get_resource_url(self.__resource_name.lower()))
          
     def __get_page(self, page, limit, query={}):
         """
@@ -48,14 +82,14 @@ class ResourceAccessor(object):
         return self._connection.get(self._url, _query)
     
     
-    def enumerate(self, start=0, limit=0, query={}, max_per_page=50):
+    def get_all(self, start=1, limit=0, query={}, max_per_page=50):
         """
         Enumerate resources
         
-        @param start: The instance to start on
-        @type pages: int
+        @param start: Start retrieving from the 'start'th resource.
+        @type start: int
         @param limit: The number of items to return, Set to 0 to return all items
-        @type start_page: int
+        @type limit: int
         @param query: Search criteria
         @type query: FilterSet
         @param max_per_page: Number of items to return per request
@@ -64,7 +98,7 @@ class ResourceAccessor(object):
         _query = {}
         if query:
             _query = query.query_dict()
-        
+        start -= 1
             
         requested_items = limit if limit else sys.maxint
         max_per_page = min(max_per_page, 250)
@@ -73,7 +107,6 @@ class ResourceAccessor(object):
         current_page = int( start / max_per_page )
         offset = start % max_per_page
          
-        #while current_page < total_pages and requested_items:
         while requested_items:
             current_page += 1
             page_index = 0
@@ -100,16 +133,13 @@ class ResourceAccessor(object):
             except:
                 raise
                     
-
-
     def get(self, id):
+        """
+        Retrieves resource with given id. Raises exception if fail.
+        """
         url = "%s/%s" % (self._url, id)
-        try:
-            result = self._connection.get(url)
-            return self._klass(self._connection, self._url, result, self._parent)
-        except:
-            return None
-    
+        result = self._connection.get(url)
+        return self._klass(self._connection, self._url, result, self._parent)
     
     def get_count(self, query={}):
         
@@ -120,22 +150,41 @@ class ResourceAccessor(object):
         result = self._connection.get("%s/%s" % (self._url, "count"), _query)
         return result.get("count")
     
+    def get_subresources(self):
+        return self._klass.sub_resources
+    
+    def create(self, data, parent_id=None):
+        """
+        Creates and returns a new resource, according to given data (dictionary).
+        If parent_id is given, this is treated as for creating a sub-resource under
+        the given id.
+        """
+        # if we don't want user to have to look at reference, should include a "required list" somewhere
+        if parent_id:
+            _, parent, sub = self._url.split('/')
+            url = "/{}/{}/{}".format(parent, parent_id, sub)
+        else: url = self._url
+        new = self._connection.create(url, data) # TODO: which exception is thrown when this fails? bad req (400)?
+        return self._klass(self._connection, url, new, self._parent)
+    
+    def delete_from_id(self, id):
+        """
+        Deletes the resource with given ID.
+        Equivalent to calling the delete method on the resource.
+        """
+        self._connection.delete("{}/{}".format(self._url, id))
+    
     def filters(self):
         try:
             return self._klass.filter_set()
         except:
             return FilterSet()
     
-    def get_name(self):
+    @property
+    def name(self):
         return self.__resource_name
     
-    
-    def get_subresources(self):
-        return self._klass.sub_resources
-    
-    name = property(fget=get_name)
-    
-    
+
 class SubResourceAccessor(ResourceAccessor):
     
     def __init__(self, klass, url, connection, parent):
@@ -145,7 +194,6 @@ class SubResourceAccessor(ResourceAccessor):
         self._connection = connection
         self._klass = klass
         self._url = url if isinstance(url, basestring) else url["resource"]
-        
     
 
 class ResourceObject(object):
@@ -183,27 +231,24 @@ class ResourceObject(object):
             return self._updates[attrname]
         
         if not self._fields.has_key(attrname):
-            raise AttributeError("%s not available" % attrname)
+            raise AttributeError("No attribute '%s' found" % attrname)
         # Look up the value in the _fields
         data = self._fields.get(attrname,None)
         
         if data is None:
             return data
         else:
-            
             # if we are dealing with a sub resource and we have not 
             # already made the call to inflate it - do so
+            # TODO: there's currentlyno way to "refresh" an object's subresources
             if self.sub_resources.has_key(attrname) and isinstance(data, dict):
-                
                 _con = SubResourceAccessor(self.sub_resources[attrname].get("klass", ResourceObject), 
                                            data, self._connection, 
                                            self)
                 
                 # If the subresource is a list of objects
                 if not self.sub_resources[attrname].get("single", False):
-                    _list = []
-                    for sub_res in _con.enumerate():
-                        _list.append(sub_res)
+                    _list = list(_con.get_all())
                     self._fields[attrname] = _list
                 
                 # if the subresource is a single object    
@@ -240,11 +285,10 @@ class ResourceObject(object):
     def get_url(self):
         return self._url
     
-    def create(self, data):
-        log.info("Creating %s" % self.get_url())
-        
+    def delete(self):
+        self._connection.delete(self._url)
     
-    def save(self):
+    def update(self):
         """
         Save any updates and set the fields to the values received 
         from the return value and clear the updates dictionary
@@ -255,9 +299,8 @@ class ResourceObject(object):
             
             results = self._connection.update(self.get_url(), self._updates)
             self._updates.clear()
-            self._fields = results
+            self._fields = results # TODO: needs testing - didn't work quite right
                      
-        
     def __repr__(self):
         return str(self._fields)
     

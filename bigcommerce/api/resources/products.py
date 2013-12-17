@@ -1,9 +1,9 @@
-from bigcommerce.api.mapping import Mapping
+from mapping import Mapping
 from bigcommerce.api.filters import FilterSet, StringFilter, NumberFilter, DateFilter, BoolFilter
-from bigcommerce.api.resource import ResourceObject
-from OptionSets import OptionSets
-from Brands import Brands
-import SubResources
+from bigcommerce.api.resources.resource import ResourceObject
+from optionsets import OptionSets
+from brands import Brands
+import subresource
 
 class Products(ResourceObject):
     """
@@ -18,11 +18,11 @@ class Products(ResourceObject):
                             custom_fields = Mapping(),
                             discount_rules = Mapping(),
                             downloads = Mapping(),
-                            images = Mapping(klass = SubResources.Images),
-                            options = Mapping(klass = SubResources.ProductOptions),
+                            images = Mapping(klass = subresource.Images),
+                            options = Mapping(klass = subresource.ProductOptions),
                             option_set = Mapping(klass = OptionSets, single=True),
                             rules = Mapping(),
-                            skus = Mapping(klass = SubResources.SKU),
+                            skus = Mapping(klass = subresource.SKU),
                             tax_class = Mapping(),
                             videos = Mapping(),
                             )

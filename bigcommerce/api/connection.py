@@ -15,14 +15,21 @@ log = logging.getLogger("BigCommerce.con")
 
 class HttpException(Exception):
     """
-    Class for representing http errors. Contains headers and content of
-    the error response.
+    Class for representing http errors. Contains the response.
     """
-    def __init__(self, msg, status_code, headers=None, content=None):
+    def __init__(self, msg, res):
         super(Exception, self).__init__(msg)
-        self.status_code = status_code
-        self.headers = headers
-        self.content = content
+        self.response = res
+        
+    @property
+    def status_code(self):
+        return self.response.status_code
+    @property
+    def headers(self):
+        return self.response.headers
+    @property
+    def content(self):
+        return self.response.content
   
 # 204
 class EmptyResponseWarning(HttpException): pass
@@ -64,12 +71,11 @@ class Connection():
         log.info("API Host: %s/%s" % (self.host, self.base_url))
         log.debug("Accepting json") #, auth: Basic %s" % self.auth)
         
-        # TODO: would like to let people use Connection directly and grab XML data if they want
-        # maybe just an xml_mode flag would be enough
+        # we like JSON
         self.__headers = {"Accept" : "application/json"}
 
-        self.__resource_meta = {}
-        self.__load_urls()
+        self.__resource_meta = self.get() # retrieve metadata about urls and resources
+        log.debug(pformat(self.__resource_meta))
         
         
     def meta_data(self):
@@ -77,16 +83,6 @@ class Connection():
         Return a JSON string representation of resource-to-url mappings 
         """
         return simplejson.dumps(self.__resource_meta)    
-        
-        
-    def __load_urls(self):
-        """
-        Hit the base url and get the urls and resources from 
-        the server
-        """
-        self.__resource_meta = self.get()
-        log.debug("Registry")
-        log.debug(pformat(self.__resource_meta))
         
     def get_url(self, resource_name):
         """
@@ -154,18 +150,18 @@ class Connection():
         if res.status_code in (200, 201, 202):
             result = res.json()
         elif res.status_code == 204 and not suppress_empty:
-            raise EmptyResponseWarning("%d %s @ %s" % (res.status_code, res.reason, url), 
-                                         res.status_code, res.headers, res.content)
+            raise EmptyResponseWarning("%d %s @ %s: %s" % (res.status_code, res.reason, url, res.content), 
+                                         res)
         elif res.status_code >= 500:
-            raise ServerException("%d %s @ %s" % (res.status_code, res.reason, url), 
-                                  res.status_code, res.headers, res.content)
+            raise ServerException("%d %s @ %s: %s" % (res.status_code, res.reason, url, res.content), 
+                                  res)
         elif res.status_code >= 400:
             log.debug("OUTPUT %s" % res.json())
-            raise ClientRequestException("%d %s @ %s" % (res.status_code, res.reason, url), 
-                                         res.status_code, res.headers, res.content)
+            raise ClientRequestException("%d %s @ %s: %s" % (res.status_code, res.reason, url, res.content), 
+                                         res)
         elif res.status_code >= 300:
-            raise RedirectionException("%d %s @ %s" % (res.status_code, res.reason, url), 
-                                         res.status_code, res.headers, res.content)
+            raise RedirectionException("%d %s @ %s: %s" % (res.status_code, res.reason, url, res.content), 
+                                         res)
         return result
 
     def __repr__(self):
