@@ -15,7 +15,7 @@ When a filter is set, it is active and will be used to filter the results.
         the parameters that can be filtered on (ex: min_id)
 
 """
-from mapping import Mapping
+from resources.mapping import Mapping
 from datetime import datetime, date
 
 
