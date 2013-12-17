@@ -6,12 +6,47 @@ from bigcommerce.api.connection import EmptyResponseWarning
 
 log = logging.getLogger("bc_api")
 
+# TODO: support for delete all op - e.g. DELETE products/images
+# create also needs self._url set, but also needs a way to pass in an ID of parent resource (optional kwarg is fine)
+
+# TODO: sub-res access doesn't set _klass properly (client.Images uses class ResourceObject)
+
+# TODO: the _parent fields don't appear to be used anywhere
 
 class ResourceAccessor(object):
     """
-    Provides methods that will create, get, and enumerate resourcesObjects.
+    Provides methods that will create, get, and enumerate ResourceObjects.
+    
+    This client doesn't provide classes for all [sub-]resources in the Bigcommerce v2 API,
+    but those resources can still be accessed; for instance, do client.Redirects for redirects.
+    The "class name" for resources that do not have classes are:
+        Redirects                ->    redirects
+        ShippingMethods          ->    shipping/methods
+        Videos                   ->    products/videos
+        Rules                    ->    products/rules
+        DiscountRules            ->    products/discountrules
+        CustomFields             ->    products/customfields
     """
     
+    # resource metadata from API doesn't show sub-resource URLs,
+    # so to support calls like client.Images.get,create,delete_from_id,
+    # we hardcode them here
+    _subres_urls = {"States" : "countries/states",
+                    "OptionValues" : "options/values",
+                    "ShippingAddresses" : "orders/shippingaddresses",
+                    "OrderProducts" : "orders/products",
+                    "Shipments" : "orders/shipments",
+                    "ConfigurableFields" : "products/configurablefields",
+                    "CustomFields" : "products/customfields",
+                    "SKU" : "products/skus",
+                    "ProductOptions" : "products/options",
+                    "Images" : "products/images",
+                    "Videos" : "products/videos",
+                    "Rules" : "products/rules",
+                    "DiscountRules" : "products/discountrules",
+                    "ShippingMethods" : "shipping/methods"
+                     }
+
     def __init__(self, resource_name, connection):
         """
         Constructor
@@ -25,18 +60,18 @@ class ResourceAccessor(object):
         self._parent = None
         self.__resource_name = resource_name
         self._connection = connection
-        try:
+        try: # TODO: I don't think globals() and locals() does anything here... using importlib would be better, too
             mod = __import__('%s' % resource_name.lower(), globals(), locals(), [resource_name], -1)
             self._klass = getattr(mod, resource_name)
-        except:
-            self._klass = ResourceObject
-            
-        # Work around for option values URL being incorrect
-        if resource_name == "OptionValues": # only needed if OptionValues is accessed as a resouce (not subres)
-            self._url = "/options/values"
-        else:
-            self._url = self._connection.get_resource_url(self.__resource_name.lower())
-            
+        except: # TODO: ImportError? KeyError?
+            try: # try set it as a sub-resource
+                mod = __import__('subresource', globals(), locals(), [resource_name], -1)
+                self._klass = getattr(mod, resource_name)
+            except:
+                self._klass = ResourceObject
+ 
+        self._url = self._subres_urls.get(resource_name, 
+                                          self._connection.get_resource_url(self.__resource_name.lower()))
          
     def __get_page(self, page, limit, query={}):
         """

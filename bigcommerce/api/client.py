@@ -13,8 +13,9 @@ class Client(object):
     def __init__(self, host, token, user_id):
         self._connection = Connection(host, self.BASE_URL, (user_id, token))
         
-    def connection(self): # what's this for?
-        pass
+    @property
+    def connection(self):
+        return self._connection
     
     def get_url_registry(self): # this is used precisely once - in the enum_classes test
         return self._connection.meta_data()
@@ -22,6 +23,6 @@ class Client(object):
     def __getattr__(self, attrname):
         try:
             return ResourceAccessor(attrname, self._connection)
-        except:
-            raise AttributeError
+        except Exception as e: # TODO: what errors would this even raise?
+            raise AttributeError(str(e))
         raise AttributeError

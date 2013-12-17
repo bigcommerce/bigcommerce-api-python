@@ -71,12 +71,11 @@ class Connection():
         log.info("API Host: %s/%s" % (self.host, self.base_url))
         log.debug("Accepting json") #, auth: Basic %s" % self.auth)
         
-        # TODO: would like to let people use Connection directly and grab XML data if they want
-        # maybe just an xml_mode flag would be enough
+        # we like JSON
         self.__headers = {"Accept" : "application/json"}
 
-        self.__resource_meta = {}
-        self.__load_urls()
+        self.__resource_meta = self.get() # retrieve metadata about urls and resources
+        log.debug(pformat(self.__resource_meta))
         
         
     def meta_data(self):
@@ -84,16 +83,6 @@ class Connection():
         Return a JSON string representation of resource-to-url mappings 
         """
         return simplejson.dumps(self.__resource_meta)    
-        
-        
-    def __load_urls(self):
-        """
-        Hit the base url and get the urls and resources from 
-        the server
-        """
-        self.__resource_meta = self.get()
-        log.debug("Registry")
-        log.debug(pformat(self.__resource_meta))
         
     def get_url(self, resource_name):
         """
