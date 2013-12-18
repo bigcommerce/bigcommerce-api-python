@@ -72,7 +72,7 @@ class Connection():
         log.debug("Accepting json") #, auth: Basic %s" % self.auth)
         
         # we like JSON
-        self.__headers = {"Accept" : "application/json"}
+        self._headers = {"Accept" : "application/json"}
 
         self.__resource_meta = self.get() # retrieve metadata about urls and resources
         log.debug(pformat(self.__resource_meta))
@@ -99,7 +99,7 @@ class Connection():
     def full_path(self, url):
         return "https://" + self.host + self.base_url + url
     
-    # could use a session to save the auth and __headers - keeping as is for now
+    # could use a session to save the auth and _headers - keeping as is for now
     
     def _run_method(self, method, url, headers, data=None, query={}):
         qs = urllib.urlencode(query)
@@ -116,7 +116,7 @@ class Connection():
         """
         Perform the GET request and return the parsed results
         """
-        response = self._run_method(requests.get, url, self.__headers, query=query)
+        response = self._run_method(requests.get, url, self._headers, query=query)
         log.debug("GET %s status %d" % (url,response.status_code))
         return self._handle_response(url, response)
         
@@ -124,7 +124,7 @@ class Connection():
         """
         Make a PUT request to save updates
         """
-        response = self._run_method(requests.put, url, self.__headers, 
+        response = self._run_method(requests.put, url, self._headers, 
                                     data=updates)
         log.debug("PUT %s status %d" % (url,response.status_code))
         log.debug("OUTPUT: %s" % response.content)
@@ -134,12 +134,12 @@ class Connection():
         """
         POST request for creating new objects.
         """
-        response = self._run_method(requests.post, url, self.__headers, 
+        response = self._run_method(requests.post, url, self._headers, 
                                     data=data)
         return self._handle_response(url, response)
         
     def delete(self, url):
-        response = self._run_method(requests.delete, url, self.__headers)
+        response = self._run_method(requests.delete, url, self._headers)
         return self._handle_response(url, response, suppress_empty=True)
     
     def _handle_response(self, url, res, suppress_empty=False):

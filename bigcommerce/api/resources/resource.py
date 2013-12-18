@@ -245,12 +245,10 @@ class ResourceObject(object):
                 _con = SubResourceAccessor(self.sub_resources[attrname].get("klass", ResourceObject), 
                                            data, self._connection, 
                                            self)
-                
                 # If the subresource is a list of objects
                 if not self.sub_resources[attrname].get("single", False):
                     _list = list(_con.get_all())
                     self._fields[attrname] = _list
-                
                 # if the subresource is a single object    
                 else:
                     self._fields[attrname] = _con.get("")
@@ -263,6 +261,22 @@ class ResourceObject(object):
             return self._fields[attrname]
             
         raise AttributeError
+    
+    def refresh(self, subresname): # there needs to be a better solution
+        """
+        Retrieves sub-resources of type subresname and stores them
+        as thisobject.subresname.
+        """
+        _con = SubResourceAccessor(self.sub_resources[subresname].get("klass", ResourceObject), 
+                                   self._url + "/" + subresname, self._connection, 
+                                   self)
+        # If the subresource is a list of objects
+        if not self.sub_resources[subresname].get("single", False):
+            _list = list(_con.get_all())
+            self._fields[subresname] = _list
+        # if the subresource is a single object    
+        else:
+            self._fields[subresname] = _con.get("")
     
     
     def __setattr__(self, name, value):
