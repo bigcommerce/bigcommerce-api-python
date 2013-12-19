@@ -2,7 +2,7 @@ import sys
 import logging
 from mapping import Mapping
 from bigcommerce.api.filters import FilterSet
-from bigcommerce.api.connection import EmptyResponseWarning
+from bigcommerce.api.httpexception import EmptyResponseWarning
 
 log = logging.getLogger("bc_api")
 
