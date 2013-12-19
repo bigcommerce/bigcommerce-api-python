@@ -20,9 +20,12 @@ class Connection():
     Connection class manages the connection to the Bigcommerce REST API.
     """
     
-    def __init__(self, host, api_path, auth):
+    def __init__(self, host, api_path, auth, map_wrap=True):
         """
-        On creation, an initial call is made to load the mappings of resources to URLs
+        On creation, an initial call is made to load the mappings of resources to URLs.
+        
+        If map_wrap is set, results returned will be Mapping objects, allowing for dot access
+        (as well as being standard dictionaries).
         """
         self.host = host
         self.api_path = api_path
