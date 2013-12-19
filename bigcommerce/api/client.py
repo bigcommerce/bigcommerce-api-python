@@ -11,18 +11,14 @@ class Client(object):
     BASE_URL = '/api/v2'
     
     def __init__(self, host, token, user_id):
-        self._connection = Connection(host, self.BASE_URL, (user_id, token))
+        self.connection = Connection(host, self.BASE_URL, (user_id, token))
         
-    @property
-    def connection(self):
-        return self._connection
-    
     def get_url_registry(self): # this is used precisely once - in the enum_classes test
-        return self._connection.meta_data()
+        return self.connection.meta_data()
         
     def __getattr__(self, attrname):
         try:
-            return ResourceAccessor(attrname, self._connection)
+            return ResourceAccessor(attrname, self.connection)
         except Exception as e: # TODO: what errors would this even raise?
             raise AttributeError(str(e))
         raise AttributeError

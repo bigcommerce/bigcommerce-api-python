@@ -37,7 +37,6 @@ class TestGeneralCRUD(unittest.TestCase):
             speakers.name = "Logitech Pure-Fi Speakers"
             speakers.price = new_price
             speakers.description = "This is a description"
-            speakers.get_url()
             speakers.update()
 
             self.assertTrue(speakers.id == 32)

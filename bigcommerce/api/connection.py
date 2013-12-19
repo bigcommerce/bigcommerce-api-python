@@ -58,16 +58,16 @@ class Connection():
     Connection class manages the connection to the Bigcommerce REST API.
     """
     
-    def __init__(self, host, base_url, auth):
+    def __init__(self, host, api_path, auth):
         """
         On creation, an initial call is made to load the mappings of resources to URLs
         """
         self.host = host
-        self.base_url = base_url
+        self.api_path = api_path
         
         self.timeout = 7.0 # need to catch timeout?
         
-        log.info("API Host: %s/%s" % (self.host, self.base_url))
+        log.info("API Host: %s/%s" % (self.host, self.api_path))
         
         # set up the session
         self._session = requests.Session()
@@ -76,7 +76,6 @@ class Connection():
 
         self.__resource_meta = self.get() # retrieve metadata about urls and resources
         log.debug(pformat(self.__resource_meta))
-        
         
     def meta_data(self):
         """
@@ -97,9 +96,7 @@ class Connection():
         return self.__resource_meta.get(resource_name, {}).get("resource", None)
 
     def full_path(self, url):
-        return "https://" + self.host + self.base_url + url
-    
-    # could use a session to save the auth and _headers - keeping as is for now
+        return "https://" + self.host + self.api_path + url
     
     def _run_method(self, method, url, data=None, query={}):
         # make full path
@@ -164,4 +161,4 @@ class Connection():
         return result
 
     def __repr__(self):
-        return "Connection %s%s" % (self.host, self.base_url)    
+        return "Connection %s%s" % (self.host, self.api_path)    
