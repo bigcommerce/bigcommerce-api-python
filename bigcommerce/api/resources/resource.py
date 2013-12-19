@@ -84,6 +84,12 @@ class ResourceAccessor(object):
     
     def get_all(self, start=1, limit=0, query={}, max_per_page=50):
         """
+        Same as iter_all, but returns a list rather than a generator.
+        """
+        return list(self.iter_all(start, limit, query, max_per_page))
+    
+    def iter_all(self, start=1, limit=0, query={}, max_per_page=50):
+        """
         Enumerate resources
         
         @param start: Start retrieving from the 'start'th resource.
@@ -246,7 +252,7 @@ class ResourceObject(object):
                                            self)
                 # If the subresource is a list of objects
                 if not self.sub_resources[attrname].get("single", False):
-                    _list = list(_con.get_all())
+                    _list = list(_con.iter_all())
                     self._fields[attrname] = _list
                 # if the subresource is a single object    
                 else:
@@ -261,7 +267,7 @@ class ResourceObject(object):
             
         raise AttributeError
     
-    def refresh(self, subresname): # there needs to be a better solution
+    def refresh(self, subresname): # TODO: there needs to be a better solution
         """
         Retrieves sub-resources of type subresname and stores them
         as thisobject.subresname.
@@ -271,7 +277,7 @@ class ResourceObject(object):
                                    self)
         # If the subresource is a list of objects
         if not self.sub_resources[subresname].get("single", False):
-            _list = list(_con.get_all())
+            _list = list(_con.iter_all())
             self._fields[subresname] = _list
         # if the subresource is a single object    
         else:
