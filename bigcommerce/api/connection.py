@@ -11,7 +11,7 @@ from pprint import pformat # only used once, in __load_urls
 
 import requests
 
-log = logging.getLogger("BigCommerce.con")
+log = logging.getLogger("Bigcommerce.com")
 
 class HttpException(Exception):
     """
@@ -64,15 +64,15 @@ class Connection():
         """
         self.host = host
         self.base_url = base_url
-        self.auth = auth
         
         self.timeout = 7.0 # need to catch timeout?
         
         log.info("API Host: %s/%s" % (self.host, self.base_url))
-        log.debug("Accepting json") #, auth: Basic %s" % self.auth)
         
-        # we like JSON
-        self._headers = {"Accept" : "application/json"}
+        # set up the session
+        self._session = requests.Session()
+        self._session.auth = auth
+        self._session.headers = {"Accept" : "application/json"}
 
         self.__resource_meta = self.get() # retrieve metadata about urls and resources
         log.debug(pformat(self.__resource_meta))
@@ -101,32 +101,32 @@ class Connection():
     
     # could use a session to save the auth and _headers - keeping as is for now
     
-    def _run_method(self, method, url, headers, data=None, query={}):
+    def _run_method(self, method, url, data=None, query={}):
+        # make full path
         qs = urllib.urlencode(query)
         if qs: qs = "?" + qs
         url = self.full_path("%s%s" % (url, qs))
+        # mess with content
         if data:
             data = simplejson.dumps(data)
-            headers = dict({'Content-Type' : 'application/json'}, **headers)
+            headers = {'Content-Type' : 'application/json'}
+        else: headers = None
         log.debug("%s %s%s" % (method, url, qs))
-        
-        return method(url, auth=self.auth, headers=headers, data=data, timeout=self.timeout)
+        # make and send the request
+        return self._session.request(method, url, data=data, timeout=self.timeout, headers=headers)
     
     def get(self, url="", query={}):
         """
         Perform the GET request and return the parsed results
         """
-        response = self._run_method(requests.get, url, self._headers, query=query)
-        log.debug("GET %s status %d" % (url,response.status_code))
+        response = self._run_method('GET', url, query=query)
         return self._handle_response(url, response)
         
     def update(self, url, updates):
         """
         Make a PUT request to save updates
         """
-        response = self._run_method(requests.put, url, self._headers, 
-                                    data=updates)
-        log.debug("PUT %s status %d" % (url,response.status_code))
+        response = self._run_method('PUT', url, data=updates)
         log.debug("OUTPUT: %s" % response.content)
         return self._handle_response(url, response)
     
@@ -134,18 +134,18 @@ class Connection():
         """
         POST request for creating new objects.
         """
-        response = self._run_method(requests.post, url, self._headers, 
-                                    data=data)
+        response = self._run_method('POST', url, data=data)
         return self._handle_response(url, response)
         
     def delete(self, url):
-        response = self._run_method(requests.delete, url, self._headers)
+        response = self._run_method('DELETE', url)
         return self._handle_response(url, response, suppress_empty=True)
     
     def _handle_response(self, url, res, suppress_empty=False):
         """
         Returns parsed JSON or raises an exception appropriately.
         """
+        log.debug("STATUS CODE: %s" % res.status_code)
         result = {}
         if res.status_code in (200, 201, 202):
             result = res.json()
@@ -156,7 +156,6 @@ class Connection():
             raise ServerException("%d %s @ %s: %s" % (res.status_code, res.reason, url, res.content), 
                                   res)
         elif res.status_code >= 400:
-            log.debug("OUTPUT %s" % res.json())
             raise ClientRequestException("%d %s @ %s: %s" % (res.status_code, res.reason, url, res.content), 
                                          res)
         elif res.status_code >= 300:
@@ -165,4 +164,4 @@ class Connection():
         return result
 
     def __repr__(self):
-        return "Connection %s" % (self.host)    
+        return "Connection %s%s" % (self.host, self.base_url)    

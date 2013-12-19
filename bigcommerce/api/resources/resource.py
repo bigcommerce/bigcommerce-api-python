@@ -240,7 +240,6 @@ class ResourceObject(object):
         else:
             # if we are dealing with a sub resource and we have not 
             # already made the call to inflate it - do so
-            # TODO: there's currentlyno way to "refresh" an object's subresources
             if self.sub_resources.has_key(attrname) and isinstance(data, dict):
                 _con = SubResourceAccessor(self.sub_resources[attrname].get("klass", ResourceObject), 
                                            data, self._connection, 
