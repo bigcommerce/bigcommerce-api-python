@@ -79,7 +79,7 @@ class ResourceAccessor(object):
         """
         _query = {"page": page, "limit": limit}
         _query.update(query)
-        return self._connection.get(self._url, _query)
+        return self._connection.get(self._url, **_query)
     
     
     def get_all(self, start=1, limit=0, query={}, max_per_page=50):
@@ -144,10 +144,10 @@ class ResourceAccessor(object):
     def get_count(self, query={}):
         
         if query:
-            _query = query.query_dict()
+            _query = query.query_dict() # TODO: wat?
         else:
             _query = query
-        result = self._connection.get("%s/%s" % (self._url, "count"), _query)
+        result = self._connection.get("%s/%s" % (self._url, "count"), **_query)
         return result.get("count")
     
     def get_subresources(self):
@@ -164,7 +164,7 @@ class ResourceAccessor(object):
             _, parent, sub = self._url.split('/')
             url = "/{}/{}/{}".format(parent, parent_id, sub)
         else: url = self._url
-        new = self._connection.create(url, data) # TODO: which exception is thrown when this fails? bad req (400)?
+        new = self._connection.create(url, data)
         return self._klass(self._connection, url, new, self._parent)
     
     def delete_from_id(self, id):

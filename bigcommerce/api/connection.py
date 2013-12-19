@@ -100,6 +100,8 @@ class Connection():
     
     def _run_method(self, method, url, data=None, query={}):
         # make full path
+        if url and url[0] != '/': # convenience!
+            url = '/' + url
         qs = urllib.urlencode(query)
         if qs: qs = "?" + qs
         url = self.full_path("%s%s" % (url, qs))
@@ -112,7 +114,7 @@ class Connection():
         # make and send the request
         return self._session.request(method, url, data=data, timeout=self.timeout, headers=headers)
     
-    def get(self, url="", query={}):
+    def get(self, url="", **query):
         """
         Perform the GET request and return the parsed results
         """
@@ -142,7 +144,6 @@ class Connection():
         """
         Returns parsed JSON or raises an exception appropriately.
         """
-        log.debug("STATUS CODE: %s" % res.status_code)
         result = {}
         if res.status_code in (200, 201, 202):
             result = res.json()

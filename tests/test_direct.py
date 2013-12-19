@@ -17,7 +17,7 @@ class TestDirectCalls(unittest.TestCase):
         self.connection = Connection(host, '/api/v2', (user, api_key))
     
     def test_get_products(self):
-        with vcr.use_cassette('vcr/test_direct/get_products.yaml', record_mode='once'):
+        with my_vcr.use_cassette('vcr/test_direct/get_products.yaml'):
             products = self.connection.get('/products', {'limit':5})
             self.assertTrue(len(products) == 5)
             
