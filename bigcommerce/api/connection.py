@@ -10,6 +10,7 @@ import simplejson
 from pprint import pformat # only used once for logging, in __load_urls
 
 import requests
+ 
 from resources.mapping import Mapping
 from httpexception import *
 
@@ -20,7 +21,7 @@ class Connection():
     Connection class manages the connection to the Bigcommerce REST API.
     """
     
-    def __init__(self, host, api_path, auth, map_wrap=True):
+    def __init__(self, host, auth, api_path='/api/v2', map_wrap=True):
         """
         On creation, an initial call is made to load the mappings of resources to URLs.
         
@@ -33,7 +34,9 @@ class Connection():
         self.timeout = 7.0 # need to catch timeout?
         
         log.info("API Host: %s/%s" % (self.host, self.api_path))
-        
+
+        self._map_wrap = map_wrap
+
         # set up the session
         self._session = requests.Session()
         self._session.auth = auth
@@ -112,10 +115,12 @@ class Connection():
         result = {}
         if res.status_code in (200, 201, 202):
             result = res.json()
-            if isinstance(result, list):
-                return map(Mapping, result)
-            else:
-                return Mapping(result)
+            if self._map_wrap:
+                if isinstance(result, list):
+                    return map(Mapping, result)
+                else:
+                    return Mapping(result)
+            else: return result
         elif res.status_code == 204 and not suppress_empty:
             raise EmptyResponseWarning("%d %s @ %s: %s" % (res.status_code, res.reason, url, res.content), 
                                          res)

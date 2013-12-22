@@ -11,7 +11,7 @@ class Client(object):
     BASE_URL = '/api/v2'
     
     def __init__(self, host, token, user_id):
-        self.connection = Connection(host, self.BASE_URL, (user_id, token), map_wrap=False)
+        self.connection = Connection(host, (user_id, token), self.BASE_URL, map_wrap=False)
         
     def get_url_registry(self): # this is used precisely once - in the enum_classes test
         return self.connection.meta_data()
