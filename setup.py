@@ -6,15 +6,21 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name = "bigcommerce",
+    name = "Bigcommerce API Python Client",
     version = "0.9.0",
+    
+    packages=['bigcommerce'],
+    package_data = {'' : ['LICENSE', 'README.md']},
+    install_requires = ['nose==1.3.0',
+                        'requests==2.1.0',
+                        'streql==3.0.2'],
     author = "Bigcommerce Engineering",
     author_email = "vip@bigcommerce.com",
-    description = ("Connect Python applications with the Bigcommerce API"),
+    description = "Connect Python applications with the Bigcommerce API",
     license = "MIT",
-    keywords = "example documentation tutorial",
-    url = "http://packages.python.org/an_example_pypi_project",
-    packages=['an_example_pypi_project', 'tests'],
+    keywords = "bigcommerce api client",
+    url = "https://github.com/maetl/bigcommerce-api-python/",
+    
     long_description=read('README'),
     classifiers=[
         "Development Status :: 3 - Alpha",

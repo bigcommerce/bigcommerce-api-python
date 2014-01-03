@@ -36,23 +36,23 @@ class Orders(ResourceObject):
                         ) 
     
     
-    def __get_shipments(self):
+    def __get_shipments(self): # TODO: what the heck is this and why isn't it a sub-resource?
         if self._fields.has_key("shipments"):
             return self._fields["shipments"]
         else:
             url = "%s/shipments" % self.get_url()
             _con = SubResourceAccessor(subresource.Shipments, url, self._connection, self)
             _list = []
-            for sub_res in _con.get_all():
+            for sub_res in _con.iter_all():
                 _list.append(sub_res)
             
             self._fields["shipments"] = _list 
             return _list
         
-    def add_shipment(self, data):
-        pass
-    
     def __repr__(self):
-        return "%s- %s" % (self.id, self.date_created)
+        return "%s- %s" % (self.id, self.date_created)    
     
     shipments = property(fget = __get_shipments)
+    
+    
+    

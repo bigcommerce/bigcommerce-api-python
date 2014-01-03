@@ -37,7 +37,6 @@ class TestGeneralCRUD(unittest.TestCase):
             speakers.name = "Logitech Pure-Fi Speakers"
             speakers.price = new_price
             speakers.description = "This is a description"
-            speakers.get_url()
             speakers.update()
 
             self.assertTrue(speakers.id == 32)
@@ -142,7 +141,8 @@ class TestGeneralCRUD(unittest.TestCase):
             img.update()
                
             # no good support for "refreshing", so have to re-retrieve the product
-            something = self.client.Products.get(33)
+            #something = self.client.Products.get(33)
+            something.refresh('images')
             imgs = something.images
             
             expected[len(imgs) -1] = (276, 33, "h/872/py__71051.png", "don't worry im a doctor")
@@ -156,7 +156,8 @@ class TestGeneralCRUD(unittest.TestCase):
             img.description = img_data['description']
             img.update()
             #imgs = something.subresources.get(ProductImage)
-            something = self.client.Products.get(33)
+            #something = self.client.Products.get(33)
+            something.refresh('images')
             imgs = something.images
             expected[len(imgs) -1] = (276, 33, "h/872/py__71051.png", "YEAP")
             for i, val in enumerate(expected):
@@ -182,7 +183,8 @@ class TestGeneralCRUD(unittest.TestCase):
             img_data.update({'image_file' : "http://docs.python.org/2/_static/py.png"}) # since things go unavailable a lot
             self.client.Images.create(img_data, something.id)
             #
-            something = self.client.Products.get(33)
+            #something = self.client.Products.get(33)
+            something.refresh('images')
             imgs = something.images
             expected.append((277, 33, "l/793/py__19050.png", "YEAP"))
             for i, val in enumerate(expected):

@@ -2,7 +2,7 @@ import sys
 import logging
 from mapping import Mapping
 from bigcommerce.api.filters import FilterSet
-from bigcommerce.api.connection import EmptyResponseWarning
+from bigcommerce.api.httpexception import EmptyResponseWarning
 
 log = logging.getLogger("bc_api")
 
@@ -79,10 +79,16 @@ class ResourceAccessor(object):
         """
         _query = {"page": page, "limit": limit}
         _query.update(query)
-        return self._connection.get(self._url, _query)
+        return self._connection.get(self._url, **_query)
     
     
     def get_all(self, start=1, limit=0, query={}, max_per_page=50):
+        """
+        Same as iter_all, but returns a list rather than a generator.
+        """
+        return list(self.iter_all(start, limit, query, max_per_page))
+    
+    def iter_all(self, start=1, limit=0, query={}, max_per_page=50):
         """
         Enumerate resources
         
@@ -144,10 +150,10 @@ class ResourceAccessor(object):
     def get_count(self, query={}):
         
         if query:
-            _query = query.query_dict()
+            _query = query.query_dict() # TODO: wat?
         else:
             _query = query
-        result = self._connection.get("%s/%s" % (self._url, "count"), _query)
+        result = self._connection.get("%s/%s" % (self._url, "count"), **_query)
         return result.get("count")
     
     def get_subresources(self):
@@ -164,7 +170,7 @@ class ResourceAccessor(object):
             _, parent, sub = self._url.split('/')
             url = "/{}/{}/{}".format(parent, parent_id, sub)
         else: url = self._url
-        new = self._connection.create(url, data) # TODO: which exception is thrown when this fails? bad req (400)?
+        new = self._connection.create(url, data)
         return self._klass(self._connection, url, new, self._parent)
     
     def delete_from_id(self, id):
@@ -240,17 +246,14 @@ class ResourceObject(object):
         else:
             # if we are dealing with a sub resource and we have not 
             # already made the call to inflate it - do so
-            # TODO: there's currentlyno way to "refresh" an object's subresources
             if self.sub_resources.has_key(attrname) and isinstance(data, dict):
                 _con = SubResourceAccessor(self.sub_resources[attrname].get("klass", ResourceObject), 
                                            data, self._connection, 
                                            self)
-                
                 # If the subresource is a list of objects
                 if not self.sub_resources[attrname].get("single", False):
-                    _list = list(_con.get_all())
+                    _list = list(_con.iter_all())
                     self._fields[attrname] = _list
-                
                 # if the subresource is a single object    
                 else:
                     self._fields[attrname] = _con.get("")
@@ -263,6 +266,22 @@ class ResourceObject(object):
             return self._fields[attrname]
             
         raise AttributeError
+    
+    def refresh(self, subresname): # TODO: there needs to be a better solution
+        """
+        Retrieves sub-resources of type subresname and stores them
+        as thisobject.subresname.
+        """
+        _con = SubResourceAccessor(self.sub_resources[subresname].get("klass", ResourceObject), 
+                                   self._url + "/" + subresname, self._connection, 
+                                   self)
+        # If the subresource is a list of objects
+        if not self.sub_resources[subresname].get("single", False):
+            _list = list(_con.iter_all())
+            self._fields[subresname] = _list
+        # if the subresource is a single object    
+        else:
+            self._fields[subresname] = _con.get("")
     
     
     def __setattr__(self, name, value):
