@@ -15,7 +15,7 @@ setup(
                         'simplejson>=3.3.1'],
     author = "Bigcommerce Engineering",
     author_email = "vip@bigcommerce.com",
-    description = ("Connect Python applications with the Bigcommerce API"),
+    description = "Connect Python applications with the Bigcommerce API",
     license = "MIT",
     keywords = "bigcommerce api client",
     url = "https://github.com/maetl/bigcommerce-api-python/",

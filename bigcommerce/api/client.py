@@ -1,11 +1,11 @@
-import os
-import sys
+import os, sys
 import logging
 
 from bigcommerce.api.connection import Connection
 from bigcommerce.api.resources.resource import ResourceAccessor
 
 log = logging.getLogger("Bigcommerce.api")
+
 
 class Client(object):
     BASE_URL = '/api/v2'
@@ -19,6 +19,6 @@ class Client(object):
     def __getattr__(self, attrname):
         try:
             return ResourceAccessor(attrname, self.connection)
-        except Exception as e: # TODO: what errors would this even raise?
+        except Exception as e:  # TODO: what errors would this even raise?
             raise AttributeError(str(e))
         raise AttributeError

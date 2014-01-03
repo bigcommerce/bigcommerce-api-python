@@ -1,8 +1,4 @@
 from bigcommerce.api.client import Client 
-from bigcommerce.api.connection import *
-#from bigcommerce.api.resources.products import *
-
-# from bigcommerce.connection import Connection 
-# from bigcommerce.httpexception import *
-# from bigcommerce.resource import *
-# from bigcommerce.subresource import *
+from bigcommerce.api.connection import Connection, HttpException, ClientRequestException, \
+    EmptyResponseWarning, RedirectionException, ServerException
+from bigcommerce.api.oauthconnection import OAuthConnection
