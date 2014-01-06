@@ -11,8 +11,7 @@ setup(
     
     packages=['bigcommerce'],
     package_data = {'' : ['LICENSE', 'README.md']},
-    install_requires = ['nose==1.3.0',
-                        'requests==2.1.0',
+    install_requires = ['requests==2.1.0',
                         'streql==3.0.2'],
     author = "Bigcommerce Engineering",
     author_email = "vip@bigcommerce.com",
@@ -21,7 +20,7 @@ setup(
     keywords = "bigcommerce api client",
     url = "https://github.com/maetl/bigcommerce-api-python/",
     
-    long_description=read('README'),
+    long_description=read('README.md'),
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Topic :: Software Development :: Libraries :: Python Modules",
