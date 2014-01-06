@@ -1,0 +1,16 @@
+- request: !!python/object:vcr.request.Request
+    body: code=9tqwwadit8bc3h2lj37kmiv2bq0804v&client_id=iu4mk0piq5r664w687c1d6lv84mz1s9&redirect_uri=https%3A%2F%2F61798136.ngrok.com%2Fauth%2Fcallback&context=stores%2F65j86n8y&scope=store_v2_orders+store_v2_products+store_v2_customers+store_v2_content+store_v2_marketing+store_v2_information_read_only+store_v2_shipping_read_only+users_basic_information&client_secret=ntb1kcxa1do55wf0h25ps7h94fnsoi6&grant_type=authorization_code
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept, application/json]
+      - !!python/tuple [Content-Type, application/x-www-form-urlencoded]
+      - !!python/tuple [Content-Length, '422']
+    host: api.bigcommerceapp.com
+    method: POST
+    path: /stores/65j86n8y/v2/https://login-dev.bigcommerceapp.com/oauth2/token
+    port: 443
+    protocol: https
+  response:
+    body: {string: '{"error":"You are not authorized."}'}
+    headers: {connection: keep-alive, content-length: '35', content-type: text/plain;
+        charset=utf-8}
+    status: {code: 401, message: Unauthorized}

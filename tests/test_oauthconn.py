@@ -4,45 +4,11 @@ import vcr
 import bigcommerce as api
 
 
-# make a loud matcher for easier debugging
-def loud_matcher(r1, r2):
-    print "loud_matcher: Checking match"
-    match = True
-    fail_msg = "loud_matcher: failed on {}: {} != {}"
-    for match_on in ['method', 'url', 'headers', 'body']:
-        if not getattr(r1, match_on) == getattr(r2, match_on):
-            print fail_msg.format(match_on, getattr(r1, match_on), getattr(r2, match_on))
-            match = False
-    if match: print "loud_matcher: Match success"
-    return match
-
-myvcr = vcr.VCR()
-myvcr.register_matcher('loud', loud_matcher)
-myvcr.match_on = ['loud']
-
-#
-# code=9tqwwadit8bc3h2lj37kmiv2bq0804v&
-# client_id=iu4mk0piq5r664w687c1d6lv84mz1s9&
-# redirect_uri=https%3A%2F%2F61798136.ngrok.com%2Fauth%2Fcallback&
-# context=stores%2F65j86n8y&
-# scope=store_v2_orders+store_v2_products+store_v2_customers+store_v2_content+store_v2_marketing+store_v2_information_read_only+store_v2_shipping_read_only+users_basic_information&
-# client_secret=ntb1kcxa1do55wf0h25ps7h94fnsoi6&
-# grant_type=authorization_code
-#
-# code=9tqwwadit8bc3h2lj37kmiv2bq0804v&
-# client_id=iu4mk0piq5r664w687c1d6lv84mz1s9&
-# redirect_uri=https%3A%2F%2F61798136.ngrok.com%2Fauth%2Fcallback&
-# context=stores%2FF65j86n8y&
-# scope=store_v2_orders%2Bstore_v2_products%2Bstore_v2_customers%2Bstore_v2_content%2Bstore_v2_marketing%2Bstore_v2_information_read_only%2Bstore_v2_shipping_read_only%2Busers_basic_information&
-# client_secret=ntb1kcxa1do55wf0h25ps7h94fnsoi6&
-# grant_type=authorization_code
-
-
 class TestOAuthConnection(unittest.TestCase):
 
     def test_registration(self):
-        """Test simple case of fetching token, then using it to make a request."""
-        with myvcr.use_cassette('fixtures/vcr/register_request.yaml'):
+        """Fetch token, then use it to make a request."""
+        with vcr.use_cassette('fixtures/vcr/register_request.yml', match_on=['method', 'url', 'headers', 'body']):
             # info from registration, etc
             code = '9tqwwadit8bc3h2lj37kmiv2bq0804v'
             client_id = 'iu4mk0piq5r664w687c1d6lv84mz1s9'
@@ -77,3 +43,15 @@ class TestOAuthConnection(unittest.TestCase):
                 self.assertTrue(products[i].id == data[0])
                 self.assertTrue(products[i].name == data[1])
                 self.assertTrue(products[i].price == data[2])
+
+    def test_verify(self):
+        """Decode and verify signed payload."""
+        payload = "eyJ1c2VyIjp7ImlkIjo3MiwiZW1haWwiOiJqYWNraWUuaHV5bmh" \
+                  "AYmlnY29tbWVyY2UuY29tIn0sInN0b3JlX2hhc2giOiJsY3R2aD" \
+                  "V3bSIsInRpbWVzdGFtcCI6MTM4OTA1MDMyNy42NTc5NjI2fQ==." \
+                  "ZTViYzAzNTM2MGFjM2M2YTVkZjFmNzFlYTk4NTY1ODZiMzkxODZmZDExZTdjZGFmOGEzN2E3YTEzNGQ0MmExYw=="
+        client_secret = 'ntb1kcxa1do55wf0h25ps7h94fnsoi6'
+        user_data = api.OAuthConnection.verify_payload(payload, client_secret)
+        self.assertTrue(user_data != False)
+        self.assertTrue(user_data['user']['id'] == 72)
+        self.assertTrue(user_data['user']['email'] == "jackie.huynh@bigcommerce.com")

@@ -74,6 +74,8 @@ class Connection(object):
             if url[0] == '/':  # can call with /resource if you want
                 url = url[1:]
             url = self.full_path(url)
+        elif not url:  # blank path
+            url = self.full_path(url)
 
         qs = urllib.urlencode(query)
         if qs: qs = "?" + qs
