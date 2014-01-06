@@ -3,8 +3,11 @@ from bigcommerce import *
 import unittest
 import vcr
 
+from nose.plugins.attrib import attr
+
 my_vcr = vcr.VCR(match_on = ['url', 'method', 'body']) # headers too?
 
+@attr('broken')
 class TestGeneralCRUD(unittest.TestCase):
     """
     Test CRUD operations through Client
