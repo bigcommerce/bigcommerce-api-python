@@ -3,7 +3,7 @@ BigCommerce API V2 - Python Client
 
 THIS README HAS NOT BEEN UPDATED AND MAY NOT BE ACCURATE - until then,
 
-you will need `requests`, and `nose` and `vcrpy` if you want to run the tests.
+you will need `requests` and `streql` (which you can grab using `pip install`), and `nose` and `vcrpy` if you want to run the tests.
 
 And for basic usage,
 
