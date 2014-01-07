@@ -4,9 +4,9 @@ Connection Module
 Handles put and get operations to the Bigcommerce REST API
 """
 
-import urllib, json # only used for urlencode querystr
+import urllib, json  # only used for urlencode querystr
 import logging
-from pprint import pformat # only used once for logging, in __load_urls
+from pprint import pformat  # only used once for logging, in __load_urls
 
 import requests
 

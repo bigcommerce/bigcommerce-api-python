@@ -6,7 +6,7 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name = "Bigcommerce API Python Client",
+    name = "bigcommerce-api",
     version = "0.9.0",
     
     packages=['bigcommerce'],

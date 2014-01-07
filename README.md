@@ -3,7 +3,9 @@ Bigcommerce API V2 - Python Client
 
 Lightweight wrapper over the `requests` library for communicating with the Bigcommerce v2 API.
 
-You will need `requests` and `streql` (both should be installed as dependencies if you do `pip install bigcommerce-api`), and `nose` and `vcrpy` if you want to run the tests.
+
+Needs `requests` and `streql` (run `pip install bigcommerce-api` for easiest way to install),
+and `nose` and `vcrpy` if you want to run the tests.
 
 Basic usage
 
