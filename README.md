@@ -1,4 +1,4 @@
-BigCommerce API V2 - Python Client
+Bigcommerce API V2 - Python Client
 ==================================
 
 Lightweight wrapper over the `requests` library for communicating with the Bigcommerce v2 API.
