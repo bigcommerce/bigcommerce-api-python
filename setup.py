@@ -1,5 +1,5 @@
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
 
 # Utility function to read the README file.
 def read(fname):
@@ -7,9 +7,9 @@ def read(fname):
 
 setup(
     name = "bigcommerce-api",
-    version = "0.9.0",
+    version = "0.9.1",
     
-    packages=['bigcommerce'],
+    packages=find_packages(exclude=['tests']),
     package_data = {'' : ['LICENSE', 'README.md']},
     install_requires = ['requests>=2.1.0',
                         'streql>=3.0.2'],
