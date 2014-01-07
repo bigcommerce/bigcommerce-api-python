@@ -141,9 +141,9 @@ class Connection(object):
         if res.status_code in (200, 201, 202):
             try:
                 result = res.json()
-            except Exception as e: # json might be invalid, or store might be down
-                print res.content
-                raise # TODO more specific exceptions
+            except Exception as e:  # json might be invalid, or store might be down
+                e.message += " (_handle_response failed to decode JSON: " + str(res.content) + ")"
+                raise  # TODO better exception
             if self._map_wrap:
                 if isinstance(result, list):
                     return map(Mapping, result)
