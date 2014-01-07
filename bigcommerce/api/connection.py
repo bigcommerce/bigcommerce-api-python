@@ -82,9 +82,13 @@ class Connection(object):
         url += qs
 
         # mess with content
-        if data and headers and not 'Content-Type' in headers:
-            data = json.dumps(data)
-            headers['Content-Type'] = 'application/json'
+        if data:
+            if not headers:  # assume JSON
+                data = json.dumps(data)
+                headers = {'Content-Type': 'application/json'}
+            if headers and not 'Content-Type' in headers:
+                data = json.dumps(data)
+                headers['Content-Type'] = 'application/json'
         log.debug("%s %s" % (method, url))
         # make and send the request
         return self._session.request(method, url, data=data, timeout=self.timeout, headers=headers)
