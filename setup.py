@@ -18,7 +18,7 @@ setup(
     description = "Connect Python applications with the Bigcommerce API",
     license = "MIT",
     keywords = "bigcommerce api client",
-    url = "https://github.com/maetl/bigcommerce-api-python/",
+    url = "https://github.com/bc-jackiehuynh/bigcommerce-api-python/tree/alpha",
     
     long_description=read('README.md'),
     classifiers=[
