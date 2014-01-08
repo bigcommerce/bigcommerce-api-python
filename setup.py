@@ -9,7 +9,7 @@ setup(
     name = "bigcommerce-api",
     version = "0.9.3",
     
-    packages=find_packages(exclude=['tests']),
+    packages=find_packages(),
     package_data = {'' : ['LICENSE', 'README.md']},
     install_requires = ['requests>=2.1.0',
                         'streql>=3.0.2'],
