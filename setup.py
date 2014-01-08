@@ -7,7 +7,7 @@ def read(fname):
 
 setup(
     name = "bigcommerce-api",
-    version = "0.9.2",
+    version = "0.9.3",
     
     packages=find_packages(exclude=['tests']),
     package_data = {'' : ['LICENSE', 'README.md']},
