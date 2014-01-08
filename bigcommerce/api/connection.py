@@ -68,7 +68,7 @@ class Connection(object):
     def full_path(self, url):
         return "https://" + self.host + self.api_path.format(url)
     
-    def _run_method(self, method, url, data=None, query={}, headers=None):
+    def _run_method(self, method, url, data=None, query={}, headers={}):
         # make full path if not given
         if url and url[:4] != "http":
             if url[0] == '/':  # can call with /resource if you want
@@ -124,7 +124,7 @@ class Connection(object):
         response = self._run_method('POST', url, data=data)
         return self._handle_response(url, response)
 
-    def post(self, url, data, headers=None):
+    def post(self, url, data, headers={}):
         """
         POST request for creating new objects.
         data should be a dictionary.
@@ -132,7 +132,10 @@ class Connection(object):
         response = self._run_method('POST', url, data=data, headers=headers)
         return self._handle_response(url, response)
         
-    def delete(self, url):
+    def delete(self, url, id_=None):  # note that id_ can't be 0 - problem?
+        if id_:
+            if url[-1] != '/': url += '/'
+            url += str(id_)
         response = self._run_method('DELETE', url)
         return self._handle_response(url, response, suppress_empty=True)
     
