@@ -7,7 +7,7 @@ Lightweight wrapper over the `requests` library for communicating with the Bigco
 Needs `requests` and `streql` (run `pip install bigcommerce-api` for easiest way to install),
 and `nose` and `vcrpy` if you want to run the tests.
 
-Basic usage
+### Basic usage
 
 of Connection:
 ```python
@@ -22,8 +22,14 @@ AUTH = ('username', 'apikey')
 
 conn = api.Connection(HOST, AUTH)
 pprint(conn.get('products', limit=5)  # supply any filter parameter as a keyword argument
-p = conn.get('products', 35)
-print p.id, p.name  # p is a Mapping; a dict with . access to values
+
+try:
+    p = conn.get('products', 35)
+    print p.id, p.name  # p is a Mapping; a dict with . access to values
+except ClientRequestException as e:
+    if e.status_code == 404:
+        print "failed to get product with id 35"
+    print e.content
 
 p = conn.update('products', p.id, {'name': 'Something Else'})
 print p.id, p.name
@@ -51,3 +57,11 @@ conn = OAuthConnection(client_id, store_hash, access_token)
 # and for constant-time verification of the signed payload passed to your load url
 user_data = api.OAuthConnection.verify_payload(signed_payload, client_secret)  # returns False if authentication fails
 ```
+
+### Exceptions
+
+This library captures errors from the server in HttpException classes (included in the import `import bigcommerce`), which expose `status_code`, `headers`, and `content`. These exceptions will be raised for any non-200 status code (the exception to this is 204, which is raised for methods other than `Connection.delete`).
+
+There are a few basic subclasses to HttpException: RedirectionException, ClientRequestException, ServerException, corresponding to 3xx, 4xx, and 5xx codes, and EmptyResponseWarning for 204.
+
+If you find yourself wanting a more complete class heirarchy, or are otherwise aren't happy with the interface, please post an issue or otherwise contact me.
