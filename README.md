@@ -21,16 +21,16 @@ HOST = 'www.example.com'
 AUTH = ('username', 'apikey')
 
 conn = api.Connection(HOST, AUTH)
-pprint(conn.get('products', limit=5)  # supply any query parameter as a keyword argument
-p = conn.get('products/35')
+pprint(conn.get('products', limit=5)  # supply any filter parameter as a keyword argument
+p = conn.get('products', 35)
 print p.id, p.name  # p is a Mapping; a dict with . access to values
 
-p = conn.update('products/{}'.format(p.id), {'name': 'Something Else'})
+p = conn.update('products', p.id, {'name': 'Something Else'})
 print p.id, p.name
 
 imgs = conn.get('products/{}/images'.format(p.id))
 
-# for deleting: conn.delete('resource/id')
+# for deleting: conn.delete('resource', id)
 # for posting: conn.create('resource', data)
 ```
 
