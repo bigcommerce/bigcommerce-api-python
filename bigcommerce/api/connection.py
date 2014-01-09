@@ -93,35 +93,58 @@ class Connection(object):
         # make and send the request
         return self._session.request(method, url, data=data, timeout=self.timeout, headers=headers)
 
-    def get(self, url="", **query):
+    # CRUD methods
+
+    def get(self, resource="", rid=None, **query):
         """
-        Perform the GET request and return the parsed results
+        Retrieves the resource with given id 'rid', or all resources of given type.
+        Keep in mind that the API returns a list for any query that doesn't specify an ID, even when applying
+        a limit=1 filter.
+        Also be aware that float values tend to come back as strings ("2.0000" instead of 2.0)
+
+        Keyword arguments can be parsed for filtering the query, for example:
+            connection.get('products', limit=3, min_price=10.5)
+        (see Bigcommerce resource documentation).
         """
-        response = self._run_method('GET', url, query=query)
-        return self._handle_response(url, response)
+        if rid:
+            if resource[-1] != '/': resource += '/'
+            resource += str(rid)
+        response = self._run_method('GET', resource, query=query)
+        return self._handle_response(resource, response)
         
-    def update(self, url, updates):
+    def update(self, resource, rid, updates):
         """
-        Same as put
+        Updates the resource with id 'rid' with the given updates dictionary.
         """
-        response = self._run_method('PUT', url, data=updates)
-        log.debug("OUTPUT: %s" % response.content)
-        return self._handle_response(url, response)
+        if resource[-1] != '/': resource += '/'
+        resource += str(rid)
+        return self.put(resource, data=updates)
 
-    def put(self, url, updates):
+    def create(self, resource, data):
         """
-        Make a PUT request to save updates.
-        updates should be a dictionary.
+        Create a resource with given data dictionary.
         """
-        response = self._run_method('PUT', url, data=updates)
-        log.debug("OUTPUT: %s" % response.content)
-        return self._handle_response(url, response)
+        return self.post(resource, data)
 
-    def create(self, url, data):
+    def delete(self, resource, rid=None):  # note that rid can't be 0 - problem?
         """
-        Same as post
+        Deletes the resource with given id 'rid', or all resources of given type if rid is not supplied.
         """
-        response = self._run_method('POST', url, data=data)
+        if rid:
+            if resource[-1] != '/': resource += '/'
+            resource += str(rid)
+        response = self._run_method('DELETE', resource)
+        return self._handle_response(resource, response, suppress_empty=True)
+
+    # Raw-er stuff
+
+    def put(self, url, data):
+        """
+        Make a PUT request to save data.
+        data should be a dictionary.
+        """
+        response = self._run_method('PUT', url, data=data)
+        log.debug("OUTPUT: %s" % response.content)
         return self._handle_response(url, response)
 
     def post(self, url, data, headers={}):
@@ -131,14 +154,7 @@ class Connection(object):
         """
         response = self._run_method('POST', url, data=data, headers=headers)
         return self._handle_response(url, response)
-        
-    def delete(self, url, id_=None):  # note that id_ can't be 0 - problem?
-        if id_:
-            if url[-1] != '/': url += '/'
-            url += str(id_)
-        response = self._run_method('DELETE', url)
-        return self._handle_response(url, response, suppress_empty=True)
-    
+
     def _handle_response(self, url, res, suppress_empty=False):
         """
         Returns parsed JSON or raises an exception appropriately.
