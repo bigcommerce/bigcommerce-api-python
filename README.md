@@ -29,7 +29,9 @@ p = conn.update('products/{}'.format(p.id), {'name': 'Something Else'})
 print p.id, p.name
 
 imgs = conn.get('products/{}/images'.format(p.id))
-# ... and etc
+
+# for deleting: conn.delete('resource/id')
+# for posting: conn.create('resource', data)
 ```
 
 and of OAuthConnection
