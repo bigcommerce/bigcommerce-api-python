@@ -4,9 +4,9 @@ Connection Module
 Handles put and get operations to the Bigcommerce REST API
 """
 
-import urllib, json # only used for urlencode querystr
+import urllib, json  # only used for urlencode querystr
 import logging
-from pprint import pformat # only used once for logging, in __load_urls
+from pprint import pformat  # only used once for logging, in __load_urls
 
 import requests
 
@@ -68,11 +68,13 @@ class Connection(object):
     def full_path(self, url):
         return "https://" + self.host + self.api_path.format(url)
     
-    def _run_method(self, method, url, data=None, query={}, headers=None):
+    def _run_method(self, method, url, data=None, query={}, headers={}):
         # make full path if not given
         if url and url[:4] != "http":
             if url[0] == '/':  # can call with /resource if you want
                 url = url[1:]
+            url = self.full_path(url)
+        elif not url:  # blank path
             url = self.full_path(url)
 
         qs = urllib.urlencode(query)
@@ -80,56 +82,79 @@ class Connection(object):
         url += qs
 
         # mess with content
-        if data and headers and not 'Content-Type' in headers:
-            data = json.dumps(data)
-            headers['Content-Type'] = 'application/json'
+        if data:
+            if not headers:  # assume JSON
+                data = json.dumps(data)
+                headers = {'Content-Type': 'application/json'}
+            if headers and not 'Content-Type' in headers:
+                data = json.dumps(data)
+                headers['Content-Type'] = 'application/json'
         log.debug("%s %s" % (method, url))
         # make and send the request
         return self._session.request(method, url, data=data, timeout=self.timeout, headers=headers)
 
-    def get(self, url="", **query):
+    # CRUD methods
+
+    def get(self, resource="", rid=None, **query):
         """
-        Perform the GET request and return the parsed results
+        Retrieves the resource with given id 'rid', or all resources of given type.
+        Keep in mind that the API returns a list for any query that doesn't specify an ID, even when applying
+        a limit=1 filter.
+        Also be aware that float values tend to come back as strings ("2.0000" instead of 2.0)
+
+        Keyword arguments can be parsed for filtering the query, for example:
+            connection.get('products', limit=3, min_price=10.5)
+        (see Bigcommerce resource documentation).
         """
-        response = self._run_method('GET', url, query=query)
-        return self._handle_response(url, response)
+        if rid:
+            if resource[-1] != '/': resource += '/'
+            resource += str(rid)
+        response = self._run_method('GET', resource, query=query)
+        return self._handle_response(resource, response)
         
-    def update(self, url, updates):
+    def update(self, resource, rid, updates):
         """
-        Same as put
+        Updates the resource with id 'rid' with the given updates dictionary.
         """
-        response = self._run_method('PUT', url, data=updates)
+        if resource[-1] != '/': resource += '/'
+        resource += str(rid)
+        return self.put(resource, data=updates)
+
+    def create(self, resource, data):
+        """
+        Create a resource with given data dictionary.
+        """
+        return self.post(resource, data)
+
+    def delete(self, resource, rid=None):  # note that rid can't be 0 - problem?
+        """
+        Deletes the resource with given id 'rid', or all resources of given type if rid is not supplied.
+        """
+        if rid:
+            if resource[-1] != '/': resource += '/'
+            resource += str(rid)
+        response = self._run_method('DELETE', resource)
+        return self._handle_response(resource, response, suppress_empty=True)
+
+    # Raw-er stuff
+
+    def put(self, url, data):
+        """
+        Make a PUT request to save data.
+        data should be a dictionary.
+        """
+        response = self._run_method('PUT', url, data=data)
         log.debug("OUTPUT: %s" % response.content)
         return self._handle_response(url, response)
 
-    def put(self, url, updates):
-        """
-        Make a PUT request to save updates.
-        updates should be a dictionary.
-        """
-        response = self._run_method('PUT', url, data=updates)
-        log.debug("OUTPUT: %s" % response.content)
-        return self._handle_response(url, response)
-
-    def create(self, url, data):
-        """
-        Same as post
-        """
-        response = self._run_method('POST', url, data=data)
-        return self._handle_response(url, response)
-
-    def post(self, url, data, headers=None):
+    def post(self, url, data, headers={}):
         """
         POST request for creating new objects.
         data should be a dictionary.
         """
         response = self._run_method('POST', url, data=data, headers=headers)
         return self._handle_response(url, response)
-        
-    def delete(self, url):
-        response = self._run_method('DELETE', url)
-        return self._handle_response(url, response, suppress_empty=True)
-    
+
     def _handle_response(self, url, res, suppress_empty=False):
         """
         Returns parsed JSON or raises an exception appropriately.
@@ -139,9 +164,9 @@ class Connection(object):
         if res.status_code in (200, 201, 202):
             try:
                 result = res.json()
-            except Exception as e: # json might be invalid, or store might be down
-                print res.content
-                raise # TODO more specific exceptions
+            except Exception as e:  # json might be invalid, or store might be down
+                e.message += " (_handle_response failed to decode JSON: " + str(res.content) + ")"
+                raise  # TODO better exception
             if self._map_wrap:
                 if isinstance(result, list):
                     return map(Mapping, result)

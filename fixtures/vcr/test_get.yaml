@@ -1,0 +1,223 @@
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept, application/json]
+      - !!python/tuple [X-Auth-Token, 7ij6bj9q78g0hu8xusumgj5dss70t8b]
+      - !!python/tuple [X-Auth-Client, iu4mk0piq5r664w687c1d6lv84mz1s9]
+    host: 18828145.ngrok.com
+    method: GET
+    path: /stores/lctvh5wm/v2/products?limit=4&page=2
+    port: 443
+    protocol: https
+  response:
+    body: {string: '[{"id":36,"keyword_filter":null,"name":"[Sample] Benjamin Button,
+        red petty coat","type":"physical","sku":"","description":"<p><strong>How to
+        write product descriptions that sell<\/strong><br \/>One of the best things
+        you can do to make your store successful is invest some time in writing great
+        product descriptions. You want to provide detailed yet concise information
+        that will entice potential customers to buy.<br \/><br \/>Keep three things
+        in mind:<br \/><br \/><strong>Think like a consumer<\/strong><br \/>Think
+        about what you as a consumer would want to know, then include those features
+        in your description. For clothes: materials and fit. For food: ingredients
+        and how it was prepared. Bullets are your friends when listing features &mdash;
+        try to limit each one to 5-8 words.<br \/><br \/><strong>Find differentiators<\/strong><br
+        \/>Pepper your features with details that show how the product stands out
+        against similar offerings. For clothes: is it vintage or hard to find? For
+        art: is the artist well known? For home d&eacute;cor: is it a certain style
+        like mid-century modern? Unique product descriptions not only help you stand
+        out, they improve your SEO.<br \/><br \/><strong>Keep it simple<\/strong><br
+        \/>Provide enough detail to help consumers make an informed decision, but
+        don&rsquo;t overwhelm with a laundry list of features or flowery language.
+        Densely pack your descriptions with useful information and watch products
+        fly off the shelf.<\/p>","search_keywords":null,"availability_description":"","price":"110.0000","cost_price":"0.0000","retail_price":"0.0000","sale_price":"90.0000","calculated_price":"90.0000","sort_order":0,"is_visible":true,"is_featured":false,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"0.5000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"0.0000","is_free_shipping":true,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Fri,
+        21 Sep 2012 04:27:09 +0000","brand_id":19,"view_count":9,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[15],"date_modified":"Mon,
+        24 Sep 2012 05:01:49 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":14,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/benjamin-button-red-petty-coat\/","availability":"available","brand":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/brands\/19.json","resource":"\/brands\/19"},"images":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/36\/images.json","resource":"\/products\/36\/images"},"discount_rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/36\/discountrules.json","resource":"\/products\/36\/discountrules"},"configurable_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/36\/configurablefields.json","resource":"\/products\/36\/configurablefields"},"custom_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/36\/customfields.json","resource":"\/products\/36\/customfields"},"videos":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/36\/videos.json","resource":"\/products\/36\/videos"},"skus":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/36\/skus.json","resource":"\/products\/36\/skus"},"rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/36\/rules.json","resource":"\/products\/36\/rules"},"option_set":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/optionsets\/14.json","resource":"\/optionsets\/14"},"options":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/36\/options.json","resource":"\/products\/36\/options"},"tax_class":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}},{"id":37,"keyword_filter":null,"name":"[Sample]
+        Levi''s, blue denim womens shirt","type":"physical","sku":"","description":"<p><strong>How
+        to write product descriptions that sell<\/strong><br \/>One of the best things
+        you can do to make your store successful is invest some time in writing great
+        product descriptions. You want to provide detailed yet concise information
+        that will entice potential customers to buy.<br \/><br \/>Keep three things
+        in mind:<br \/><br \/><strong>Think like a consumer<\/strong><br \/>Think
+        about what you as a consumer would want to know, then include those features
+        in your description. For clothes: materials and fit. For food: ingredients
+        and how it was prepared. Bullets are your friends when listing features &mdash;
+        try to limit each one to 5-8 words.<br \/><br \/><strong>Find differentiators<\/strong><br
+        \/>Pepper your features with details that show how the product stands out
+        against similar offerings. For clothes: is it vintage or hard to find? For
+        art: is the artist well known? For home d&eacute;cor: is it a certain style
+        like mid-century modern? Unique product descriptions not only help you stand
+        out, they improve your SEO.<br \/><br \/><strong>Keep it simple<\/strong><br
+        \/>Provide enough detail to help consumers make an informed decision, but
+        don&rsquo;t overwhelm with a laundry list of features or flowery language.
+        Densely pack your descriptions with useful information and watch products
+        fly off the shelf.<\/p>","search_keywords":null,"availability_description":"","price":"29.0000","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"29.0000","sort_order":0,"is_visible":true,"is_featured":false,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"2.0000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"5.0000","is_free_shipping":false,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Fri,
+        21 Sep 2012 04:32:08 +0000","brand_id":23,"view_count":6,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[3,15],"date_modified":"Mon,
+        24 Sep 2012 05:01:49 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":14,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/levis-blue-denim-womens-shirt\/","availability":"available","brand":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/brands\/23.json","resource":"\/brands\/23"},"images":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/37\/images.json","resource":"\/products\/37\/images"},"discount_rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/37\/discountrules.json","resource":"\/products\/37\/discountrules"},"configurable_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/37\/configurablefields.json","resource":"\/products\/37\/configurablefields"},"custom_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/37\/customfields.json","resource":"\/products\/37\/customfields"},"videos":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/37\/videos.json","resource":"\/products\/37\/videos"},"skus":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/37\/skus.json","resource":"\/products\/37\/skus"},"rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/37\/rules.json","resource":"\/products\/37\/rules"},"option_set":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/optionsets\/14.json","resource":"\/optionsets\/14"},"options":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/37\/options.json","resource":"\/products\/37\/options"},"tax_class":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}},{"id":38,"keyword_filter":null,"name":"[Sample]
+        Maccas, colorful cardigans","type":"physical","sku":"","description":"<p><strong>How
+        to write product descriptions that sell<\/strong><br \/>One of the best things
+        you can do to make your store successful is invest some time in writing great
+        product descriptions. You want to provide detailed yet concise information
+        that will entice potential customers to buy.<br \/><br \/>Keep three things
+        in mind:<br \/><br \/><strong>Think like a consumer<\/strong><br \/>Think
+        about what you as a consumer would want to know, then include those features
+        in your description. For clothes: materials and fit. For food: ingredients
+        and how it was prepared. Bullets are your friends when listing features &mdash;
+        try to limit each one to 5-8 words.<br \/><br \/><strong>Find differentiators<\/strong><br
+        \/>Pepper your features with details that show how the product stands out
+        against similar offerings. For clothes: is it vintage or hard to find? For
+        art: is the artist well known? For home d&eacute;cor: is it a certain style
+        like mid-century modern? Unique product descriptions not only help you stand
+        out, they improve your SEO.<br \/><br \/><strong>Keep it simple<\/strong><br
+        \/>Provide enough detail to help consumers make an informed decision, but
+        don&rsquo;t overwhelm with a laundry list of features or flowery language.
+        Densely pack your descriptions with useful information and watch products
+        fly off the shelf.<\/p>","search_keywords":null,"availability_description":"","price":"39.0000","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"39.0000","sort_order":0,"is_visible":true,"is_featured":false,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"0.3000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"8.0000","is_free_shipping":false,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Fri,
+        21 Sep 2012 04:35:39 +0000","brand_id":24,"view_count":1,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[3,15],"date_modified":"Mon,
+        24 Sep 2012 05:28:02 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":13,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/maccas-colorful-cardigans\/","availability":"available","brand":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/brands\/24.json","resource":"\/brands\/24"},"images":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/38\/images.json","resource":"\/products\/38\/images"},"discount_rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/38\/discountrules.json","resource":"\/products\/38\/discountrules"},"configurable_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/38\/configurablefields.json","resource":"\/products\/38\/configurablefields"},"custom_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/38\/customfields.json","resource":"\/products\/38\/customfields"},"videos":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/38\/videos.json","resource":"\/products\/38\/videos"},"skus":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/38\/skus.json","resource":"\/products\/38\/skus"},"rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/38\/rules.json","resource":"\/products\/38\/rules"},"option_set":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/optionsets\/13.json","resource":"\/optionsets\/13"},"options":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/38\/options.json","resource":"\/products\/38\/options"},"tax_class":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}},{"id":39,"keyword_filter":null,"name":"[Sample]
+        Burberry, Fuschia knitted sweater","type":"physical","sku":"BU234","description":"<p><strong>How
+        to write product descriptions that sell<\/strong><br \/>One of the best things
+        you can do to make your store successful is invest some time in writing great
+        product descriptions. You want to provide detailed yet concise information
+        that will entice potential customers to buy.<br \/><br \/>Keep three things
+        in mind:<br \/><br \/><strong>Think like a consumer<\/strong><br \/>Think
+        about what you as a consumer would want to know, then include those features
+        in your description. For clothes: materials and fit. For food: ingredients
+        and how it was prepared. Bullets are your friends when listing features &mdash;
+        try to limit each one to 5-8 words.<br \/><br \/><strong>Find differentiators<\/strong><br
+        \/>Pepper your features with details that show how the product stands out
+        against similar offerings. For clothes: is it vintage or hard to find? For
+        art: is the artist well known? For home d&eacute;cor: is it a certain style
+        like mid-century modern? Unique product descriptions not only help you stand
+        out, they improve your SEO.<br \/><br \/><strong>Keep it simple<\/strong><br
+        \/>Provide enough detail to help consumers make an informed decision, but
+        don&rsquo;t overwhelm with a laundry list of features or flowery language.
+        Densely pack your descriptions with useful information and watch products
+        fly off the shelf.<\/p>","search_keywords":null,"availability_description":"","price":"189.0000","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"189.0000","sort_order":0,"is_visible":true,"is_featured":false,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"1.1000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"0.0000","is_free_shipping":true,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Fri,
+        21 Sep 2012 04:37:11 +0000","brand_id":25,"view_count":2,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[3,15],"date_modified":"Mon,
+        24 Sep 2012 05:01:49 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":14,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/burberry-fuschia-knitted-sweater\/","availability":"available","brand":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/brands\/25.json","resource":"\/brands\/25"},"images":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/39\/images.json","resource":"\/products\/39\/images"},"discount_rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/39\/discountrules.json","resource":"\/products\/39\/discountrules"},"configurable_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/39\/configurablefields.json","resource":"\/products\/39\/configurablefields"},"custom_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/39\/customfields.json","resource":"\/products\/39\/customfields"},"videos":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/39\/videos.json","resource":"\/products\/39\/videos"},"skus":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/39\/skus.json","resource":"\/products\/39\/skus"},"rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/39\/rules.json","resource":"\/products\/39\/rules"},"option_set":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/optionsets\/14.json","resource":"\/optionsets\/14"},"options":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/39\/options.json","resource":"\/products\/39\/options"},"tax_class":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}}]'}
+    headers: {connection: keep-alive, content-length: '17543', content-type: application/json,
+      date: 'Thu, 09 Jan 2014 03:05:18 GMT', last-modified: 'Mon, 24 Sep 2012 05:28:02
+        +0000', server: nginx/1.4.3, x-bc-apilimit-remaining: '1000', x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept, application/json]
+      - !!python/tuple [X-Auth-Token, 7ij6bj9q78g0hu8xusumgj5dss70t8b]
+      - !!python/tuple [X-Auth-Client, iu4mk0piq5r664w687c1d6lv84mz1s9]
+    host: 18828145.ngrok.com
+    method: GET
+    path: /stores/lctvh5wm/v2/products?min_price=100.9&limit=4
+    port: 443
+    protocol: https
+  response:
+    body: {string: '[{"id":36,"keyword_filter":null,"name":"[Sample] Benjamin Button,
+        red petty coat","type":"physical","sku":"","description":"<p><strong>How to
+        write product descriptions that sell<\/strong><br \/>One of the best things
+        you can do to make your store successful is invest some time in writing great
+        product descriptions. You want to provide detailed yet concise information
+        that will entice potential customers to buy.<br \/><br \/>Keep three things
+        in mind:<br \/><br \/><strong>Think like a consumer<\/strong><br \/>Think
+        about what you as a consumer would want to know, then include those features
+        in your description. For clothes: materials and fit. For food: ingredients
+        and how it was prepared. Bullets are your friends when listing features &mdash;
+        try to limit each one to 5-8 words.<br \/><br \/><strong>Find differentiators<\/strong><br
+        \/>Pepper your features with details that show how the product stands out
+        against similar offerings. For clothes: is it vintage or hard to find? For
+        art: is the artist well known? For home d&eacute;cor: is it a certain style
+        like mid-century modern? Unique product descriptions not only help you stand
+        out, they improve your SEO.<br \/><br \/><strong>Keep it simple<\/strong><br
+        \/>Provide enough detail to help consumers make an informed decision, but
+        don&rsquo;t overwhelm with a laundry list of features or flowery language.
+        Densely pack your descriptions with useful information and watch products
+        fly off the shelf.<\/p>","search_keywords":null,"availability_description":"","price":"110.0000","cost_price":"0.0000","retail_price":"0.0000","sale_price":"90.0000","calculated_price":"90.0000","sort_order":0,"is_visible":true,"is_featured":false,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"0.5000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"0.0000","is_free_shipping":true,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Fri,
+        21 Sep 2012 04:27:09 +0000","brand_id":19,"view_count":9,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[15],"date_modified":"Mon,
+        24 Sep 2012 05:01:49 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":14,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/benjamin-button-red-petty-coat\/","availability":"available","brand":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/brands\/19.json","resource":"\/brands\/19"},"images":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/36\/images.json","resource":"\/products\/36\/images"},"discount_rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/36\/discountrules.json","resource":"\/products\/36\/discountrules"},"configurable_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/36\/configurablefields.json","resource":"\/products\/36\/configurablefields"},"custom_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/36\/customfields.json","resource":"\/products\/36\/customfields"},"videos":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/36\/videos.json","resource":"\/products\/36\/videos"},"skus":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/36\/skus.json","resource":"\/products\/36\/skus"},"rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/36\/rules.json","resource":"\/products\/36\/rules"},"option_set":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/optionsets\/14.json","resource":"\/optionsets\/14"},"options":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/36\/options.json","resource":"\/products\/36\/options"},"tax_class":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}},{"id":39,"keyword_filter":null,"name":"[Sample]
+        Burberry, Fuschia knitted sweater","type":"physical","sku":"BU234","description":"<p><strong>How
+        to write product descriptions that sell<\/strong><br \/>One of the best things
+        you can do to make your store successful is invest some time in writing great
+        product descriptions. You want to provide detailed yet concise information
+        that will entice potential customers to buy.<br \/><br \/>Keep three things
+        in mind:<br \/><br \/><strong>Think like a consumer<\/strong><br \/>Think
+        about what you as a consumer would want to know, then include those features
+        in your description. For clothes: materials and fit. For food: ingredients
+        and how it was prepared. Bullets are your friends when listing features &mdash;
+        try to limit each one to 5-8 words.<br \/><br \/><strong>Find differentiators<\/strong><br
+        \/>Pepper your features with details that show how the product stands out
+        against similar offerings. For clothes: is it vintage or hard to find? For
+        art: is the artist well known? For home d&eacute;cor: is it a certain style
+        like mid-century modern? Unique product descriptions not only help you stand
+        out, they improve your SEO.<br \/><br \/><strong>Keep it simple<\/strong><br
+        \/>Provide enough detail to help consumers make an informed decision, but
+        don&rsquo;t overwhelm with a laundry list of features or flowery language.
+        Densely pack your descriptions with useful information and watch products
+        fly off the shelf.<\/p>","search_keywords":null,"availability_description":"","price":"189.0000","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"189.0000","sort_order":0,"is_visible":true,"is_featured":false,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"1.1000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"0.0000","is_free_shipping":true,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Fri,
+        21 Sep 2012 04:37:11 +0000","brand_id":25,"view_count":2,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[3,15],"date_modified":"Mon,
+        24 Sep 2012 05:01:49 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":14,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/burberry-fuschia-knitted-sweater\/","availability":"available","brand":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/brands\/25.json","resource":"\/brands\/25"},"images":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/39\/images.json","resource":"\/products\/39\/images"},"discount_rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/39\/discountrules.json","resource":"\/products\/39\/discountrules"},"configurable_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/39\/configurablefields.json","resource":"\/products\/39\/configurablefields"},"custom_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/39\/customfields.json","resource":"\/products\/39\/customfields"},"videos":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/39\/videos.json","resource":"\/products\/39\/videos"},"skus":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/39\/skus.json","resource":"\/products\/39\/skus"},"rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/39\/rules.json","resource":"\/products\/39\/rules"},"option_set":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/optionsets\/14.json","resource":"\/optionsets\/14"},"options":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/39\/options.json","resource":"\/products\/39\/options"},"tax_class":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}},{"id":47,"keyword_filter":null,"name":"[Sample]
+        Ben Sherman, BW striped long sleeve tee","type":"physical","sku":"","description":"<p>Type
+        a description for this product here...<\/p>","search_keywords":null,"availability_description":"","price":"110.0000","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"110.0000","sort_order":0,"is_visible":true,"is_featured":false,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"1.2000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"0.0000","is_free_shipping":true,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Sun,
+        23 Sep 2012 01:42:33 +0000","brand_id":0,"view_count":1,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[1],"date_modified":"Mon,
+        24 Sep 2012 05:01:49 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":14,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/ben-sherman-bw-striped-long-sleeve-tee\/","availability":"available","brand":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/brands\/0.json","resource":"\/brands\/0"},"images":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/47\/images.json","resource":"\/products\/47\/images"},"discount_rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/47\/discountrules.json","resource":"\/products\/47\/discountrules"},"configurable_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/47\/configurablefields.json","resource":"\/products\/47\/configurablefields"},"custom_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/47\/customfields.json","resource":"\/products\/47\/customfields"},"videos":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/47\/videos.json","resource":"\/products\/47\/videos"},"skus":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/47\/skus.json","resource":"\/products\/47\/skus"},"rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/47\/rules.json","resource":"\/products\/47\/rules"},"option_set":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/optionsets\/14.json","resource":"\/optionsets\/14"},"options":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/47\/options.json","resource":"\/products\/47\/options"},"tax_class":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}},{"id":48,"keyword_filter":null,"name":"[Sample]
+        Marcs, power to the paisley mens shirt","type":"physical","sku":"","description":"<p><strong>How
+        to write product descriptions that sell<\/strong><br \/>One of the best things
+        you can do to make your store successful is invest some time in writing great
+        product descriptions. You want to provide detailed yet concise information
+        that will entice potential customers to buy.<br \/><br \/><strong>Keep three
+        things in mind:<\/strong><br \/><br \/><strong>Think like a consumer<\/strong><br
+        \/>Think about what you as a consumer would want to know, then include those
+        features in your description. For clothes: materials and fit. For food: ingredients
+        and how it was prepared. Bullets are your friends when listing features &mdash;
+        try to limit each one to 5-8 words.<br \/><br \/><strong>Find differentiators<\/strong><br
+        \/>Pepper your features with details that show how the product stands out
+        against similar offerings. For clothes: is it vintage or hard to find? For
+        art: is the artist well known? For home d&eacute;cor: is it a certain style
+        like mid-century modern? Unique product descriptions not only help you stand
+        out, they improve your SEO.<br \/><br \/><strong>Keep it simple<\/strong><br
+        \/>Provide enough detail to help consumers make an informed decision, but
+        don&rsquo;t overwhelm with a laundry list of features or flowery language.
+        Densely pack your descriptions with useful information and watch products
+        fly off the shelf.<\/p>","search_keywords":null,"availability_description":"","price":"112.0000","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"112.0000","sort_order":0,"is_visible":true,"is_featured":false,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"1.2000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"8.0000","is_free_shipping":false,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Sun,
+        23 Sep 2012 01:44:11 +0000","brand_id":0,"view_count":1,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[1],"date_modified":"Mon,
+        24 Sep 2012 05:01:49 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":14,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/marcs-power-to-the-paisley-mens-shirt\/","availability":"available","brand":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/brands\/0.json","resource":"\/brands\/0"},"images":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/48\/images.json","resource":"\/products\/48\/images"},"discount_rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/48\/discountrules.json","resource":"\/products\/48\/discountrules"},"configurable_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/48\/configurablefields.json","resource":"\/products\/48\/configurablefields"},"custom_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/48\/customfields.json","resource":"\/products\/48\/customfields"},"videos":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/48\/videos.json","resource":"\/products\/48\/videos"},"skus":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/48\/skus.json","resource":"\/products\/48\/skus"},"rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/48\/rules.json","resource":"\/products\/48\/rules"},"option_set":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/optionsets\/14.json","resource":"\/optionsets\/14"},"options":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/48\/options.json","resource":"\/products\/48\/options"},"tax_class":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}}]'}
+    headers: {connection: keep-alive, content-length: '16299', content-type: application/json,
+      date: 'Thu, 09 Jan 2014 03:05:20 GMT', last-modified: 'Mon, 24 Sep 2012 05:01:49
+        +0000', server: nginx/1.4.3, x-bc-apilimit-remaining: '1000', x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept, application/json]
+      - !!python/tuple [X-Auth-Token, 7ij6bj9q78g0hu8xusumgj5dss70t8b]
+      - !!python/tuple [X-Auth-Client, iu4mk0piq5r664w687c1d6lv84mz1s9]
+    host: 18828145.ngrok.com
+    method: GET
+    path: /stores/lctvh5wm/v2/products/37
+    port: 443
+    protocol: https
+  response:
+    body: {string: '{"id":37,"keyword_filter":null,"name":"[Sample] Levi''s, blue
+        denim womens shirt","type":"physical","sku":"","description":"<p><strong>How
+        to write product descriptions that sell<\/strong><br \/>One of the best things
+        you can do to make your store successful is invest some time in writing great
+        product descriptions. You want to provide detailed yet concise information
+        that will entice potential customers to buy.<br \/><br \/>Keep three things
+        in mind:<br \/><br \/><strong>Think like a consumer<\/strong><br \/>Think
+        about what you as a consumer would want to know, then include those features
+        in your description. For clothes: materials and fit. For food: ingredients
+        and how it was prepared. Bullets are your friends when listing features &mdash;
+        try to limit each one to 5-8 words.<br \/><br \/><strong>Find differentiators<\/strong><br
+        \/>Pepper your features with details that show how the product stands out
+        against similar offerings. For clothes: is it vintage or hard to find? For
+        art: is the artist well known? For home d&eacute;cor: is it a certain style
+        like mid-century modern? Unique product descriptions not only help you stand
+        out, they improve your SEO.<br \/><br \/><strong>Keep it simple<\/strong><br
+        \/>Provide enough detail to help consumers make an informed decision, but
+        don&rsquo;t overwhelm with a laundry list of features or flowery language.
+        Densely pack your descriptions with useful information and watch products
+        fly off the shelf.<\/p>","search_keywords":null,"availability_description":"","price":"29.0000","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"29.0000","sort_order":0,"is_visible":true,"is_featured":false,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"2.0000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"5.0000","is_free_shipping":false,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Fri,
+        21 Sep 2012 04:32:08 +0000","brand_id":23,"view_count":6,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[3,15],"date_modified":"Mon,
+        24 Sep 2012 05:01:49 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":14,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/levis-blue-denim-womens-shirt\/","availability":"available","brand":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/brands\/23.json","resource":"\/brands\/23"},"images":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/37\/images.json","resource":"\/products\/37\/images"},"discount_rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/37\/discountrules.json","resource":"\/products\/37\/discountrules"},"configurable_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/37\/configurablefields.json","resource":"\/products\/37\/configurablefields"},"custom_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/37\/customfields.json","resource":"\/products\/37\/customfields"},"videos":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/37\/videos.json","resource":"\/products\/37\/videos"},"skus":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/37\/skus.json","resource":"\/products\/37\/skus"},"rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/37\/rules.json","resource":"\/products\/37\/rules"},"option_set":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/optionsets\/14.json","resource":"\/optionsets\/14"},"options":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/37\/options.json","resource":"\/products\/37\/options"},"tax_class":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}}'}
+    headers: {connection: keep-alive, content-length: '4384', content-type: application/json,
+      date: 'Thu, 09 Jan 2014 03:05:23 GMT', last-modified: 'Mon, 24 Sep 2012 05:01:49
+        +0000', server: nginx/1.4.3, x-bc-apilimit-remaining: '1000', x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}

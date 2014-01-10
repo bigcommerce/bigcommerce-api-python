@@ -1,0 +1,116 @@
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept, application/json]
+      - !!python/tuple [X-Auth-Token, 7ij6bj9q78g0hu8xusumgj5dss70t8b]
+      - !!python/tuple [X-Auth-Client, iu4mk0piq5r664w687c1d6lv84mz1s9]
+    host: 18828145.ngrok.com
+    method: GET
+    path: /stores/lctvh5wm/v2/coupons
+    port: 443
+    protocol: https
+  response:
+    body: {string: '[{"id":1,"name":"5% off order total","type":"percentage_discount","amount":"5.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"3E13CB68AAAEBE5","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":2,"name":"10%
+        off order total","type":"percentage_discount","amount":"10.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"9DB19A3F921355C","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":3,"name":"Free
+        shipping","type":"free_shipping","amount":"0.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"FCA407528841E55","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":4,"name":"$5
+        off shipping","type":"shipping_discount","amount":"5.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"CFF623E6B5219CA","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null}]'}
+    headers: {connection: keep-alive, content-length: '1199', content-type: application/json,
+      date: 'Tue, 07 Jan 2014 05:39:19 GMT', server: nginx/1.4.3, x-bc-apilimit-remaining: '1000',
+      x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: '{"amount": 11.0, "code": "SOMETHINGRANDOM1234", "type": "percentage_discount",
+      "name": "Hi Im Coupon", "applies_to": {"ids": [37], "entity": "products"}}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept, application/json]
+      - !!python/tuple [Content-Length, '153']
+      - !!python/tuple [X-Auth-Token, 7ij6bj9q78g0hu8xusumgj5dss70t8b]
+      - !!python/tuple [Content-Type, application/json]
+      - !!python/tuple [X-Auth-Client, iu4mk0piq5r664w687c1d6lv84mz1s9]
+    host: 18828145.ngrok.com
+    method: POST
+    path: /stores/lctvh5wm/v2/coupons
+    port: 443
+    protocol: https
+  response:
+    body: {string: '{"id":7,"name":"Hi Im Coupon","type":"percentage_discount","amount":"11.0000","min_purchase":"0.0000","expires":"","enabled":false,"code":"SOMETHINGRANDOM1234","applies_to":{"entity":"products","ids":[37]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null}'}
+    headers: {connection: keep-alive, content-length: '301', content-type: application/json,
+      date: 'Tue, 07 Jan 2014 05:39:21 GMT', server: nginx/1.4.3, x-bc-apilimit-remaining: '1000',
+      x-bc-store-version: 7.6.0}
+    status: {code: 201, message: Created}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept, application/json]
+      - !!python/tuple [X-Auth-Token, 7ij6bj9q78g0hu8xusumgj5dss70t8b]
+      - !!python/tuple [X-Auth-Client, iu4mk0piq5r664w687c1d6lv84mz1s9]
+    host: 18828145.ngrok.com
+    method: GET
+    path: /stores/lctvh5wm/v2/coupons
+    port: 443
+    protocol: https
+  response:
+    body: {string: '[{"id":1,"name":"5% off order total","type":"percentage_discount","amount":"5.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"3E13CB68AAAEBE5","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":2,"name":"10%
+        off order total","type":"percentage_discount","amount":"10.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"9DB19A3F921355C","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":3,"name":"Free
+        shipping","type":"free_shipping","amount":"0.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"FCA407528841E55","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":4,"name":"$5
+        off shipping","type":"shipping_discount","amount":"5.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"CFF623E6B5219CA","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":7,"name":"Hi
+        Im Coupon","type":"percentage_discount","amount":"11.0000","min_purchase":"0.0000","expires":"","enabled":false,"code":"SOMETHINGRANDOM1234","applies_to":{"entity":"products","ids":[37]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null}]'}
+    headers: {connection: keep-alive, content-length: '1501', content-type: application/json,
+      date: 'Tue, 07 Jan 2014 05:39:23 GMT', server: nginx/1.4.3, x-bc-apilimit-remaining: '1000',
+      x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept, application/json]
+      - !!python/tuple [X-Auth-Token, 7ij6bj9q78g0hu8xusumgj5dss70t8b]
+      - !!python/tuple [X-Auth-Client, iu4mk0piq5r664w687c1d6lv84mz1s9]
+    host: 18828145.ngrok.com
+    method: GET
+    path: /stores/lctvh5wm/v2/coupons?code=SOMETHINGRANDOM1234
+    port: 443
+    protocol: https
+  response:
+    body: {string: '[{"id":7,"name":"Hi Im Coupon","type":"percentage_discount","amount":"11.0000","min_purchase":"0.0000","expires":"","enabled":false,"code":"SOMETHINGRANDOM1234","applies_to":{"entity":"products","ids":[37]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null}]'}
+    headers: {connection: keep-alive, content-length: '303', content-type: application/json,
+      date: 'Tue, 07 Jan 2014 05:39:25 GMT', server: nginx/1.4.3, x-bc-apilimit-remaining: '1000',
+      x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept, application/json]
+      - !!python/tuple [X-Auth-Token, 7ij6bj9q78g0hu8xusumgj5dss70t8b]
+      - !!python/tuple [Content-Length, '0']
+      - !!python/tuple [X-Auth-Client, iu4mk0piq5r664w687c1d6lv84mz1s9]
+    host: 18828145.ngrok.com
+    method: DELETE
+    path: /stores/lctvh5wm/v2/coupons/7
+    port: 443
+    protocol: https
+  response:
+    body: {string: ''}
+    headers: {connection: keep-alive, content-length: '0', content-type: application/json,
+      date: 'Tue, 07 Jan 2014 05:39:26 GMT', server: nginx/1.4.3, x-bc-apilimit-remaining: '1000',
+      x-bc-store-version: 7.6.0}
+    status: {code: 204, message: No Content}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept, application/json]
+      - !!python/tuple [X-Auth-Token, 7ij6bj9q78g0hu8xusumgj5dss70t8b]
+      - !!python/tuple [X-Auth-Client, iu4mk0piq5r664w687c1d6lv84mz1s9]
+    host: 18828145.ngrok.com
+    method: GET
+    path: /stores/lctvh5wm/v2/coupons
+    port: 443
+    protocol: https
+  response:
+    body: {string: '[{"id":1,"name":"5% off order total","type":"percentage_discount","amount":"5.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"3E13CB68AAAEBE5","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":2,"name":"10%
+        off order total","type":"percentage_discount","amount":"10.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"9DB19A3F921355C","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":3,"name":"Free
+        shipping","type":"free_shipping","amount":"0.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"FCA407528841E55","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null},{"id":4,"name":"$5
+        off shipping","type":"shipping_discount","amount":"5.0000","min_purchase":"0.0000","expires":"","enabled":true,"code":"CFF623E6B5219CA","applies_to":{"entity":"categories","ids":[0]},"num_uses":0,"max_uses":0,"max_uses_per_customer":0,"restricted_to":[],"shipping_methods":null}]'}
+    headers: {connection: keep-alive, content-length: '1199', content-type: application/json,
+      date: 'Tue, 07 Jan 2014 05:39:28 GMT', server: nginx/1.4.3, x-bc-apilimit-remaining: '1000',
+      x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
