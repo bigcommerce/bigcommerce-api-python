@@ -76,14 +76,14 @@ class Connection():
         response = self.__connection.getresponse()
         data = response.read()
         self.__connection.close()
-        
+        log.debug(pformat(response.getheaders()))
         log.debug("GET %s status %d" % (url,response.status))
         result = {}
         
         # Check the return status
         if response.status == 200:
             result = simplejson.loads(data)
-            
+            log.debug("%s" % pformat(result))
         elif response.status == 204:
             raise EmptyResponseWarning("%d %s @ https://%s%s" % (response.status, response.reason, self.host, url))
         
