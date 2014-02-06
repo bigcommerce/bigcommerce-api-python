@@ -69,7 +69,7 @@ class OAuthConnection(Connection):
         return json.loads(dc_json) if authorised else False
 
     def fetch_token(self, client_secret, code, context, scope, redirect_uri,
-                    token_url='https://login.bigcommerceapp.com/oauth2/token'):
+                    token_url='https://login.bigcommerce.com/oauth2/token'):
         """
         Fetches a token from given token_url, using given parameters, and sets up session headers for
         future requests.
