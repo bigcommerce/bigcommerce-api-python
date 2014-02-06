@@ -1,0 +1,189 @@
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept, application/json]
+      - !!python/tuple [X-Auth-Token, 7ij6bj9q78g0hu8xusumgj5dss70t8b]
+      - !!python/tuple [X-Auth-Client, iu4mk0piq5r664w687c1d6lv84mz1s9]
+    host: 18828145.ngrok.com
+    method: GET
+    path: /stores/lctvh5wm/v2/products/45
+    port: 443
+    protocol: https
+  response:
+    body: {string: '{"id":45,"keyword_filter":null,"name":"Something Completely Different","type":"physical","sku":"BW345","description":"<p><strong>How
+        to write product descriptions that sell<\/strong><br \/>One of the best things
+        you can do to make your store successful is invest some time in writing great
+        product descriptions. You want to provide detailed yet concise information
+        that will entice potential customers to buy.<br \/><br \/><strong>Keep three
+        things in mind:<\/strong><br \/><br \/><strong>Think like a consumer<\/strong><br
+        \/>Think about what you as a consumer would want to know, then include those
+        features in your description. For clothes: materials and fit. For food: ingredients
+        and how it was prepared. Bullets are your friends when listing features &mdash;
+        try to limit each one to 5-8 words.<br \/><br \/><strong>Find differentiators<\/strong><br
+        \/>Pepper your features with details that show how the product stands out
+        against similar offerings. For clothes: is it vintage or hard to find? For
+        art: is the artist well known? For home d&eacute;cor: is it a certain style
+        like mid-century modern? Unique product descriptions not only help you stand
+        out, they improve your SEO.<br \/><br \/><strong>Keep it simple<\/strong><br
+        \/>Provide enough detail to help consumers make an informed decision, but
+        don&rsquo;t overwhelm with a laundry list of features or flowery language.
+        Densely pack your descriptions with useful information and watch products
+        fly off the shelf.<\/p>","search_keywords":null,"availability_description":"","price":"29.0000","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"29.0000","sort_order":0,"is_visible":true,"is_featured":false,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"0.5000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"0.0000","is_free_shipping":true,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Sun,
+        23 Sep 2012 01:40:12 +0000","brand_id":0,"view_count":0,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[1],"date_modified":"Thu,
+        09 Jan 2014 03:05:29 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":14,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/insight-black-tee-with-white-print\/","availability":"available","brand":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/brands\/0.json","resource":"\/brands\/0"},"images":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/images.json","resource":"\/products\/45\/images"},"discount_rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/discountrules.json","resource":"\/products\/45\/discountrules"},"configurable_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/configurablefields.json","resource":"\/products\/45\/configurablefields"},"custom_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/customfields.json","resource":"\/products\/45\/customfields"},"videos":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/videos.json","resource":"\/products\/45\/videos"},"skus":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/skus.json","resource":"\/products\/45\/skus"},"rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/rules.json","resource":"\/products\/45\/rules"},"option_set":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/optionsets\/14.json","resource":"\/optionsets\/14"},"options":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/options.json","resource":"\/products\/45\/options"},"tax_class":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}}'}
+    headers: {connection: keep-alive, content-length: '4395', content-type: application/json,
+      date: 'Thu, 09 Jan 2014 03:17:12 GMT', last-modified: 'Thu, 09 Jan 2014 03:05:29
+        +0000', server: nginx/1.4.3, x-bc-apilimit-remaining: '1000', x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: '{"name": "Something Cool"}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept, application/json]
+      - !!python/tuple [Content-Length, '26']
+      - !!python/tuple [X-Auth-Token, 7ij6bj9q78g0hu8xusumgj5dss70t8b]
+      - !!python/tuple [Content-Type, application/json]
+      - !!python/tuple [X-Auth-Client, iu4mk0piq5r664w687c1d6lv84mz1s9]
+    host: 18828145.ngrok.com
+    method: PUT
+    path: /stores/lctvh5wm/v2/products/45
+    port: 443
+    protocol: https
+  response:
+    body: {string: '{"id":45,"keyword_filter":null,"name":"Something Cool","type":"physical","sku":"BW345","description":"<p><strong>How
+        to write product descriptions that sell<\/strong><br \/>One of the best things
+        you can do to make your store successful is invest some time in writing great
+        product descriptions. You want to provide detailed yet concise information
+        that will entice potential customers to buy.<br \/><br \/><strong>Keep three
+        things in mind:<\/strong><br \/><br \/><strong>Think like a consumer<\/strong><br
+        \/>Think about what you as a consumer would want to know, then include those
+        features in your description. For clothes: materials and fit. For food: ingredients
+        and how it was prepared. Bullets are your friends when listing features &mdash;
+        try to limit each one to 5-8 words.<br \/><br \/><strong>Find differentiators<\/strong><br
+        \/>Pepper your features with details that show how the product stands out
+        against similar offerings. For clothes: is it vintage or hard to find? For
+        art: is the artist well known? For home d&eacute;cor: is it a certain style
+        like mid-century modern? Unique product descriptions not only help you stand
+        out, they improve your SEO.<br \/><br \/><strong>Keep it simple<\/strong><br
+        \/>Provide enough detail to help consumers make an informed decision, but
+        don&rsquo;t overwhelm with a laundry list of features or flowery language.
+        Densely pack your descriptions with useful information and watch products
+        fly off the shelf.<\/p>","search_keywords":null,"availability_description":"","price":"29.0000","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"29.0000","sort_order":0,"is_visible":true,"is_featured":false,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"0.5000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"0.0000","is_free_shipping":true,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Sun,
+        23 Sep 2012 01:40:12 +0000","brand_id":0,"view_count":0,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[1],"date_modified":"Thu,
+        09 Jan 2014 03:17:11 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":14,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/insight-black-tee-with-white-print\/","availability":"available","brand":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/brands\/0.json","resource":"\/brands\/0"},"images":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/images.json","resource":"\/products\/45\/images"},"discount_rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/discountrules.json","resource":"\/products\/45\/discountrules"},"configurable_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/configurablefields.json","resource":"\/products\/45\/configurablefields"},"custom_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/customfields.json","resource":"\/products\/45\/customfields"},"videos":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/videos.json","resource":"\/products\/45\/videos"},"skus":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/skus.json","resource":"\/products\/45\/skus"},"rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/rules.json","resource":"\/products\/45\/rules"},"option_set":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/optionsets\/14.json","resource":"\/optionsets\/14"},"options":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/options.json","resource":"\/products\/45\/options"},"tax_class":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}}'}
+    headers: {connection: keep-alive, content-length: '4379', content-type: application/json,
+      date: 'Thu, 09 Jan 2014 03:17:14 GMT', last-modified: 'Thu, 09 Jan 2014 03:17:11
+        +0000', server: nginx/1.4.3, x-bc-apilimit-remaining: '1000', x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept, application/json]
+      - !!python/tuple [X-Auth-Token, 7ij6bj9q78g0hu8xusumgj5dss70t8b]
+      - !!python/tuple [X-Auth-Client, iu4mk0piq5r664w687c1d6lv84mz1s9]
+    host: 18828145.ngrok.com
+    method: GET
+    path: /stores/lctvh5wm/v2/products/45
+    port: 443
+    protocol: https
+  response:
+    body: {string: '{"id":45,"keyword_filter":null,"name":"Something Cool","type":"physical","sku":"BW345","description":"<p><strong>How
+        to write product descriptions that sell<\/strong><br \/>One of the best things
+        you can do to make your store successful is invest some time in writing great
+        product descriptions. You want to provide detailed yet concise information
+        that will entice potential customers to buy.<br \/><br \/><strong>Keep three
+        things in mind:<\/strong><br \/><br \/><strong>Think like a consumer<\/strong><br
+        \/>Think about what you as a consumer would want to know, then include those
+        features in your description. For clothes: materials and fit. For food: ingredients
+        and how it was prepared. Bullets are your friends when listing features &mdash;
+        try to limit each one to 5-8 words.<br \/><br \/><strong>Find differentiators<\/strong><br
+        \/>Pepper your features with details that show how the product stands out
+        against similar offerings. For clothes: is it vintage or hard to find? For
+        art: is the artist well known? For home d&eacute;cor: is it a certain style
+        like mid-century modern? Unique product descriptions not only help you stand
+        out, they improve your SEO.<br \/><br \/><strong>Keep it simple<\/strong><br
+        \/>Provide enough detail to help consumers make an informed decision, but
+        don&rsquo;t overwhelm with a laundry list of features or flowery language.
+        Densely pack your descriptions with useful information and watch products
+        fly off the shelf.<\/p>","search_keywords":null,"availability_description":"","price":"29.0000","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"29.0000","sort_order":0,"is_visible":true,"is_featured":false,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"0.5000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"0.0000","is_free_shipping":true,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Sun,
+        23 Sep 2012 01:40:12 +0000","brand_id":0,"view_count":0,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[1],"date_modified":"Thu,
+        09 Jan 2014 03:17:11 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":14,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/insight-black-tee-with-white-print\/","availability":"available","brand":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/brands\/0.json","resource":"\/brands\/0"},"images":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/images.json","resource":"\/products\/45\/images"},"discount_rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/discountrules.json","resource":"\/products\/45\/discountrules"},"configurable_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/configurablefields.json","resource":"\/products\/45\/configurablefields"},"custom_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/customfields.json","resource":"\/products\/45\/customfields"},"videos":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/videos.json","resource":"\/products\/45\/videos"},"skus":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/skus.json","resource":"\/products\/45\/skus"},"rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/rules.json","resource":"\/products\/45\/rules"},"option_set":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/optionsets\/14.json","resource":"\/optionsets\/14"},"options":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/options.json","resource":"\/products\/45\/options"},"tax_class":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}}'}
+    headers: {connection: keep-alive, content-length: '4379', content-type: application/json,
+      date: 'Thu, 09 Jan 2014 03:17:16 GMT', last-modified: 'Thu, 09 Jan 2014 03:17:11
+        +0000', server: nginx/1.4.3, x-bc-apilimit-remaining: '1000', x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: '{"name": "Something Completely Different"}'
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept, application/json]
+      - !!python/tuple [X-Auth-Token, 7ij6bj9q78g0hu8xusumgj5dss70t8b]
+      - !!python/tuple [Content-Length, '42']
+      - !!python/tuple [Content-Type, application/json]
+      - !!python/tuple [X-Auth-Client, iu4mk0piq5r664w687c1d6lv84mz1s9]
+    host: 18828145.ngrok.com
+    method: PUT
+    path: /stores/lctvh5wm/v2/products/45
+    port: 443
+    protocol: https
+  response:
+    body: {string: '{"id":45,"keyword_filter":null,"name":"Something Completely Different","type":"physical","sku":"BW345","description":"<p><strong>How
+        to write product descriptions that sell<\/strong><br \/>One of the best things
+        you can do to make your store successful is invest some time in writing great
+        product descriptions. You want to provide detailed yet concise information
+        that will entice potential customers to buy.<br \/><br \/><strong>Keep three
+        things in mind:<\/strong><br \/><br \/><strong>Think like a consumer<\/strong><br
+        \/>Think about what you as a consumer would want to know, then include those
+        features in your description. For clothes: materials and fit. For food: ingredients
+        and how it was prepared. Bullets are your friends when listing features &mdash;
+        try to limit each one to 5-8 words.<br \/><br \/><strong>Find differentiators<\/strong><br
+        \/>Pepper your features with details that show how the product stands out
+        against similar offerings. For clothes: is it vintage or hard to find? For
+        art: is the artist well known? For home d&eacute;cor: is it a certain style
+        like mid-century modern? Unique product descriptions not only help you stand
+        out, they improve your SEO.<br \/><br \/><strong>Keep it simple<\/strong><br
+        \/>Provide enough detail to help consumers make an informed decision, but
+        don&rsquo;t overwhelm with a laundry list of features or flowery language.
+        Densely pack your descriptions with useful information and watch products
+        fly off the shelf.<\/p>","search_keywords":null,"availability_description":"","price":"29.0000","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"29.0000","sort_order":0,"is_visible":true,"is_featured":false,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"0.5000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"0.0000","is_free_shipping":true,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Sun,
+        23 Sep 2012 01:40:12 +0000","brand_id":0,"view_count":0,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[1],"date_modified":"Thu,
+        09 Jan 2014 03:17:16 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":14,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/insight-black-tee-with-white-print\/","availability":"available","brand":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/brands\/0.json","resource":"\/brands\/0"},"images":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/images.json","resource":"\/products\/45\/images"},"discount_rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/discountrules.json","resource":"\/products\/45\/discountrules"},"configurable_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/configurablefields.json","resource":"\/products\/45\/configurablefields"},"custom_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/customfields.json","resource":"\/products\/45\/customfields"},"videos":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/videos.json","resource":"\/products\/45\/videos"},"skus":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/skus.json","resource":"\/products\/45\/skus"},"rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/rules.json","resource":"\/products\/45\/rules"},"option_set":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/optionsets\/14.json","resource":"\/optionsets\/14"},"options":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/options.json","resource":"\/products\/45\/options"},"tax_class":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}}'}
+    headers: {connection: keep-alive, content-length: '4395', content-type: application/json,
+      date: 'Thu, 09 Jan 2014 03:17:19 GMT', last-modified: 'Thu, 09 Jan 2014 03:17:16
+        +0000', server: nginx/1.4.3, x-bc-apilimit-remaining: '1000', x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: null
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept, application/json]
+      - !!python/tuple [X-Auth-Token, 7ij6bj9q78g0hu8xusumgj5dss70t8b]
+      - !!python/tuple [X-Auth-Client, iu4mk0piq5r664w687c1d6lv84mz1s9]
+    host: 18828145.ngrok.com
+    method: GET
+    path: /stores/lctvh5wm/v2/products/45
+    port: 443
+    protocol: https
+  response:
+    body: {string: '{"id":45,"keyword_filter":null,"name":"Something Completely Different","type":"physical","sku":"BW345","description":"<p><strong>How
+        to write product descriptions that sell<\/strong><br \/>One of the best things
+        you can do to make your store successful is invest some time in writing great
+        product descriptions. You want to provide detailed yet concise information
+        that will entice potential customers to buy.<br \/><br \/><strong>Keep three
+        things in mind:<\/strong><br \/><br \/><strong>Think like a consumer<\/strong><br
+        \/>Think about what you as a consumer would want to know, then include those
+        features in your description. For clothes: materials and fit. For food: ingredients
+        and how it was prepared. Bullets are your friends when listing features &mdash;
+        try to limit each one to 5-8 words.<br \/><br \/><strong>Find differentiators<\/strong><br
+        \/>Pepper your features with details that show how the product stands out
+        against similar offerings. For clothes: is it vintage or hard to find? For
+        art: is the artist well known? For home d&eacute;cor: is it a certain style
+        like mid-century modern? Unique product descriptions not only help you stand
+        out, they improve your SEO.<br \/><br \/><strong>Keep it simple<\/strong><br
+        \/>Provide enough detail to help consumers make an informed decision, but
+        don&rsquo;t overwhelm with a laundry list of features or flowery language.
+        Densely pack your descriptions with useful information and watch products
+        fly off the shelf.<\/p>","search_keywords":null,"availability_description":"","price":"29.0000","cost_price":"0.0000","retail_price":"0.0000","sale_price":"0.0000","calculated_price":"29.0000","sort_order":0,"is_visible":true,"is_featured":false,"related_products":"-1","inventory_level":0,"inventory_warning_level":0,"warranty":null,"weight":"0.5000","width":"0.0000","height":"0.0000","depth":"0.0000","fixed_cost_shipping_price":"0.0000","is_free_shipping":true,"inventory_tracking":"none","rating_total":0,"rating_count":0,"total_sold":0,"date_created":"Sun,
+        23 Sep 2012 01:40:12 +0000","brand_id":0,"view_count":0,"page_title":"","meta_keywords":null,"meta_description":null,"layout_file":"product.html","is_price_hidden":false,"price_hidden_label":"","categories":[1],"date_modified":"Thu,
+        09 Jan 2014 03:17:16 +0000","event_date_field_name":"Delivery Date","event_date_type":"none","event_date_start":"","event_date_end":"","myob_asset_account":"","myob_income_account":"","myob_expense_account":"","peachtree_gl_account":"","condition":"New","is_condition_shown":false,"preorder_release_date":"","is_preorder_only":false,"preorder_message":"","order_quantity_minimum":0,"order_quantity_maximum":0,"open_graph_type":"product","open_graph_title":"","open_graph_description":null,"is_open_graph_thumbnail":true,"upc":null,"date_last_imported":"","option_set_id":14,"tax_class_id":0,"option_set_display":"right","bin_picking_number":"","custom_url":"\/insight-black-tee-with-white-print\/","availability":"available","brand":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/brands\/0.json","resource":"\/brands\/0"},"images":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/images.json","resource":"\/products\/45\/images"},"discount_rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/discountrules.json","resource":"\/products\/45\/discountrules"},"configurable_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/configurablefields.json","resource":"\/products\/45\/configurablefields"},"custom_fields":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/customfields.json","resource":"\/products\/45\/customfields"},"videos":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/videos.json","resource":"\/products\/45\/videos"},"skus":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/skus.json","resource":"\/products\/45\/skus"},"rules":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/rules.json","resource":"\/products\/45\/rules"},"option_set":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/optionsets\/14.json","resource":"\/optionsets\/14"},"options":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/products\/45\/options.json","resource":"\/products\/45\/options"},"tax_class":{"url":"https:\/\/store-lctvh5wm.bcapp.dev\/api\/v2\/taxclasses\/0.json","resource":"\/taxclasses\/0"}}'}
+    headers: {connection: keep-alive, content-length: '4395', content-type: application/json,
+      date: 'Thu, 09 Jan 2014 03:17:20 GMT', last-modified: 'Thu, 09 Jan 2014 03:17:16
+        +0000', server: nginx/1.4.3, x-bc-apilimit-remaining: '1000', x-bc-store-version: 7.6.0}
+    status: {code: 200, message: OK}
