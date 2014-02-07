@@ -75,11 +75,15 @@ class ListableApiSubResource(ApiSubResource):
 
 
 class UpdateableApiResource(ApiResource):
-    pass
+    def update(self, **updates):
+        path = "%s/%s" % (self.resource_name, self.id)
+        return self._create_object(self._make_request('PUT', path, data=updates))
 
 
 class UpdateableApiSubResource(ApiSubResource):
-    pass
+    def update(self, **updates):
+        path = "%s/%s/%s/%s" % (self.parent_resource, self.parent_id(), self.resource_name, self.id)
+        return self._create_object(self._make_request('PUT', path, data=updates))
 
 
 class DeleteableApiResource(ApiResource):
