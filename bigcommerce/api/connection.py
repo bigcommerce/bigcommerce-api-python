@@ -27,7 +27,7 @@ class Connection(object):
     Connection class manages the connection to the Bigcommerce REST API.
     """
 
-    def __init__(self, host, auth, api_path='/api/v2/{}', map_wrap=False):
+    def __init__(self, host, auth, api_path='/api/v2/{}'):
         """
         On creation, an initial call is made to load the mappings of resources to URLs.
         
@@ -40,8 +40,6 @@ class Connection(object):
         self.timeout = 7.0  # need to catch timeout?
 
         log.info("API Host: %s/%s" % (self.host, self.api_path))
-
-        self._map_wrap = map_wrap
 
         # set up the session
         self._session = requests.Session()
@@ -165,7 +163,7 @@ class Connection(object):
         response = self._run_method('POST', url, data=data, headers=headers)
         return self._handle_response(url, response)
 
-    def _handle_response(self, url, res, suppress_empty=False):
+    def _handle_response(self, url, res, suppress_empty=True):
         """
         Returns parsed JSON or raises an exception appropriately.
         """
@@ -177,13 +175,6 @@ class Connection(object):
             except Exception as e:  # json might be invalid, or store might be down
                 e.message += " (_handle_response failed to decode JSON: " + str(res.content) + ")"
                 raise # TODO better exception
-            if self._map_wrap:
-                if isinstance(result, list):
-                    return map(Mapping, result)
-                else:
-                    return Mapping(result)
-            else:
-                return result
         elif res.status_code == 204 and not suppress_empty:
             raise EmptyResponseWarning("%d %s @ %s: %s" % (res.status_code, res.reason, url, res.content), res)
         elif res.status_code >= 500:
@@ -210,7 +201,7 @@ class OAuthConnection(Connection):
     """
 
     def __init__(self, client_id, store_hash, access_token=None,
-                 host='api.bigcommerceapp.com', api_path='/stores/{}/v2/{}', map_wrap=False):
+                 host='api.bigcommerceapp.com', api_path='/stores/{}/v2/{}'):
         self.client_id = client_id
         self.store_hash = store_hash
 
@@ -218,7 +209,6 @@ class OAuthConnection(Connection):
         self.api_path = api_path
 
         self.timeout = 7.0  # can attach to session?
-        self._map_wrap = map_wrap
 
         self._session = requests.Session()
         self._session.headers = {"Accept": "application/json"}

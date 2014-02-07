@@ -1,5 +1,6 @@
 from base import *
 
+
 class Orders(ListableApiResource, CreateableApiResource, UpdateableApiResource, DeleteableApiResource):
     resource_name = 'orders'
 
@@ -27,22 +28,26 @@ class Orders(ListableApiResource, CreateableApiResource, UpdateableApiResource, 
         else:
             return OrderShippingAddresses.all(self.id)
 
+
 class OrderCoupons(ListableApiSubResource):
     resource_name = 'coupons'
     parent_resource = 'orders'
+    parent_key = 'order_id'
 
 
 class OrderProducts(ListableApiSubResource):
     resource_name = 'products'
     parent_resource = 'orders'
+    parent_key = 'order_id'
 
 
 class OrderShipments(ListableApiSubResource, CreateableApiSubResource, UpdateableApiSubResource, DeleteableApiSubResource):
     resource_name = 'shipments'
     parent_resource = 'orders'
+    parent_key = 'order_id'
 
 
 class OrderShippingAddresses(ListableApiSubResource):
     resource_name = 'shipping_addresses'
     parent_resource = 'orders'
-
+    parent_key = 'order_id'

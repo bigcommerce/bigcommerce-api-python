@@ -37,19 +37,28 @@ class ApiResource(Mapping):
 
 class ApiSubResource(ApiResource):
     parent_resource = ""
+    parent_key = ""
 
     @classmethod
     def get(cls, parentid, id, **params):
         path = "%s/%s/%s/%s" % (cls.parent_resource, parentid, cls.resource_name, id)
         return cls._create_object(cls._make_request('GET', path, params=params))
 
+    def parent_id(self):
+        return self[self.parent_key]
+
 
 class CreateableApiResource(ApiResource):
-    pass
+    @classmethod
+    def create(cls, **params):
+        return cls._create_object(cls._make_request('POST', cls.resource_name, data=params))
 
 
 class CreateableApiSubResource(ApiSubResource):
-    pass
+    @classmethod
+    def create(cls, parentid, **params):
+        path = "%s/%s/%s" % (cls.parent_resource, parentid, cls.resource_name)
+        return cls._create_object(cls._make_request('POST', path, data=params))
 
 
 class ListableApiResource(ApiResource):
@@ -69,13 +78,27 @@ class UpdateableApiResource(ApiResource):
     pass
 
 
-class UpdateableApiSubResource(ApiResource):
+class UpdateableApiSubResource(ApiSubResource):
     pass
 
 
 class DeleteableApiResource(ApiResource):
-    pass
+    def delete(self):
+        path = "%s/%s" % (self.resource_name, self.id)
+        return self._make_request('DELETE', path)
+
+    @classmethod
+    def delete_all(cls):
+        return cls._make_request('DELETE', cls.resource_name)
 
 
-class DeleteableApiSubResource(ApiResource):
-    pass
+class DeleteableApiSubResource(ApiSubResource):
+    def delete(self):
+        parent_id = self.parent_id()
+        path = "%s/%s/%s/%s" % (self.parent_resource, parent_id, self.resource_name, self.id)
+        return self._make_request('DELETE', path)
+
+    @classmethod
+    def delete_all(cls, parentid):
+        path = "%s/%s/%s" % (cls.parent_resource, parentid, cls.resource_name)
+        return cls._make_request('DELETE', path)

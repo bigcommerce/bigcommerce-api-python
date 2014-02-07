@@ -1,5 +1,6 @@
 from base import *
 
+
 class OptionSets(ListableApiResource, CreateableApiResource, UpdateableApiResource, DeleteableApiResource):
     resource_name = 'option_sets'
 
@@ -9,7 +10,8 @@ class OptionSets(ListableApiResource, CreateableApiResource, UpdateableApiResour
         else:
             return OptionSetOptions.all(self.id)
 
+
 class OptionSetOptions(ListableApiSubResource, CreateableApiSubResource, UpdateableApiSubResource, DeleteableApiSubResource):
     resource_name = 'options'
     parent_resource = 'option_sets'
-
+    parent_key = 'option_set_id'

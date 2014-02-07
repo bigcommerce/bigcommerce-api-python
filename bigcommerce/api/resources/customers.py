@@ -1,5 +1,6 @@
 from base import *
 
+
 class Customers(ListableApiResource, CreateableApiResource, UpdateableApiResource, DeleteableApiResource):
     resource_name = 'customers'
 
@@ -9,7 +10,8 @@ class Customers(ListableApiResource, CreateableApiResource, UpdateableApiResourc
         else:
             return CustomerAddresses.all(self.id)
 
+
 class CustomerAddresses(ListableApiSubResource, CreateableApiSubResource, UpdateableApiSubResource, DeleteableApiSubResource):
     resource_name = 'addresses'
     parent_resource = 'customers'
-
+    parent_key = 'customer_id'

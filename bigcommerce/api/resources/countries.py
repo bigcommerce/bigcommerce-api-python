@@ -1,5 +1,6 @@
 from base import *
 
+
 class Countries(ListableApiResource):
     resource_name = 'countries'
 
@@ -9,7 +10,8 @@ class Countries(ListableApiResource):
         else:
             return CountryStates.all(self.id)
 
+
 class CountryStates(ListableApiSubResource):
     resource_name = 'states'
     parent_resource = 'countries'
-
+    parent_key = 'country_id'
