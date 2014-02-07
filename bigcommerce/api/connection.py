@@ -15,7 +15,6 @@ from pprint import pformat  # only used once for logging, in __load_urls
 
 import requests
 
-from resources.mapping import Mapping
 from exception import *
 
 log = logging.getLogger("bigcommerce.api.connection")
