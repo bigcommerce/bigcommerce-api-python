@@ -1,3 +1,4 @@
-from bigcommerce.api.connection import Connection, HttpException, ClientRequestException, \
-    EmptyResponseWarning, RedirectionException, ServerException
-from bigcommerce.api.oauthconnection import OAuthConnection
+# from bigcommerce.connection import Connection, OAuthConnection, HttpException, ClientRequestException, \
+#     EmptyResponseWarning, RedirectionException, ServerException
+import resources
+import api

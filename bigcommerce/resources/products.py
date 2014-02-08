@@ -6,51 +6,51 @@ class Products(ListableApiResource, CreateableApiResource, UpdateableApiResource
 
     def configurable_fields(self, id=None):
         if id:
-            return ProductConfigurableFields.get(self.id, id)
+            return ProductConfigurableFields.get(self.id, id, connection=self._connection)
         else:
-            return ProductConfigurableFields.all(self.id)
+            return ProductConfigurableFields.all(self.id, connection=self._connection)
 
     def custom_fields(self, id=None):
         if id:
-            return ProductCustomFields.get(self.id, id)
+            return ProductCustomFields.get(self.id, id, connection=self._connection)
         else:
-            return ProductCustomFields.all(self.id)
+            return ProductCustomFields.all(self.id, connection=self._connection)
 
     def discount_rules(self, id=None):
         if id:
-            return ProductDiscountRules.get(self.id, id)
+            return ProductDiscountRules.get(self.id, id, connection=self._connection)
         else:
-            return ProductDiscountRules.all(self.id)
+            return ProductDiscountRules.all(self.id, connection=self._connection)
 
     def images(self, id=None):
         if id:
-            return ProductImages.get(self.id, id)
+            return ProductImages.get(self.id, id, connection=self._connection)
         else:
-            return ProductImages.all(self.id)
+            return ProductImages.all(self.id, connection=self._connection)
 
     def options(self, id=None):
         if id:
-            return ProductOptions.get(self.id, id)
+            return ProductOptions.get(self.id, id, connection=self._connection)
         else:
-            return ProductOptions.all(self.id)
+            return ProductOptions.all(self.id, connection=self._connection)
 
     def rules(self, id=None):
         if id:
-            return ProductRules.get(self.id, id)
+            return ProductRules.get(self.id, id, connection=self._connection)
         else:
-            return ProductRules.all(self.id)
+            return ProductRules.all(self.id, connection=self._connection)
 
     def skus(self, id=None):
         if id:
-            return ProductSkus.get(self.id, id)
+            return ProductSkus.get(self.id, id, connection=self._connection)
         else:
-            return ProductSkus.all(self.id)
+            return ProductSkus.all(self.id, connection=self._connection)
 
     def videos(self, id=None):
         if id:
-            return ProductVideos.get(self.id, id)
+            return ProductVideos.get(self.id, id, connection=self._connection)
         else:
-            return ProductVideos.all(self.id)
+            return ProductVideos.all(self.id, connection=self._connection)
 
 
 class ProductConfigurableFields(ListableApiSubResource, DeleteableApiSubResource):

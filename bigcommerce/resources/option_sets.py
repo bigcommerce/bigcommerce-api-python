@@ -6,9 +6,9 @@ class OptionSets(ListableApiResource, CreateableApiResource, UpdateableApiResour
 
     def options(self, id=None):
         if id:
-            return OptionSetOptions.get(self.id, id)
+            return OptionSetOptions.get(self.id, id, connection=self._connection)
         else:
-            return OptionSetOptions.all(self.id)
+            return OptionSetOptions.all(self.id, connection=self._connection)
 
 
 class OptionSetOptions(ListableApiSubResource, CreateableApiSubResource, UpdateableApiSubResource, DeleteableApiSubResource):

@@ -6,27 +6,27 @@ class Orders(ListableApiResource, CreateableApiResource, UpdateableApiResource, 
 
     def coupons(self, id=None):
         if id:
-            return OrderCoupons.get(self.id, id)
+            return OrderCoupons.get(self.id, id, connection=self._connection)
         else:
-            return OrderCoupons.all(self.id)
+            return OrderCoupons.all(self.id, connection=self._connection)
 
     def products(self, id=None):
         if id:
-            return OrderProducts.get(self.id, id)
+            return OrderProducts.get(self.id, id, connection=self._connection)
         else:
-            return OrderProducts.all(self.id)
+            return OrderProducts.all(self.id, connection=self._connection)
 
     def shipments(self, id=None):
         if id:
-            return OrderShipments.get(self.id, id)
+            return OrderShipments.get(self.id, id, connection=self._connection)
         else:
-            return OrderShipments.all(self.id)
+            return OrderShipments.all(self.id, connection=self._connection)
 
     def shipping_addresses(self, id=None):
         if id:
-            return OrderShippingAddresses.get(self.id, id)
+            return OrderShippingAddresses.get(self.id, id, connection=self._connection)
         else:
-            return OrderShippingAddresses.all(self.id)
+            return OrderShippingAddresses.all(self.id, connection=self._connection)
 
 
 class OrderCoupons(ListableApiSubResource):
