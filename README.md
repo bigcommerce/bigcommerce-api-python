@@ -1,67 +1,97 @@
 Bigcommerce API V2 - Python Client
 ==================================
 
-Lightweight wrapper over the `requests` library for communicating with the Bigcommerce v2 API.
-
+Wrapper over the `requests` library for communicating with the Bigcommerce v2 API.
 
 Needs `requests` and `streql` (run `pip install bigcommerce-api` for easiest way to install),
-and `nose` and `vcrpy` if you want to run the tests.
+and `nose` and `vcrpy` to run the tests.
 
-### Basic usage
+## Usage
 
-of Connection:
+### Connecting
+
 ```python
-import bigcommerce as api  # imports Client, Connection, OAuthConnection, and HttpException classes
+import bigcommerce
 
-from pprint import pprint  # for nice output
-```
-```python
-# connecting with basic auth and API key
-HOST = 'www.example.com'
-AUTH = ('username', 'apikey')
+# OAuth2-based connection
+# Access_token is optional, if you don't have one you can use oauth_fetch_token (see below)
+api = bigcommerce.api.BigcommerceApi(client_id='', store_hash='', access_token='')
 
-conn = api.Connection(HOST, AUTH)
-pprint(conn.get('products', limit=5)  # supply any filter parameter as a keyword argument
-
-try:
-    p = conn.get('products', 35)
-    print p.id, p.name  # p is a Mapping; a dict with . access to values
-except ClientRequestException as e:
-    if e.status_code == 404:
-        print "failed to get product with id 35"
-    print e.content
-
-p = conn.update('products', p.id, {'name': 'Something Else'})
-print p.id, p.name
-
-imgs = conn.get('products/{}/images'.format(p.id))
-
-# for deleting: conn.delete('resource', id)
-# for posting: conn.create('resource', data)
+# Legacy Basic authentication
+api = bigcommerce.api.BigcommerceApi(host='https://store.mybigcommerce.com', auth=('username', 'api token'))
 ```
 
-and of OAuthConnection
+`BigcommerceApi` also provides two helper methods for connection with OAuth2:
+
+* `api.oauth_fetch_token(client_secret, client_secret, code, context, scope, redirect_uri)` -- fetches and
+  returns an access token for your application. As a side effect, configures `api` to be ready for use.
+
+* `BigcommerceApi.oauth_verify_payload(signed_payload, client_secret)` -- Returns user data from a signed
+  payload.
+
+### Accessing and objects
+
+The `api` object provides access to each API resource, each of which provides CRUD operations,
+depending on capabilities of the resource:
+
 ```python
-# after registering your app to get client id and secret
-# and in your callback url handler, which should be passed code, context, and scope
-
-conn = api.OAuthConnection(client_id, store_hash)  # store hash can be retrieved from context
-# login_token_url is most likely "https://login.bigcommerceapp.com/oauth2/token"
-token = conn.fetch_token(client_secret, code, context, scope, redirect_uri, login_token_url)
-# conn can now be used like a Connection object to access resources
-
-
-# if you already have the user's access token, simply do
-conn = OAuthConnection(client_id, store_hash, access_token)
-
-# and for constant-time verification of the signed payload passed to your load url
-user_data = api.OAuthConnection.verify_payload(signed_payload, client_secret)  # returns False if authentication fails
+api.Products.all()                         # GET /products
+api.Products.get(1)                        # GET /products/1
+api.Products.create(name='', type='', ...) # POST /products
+api.Products.get(1).update(price='199.90') # PUT /products/1
+api.Products.delete_all()                  # DELETE /products
+api.Products.get(1).delete()               # DELETE /products/1
 ```
 
-### Exceptions
+The client provides full access to subresources, both as independent resources:
 
-This library captures errors from the server in HttpException classes (included in the import `import bigcommerce`), which expose `status_code`, `headers`, and `content`. These exceptions will be raised for any non-200 status code (the exception to this is 204, which is raised for methods other than `Connection.delete`).
+```
+api.ProductOptions.get(1)                  # GET /products/1/options
+api.ProductOptions.get(1, 2)               # GET /products/1/options/2
+```
 
-There are a few basic subclasses to HttpException: RedirectionException, ClientRequestException, ServerException, corresponding to 3xx, 4xx, and 5xx codes, and EmptyResponseWarning for 204.
+And as helper methods on the parent resoource:
 
-If you find yourself wanting a more complete class heirarchy, or are otherwise aren't happy with the interface, please post an issue or otherwise contact me.
+```
+api.Products.get(1).options()              # GET /products/1/options
+api.Products.get(1).options(1)             # GET /products/1/options/1
+```
+
+These subresources implement CRUD methods in exactly the same way as regular resources:
+```
+api.Products.get(1).options(1).delete()
+```
+
+### Filters
+
+Filters can be applied to `all` methods as keyword arguments:
+
+```python
+customer = api.Customers.all(first_name='John', last_name='Smith')[0]
+orders = api.Orders.all(customer_id=customer.id)
+```
+
+### Error handling
+
+Minimal validation of data is performed by the client, instead deferring this to the server.
+A `HttpException` will be raised for any unusual status code: 
+
+* 3xx status code: `RedirectionException`
+* 4xx status code: `ClientRequestException`
+* 5xx status code: `ServerException`
+
+## The low level API
+
+The high level API provided by `bigcommerce.api.BigcommerceApi` is a wrapper around a lower level
+api in `bigcommerce.connection`. This can be accessed through `api.connection`, and provides helper
+methods for get/post/put/delete operations.
+
+## Further documentation
+
+Full documentation of the API is available at
+[developer.bigcommerce.com](http://developer.bigcommerce.com)
+
+## To do
+
+* Count endpoints
+* Automatic enumeration of multiple page responses
