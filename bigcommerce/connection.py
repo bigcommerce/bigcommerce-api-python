@@ -7,7 +7,10 @@ import base64
 import hashlib
 import hmac
 
-import urllib
+try:
+    from urllib import urlencode
+except ImportError:
+    from urllib.parse import urlencode
 import json  # only used for urlencode querystr
 import logging
 import streql
@@ -79,7 +82,7 @@ class Connection(object):
         elif not url:  # blank path
             url = self.full_path(url)
 
-        qs = urllib.urlencode(query)
+        qs = urlencode(query)
         if qs: qs = "?" + qs
         url += qs
 
