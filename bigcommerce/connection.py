@@ -28,12 +28,6 @@ class Connection(object):
     """
 
     def __init__(self, host, auth, api_path='/api/v2/{}'):
-        """
-        On creation, an initial call is made to load the mappings of resources to URLs.
-        
-        If map_wrap is set, results returned will be Mapping objects, allowing for dot access
-        (as well as being standard dictionaries).
-        """
         self.host = host
         self.api_path = api_path
 
@@ -215,9 +209,9 @@ class OAuthConnection(Connection):
         encoded_json, encoded_hmac = signed_payload.split('.')
         dc_json = base64.b64decode(encoded_json)
         signature = base64.b64decode(encoded_hmac)
-        expected_sig = hmac.new(client_secret, base64.b64decode(encoded_json), hashlib.sha256).hexdigest()
+        expected_sig = hmac.new(client_secret.encode(), base64.b64decode(encoded_json), hashlib.sha256).hexdigest()
         authorised = streql.equals(signature, expected_sig)
-        return json.loads(dc_json) if authorised else False
+        return json.loads(dc_json.decode()) if authorised else False
 
     def fetch_token(self, client_secret, code, context, scope, redirect_uri,
                     token_url='https://login.bigcommerce.com/oauth2/token'):
