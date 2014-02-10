@@ -6,7 +6,7 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name = "bigcommerce-api",
+    name = "bigcommerce",
     version = "0.10.2",
     
     packages=find_packages(),
@@ -18,7 +18,7 @@ setup(
     description = "Connect Python applications with the Bigcommerce API",
     license = "MIT",
     keywords = "bigcommerce api client",
-    url = "https://github.com/bigcommerce/bigcommerce-api-python/tree/alpha",
+    url = "https://github.com/bigcommerce/bigcommerce-api-python",
     
     long_description=read('README.md'),
     classifiers=[
