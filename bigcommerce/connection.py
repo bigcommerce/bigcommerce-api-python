@@ -14,13 +14,12 @@ except ImportError:
 import json  # only used for urlencode querystr
 import logging
 import streql
-from pprint import pformat  # only used once for logging, in __load_urls
 
 import requests
 
 from bigcommerce.exception import *
 
-log = logging.getLogger("bigcommerce.api.connection")
+log = logging.getLogger("bigcommerce.connection")
 
 
 class Connection(object):
@@ -47,28 +46,7 @@ class Connection(object):
         self._session.auth = auth
         self._session.headers = {"Accept": "application/json"}
 
-        self.__resource_meta = self.get()  # retrieve metadata about urls and resources
-        log.debug(pformat(self.__resource_meta))
-
         self._last_response = None  # for debugging
-
-    def meta_data(self):
-        """
-        Return a JSON string representation of resource-to-url mappings 
-        """
-        return json.dumps(self.__resource_meta)
-
-    def get_url(self, resource_name):
-        """
-        Lookup the "url" for the resource name from the internally stored resource mappings
-        """
-        return self.__resource_meta.get(resource_name, {}).get("url", None)
-
-    def get_resource_url(self, resource_name):
-        """
-        Lookup the "resource" for the resource name from the internally stored resource mappings
-        """
-        return self.__resource_meta.get(resource_name, {}).get("resource", None)
 
     def full_path(self, url):
         return "https://" + self.host + self.api_path.format(url)
@@ -216,8 +194,6 @@ class OAuthConnection(Connection):
         if access_token and store_hash:
             self._session.headers.update(self._oauth_headers(client_id, access_token))
 
-        # TODO find meta info new path (/store gives a "your scope does not include this resource")
-        self.__resource_meta = {}  # self.get()  # retrieve metadata about urls and resources
         self._last_response = None  # for debugging
 
     def full_path(self, url):
