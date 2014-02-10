@@ -37,3 +37,5 @@ class ServerException(HttpException): pass
 
 # 3xx codes
 class RedirectionException(HttpException): pass
+
+class NotLoggedInException(Exception): pass
