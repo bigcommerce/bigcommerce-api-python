@@ -18,7 +18,7 @@ import bigcommerce
 api = bigcommerce.api.BigcommerceApi(client_id='', store_hash='', access_token='')
 
 # Legacy Basic authentication
-api = bigcommerce.api.BigcommerceApi(host='https://store.mybigcommerce.com', auth=('username', 'api token'))
+api = bigcommerce.api.BigcommerceApi(host='store.mybigcommerce.com', basic_auth=('username', 'api token'))
 ```
 
 `BigcommerceApi` also provides two helper methods for connection with OAuth2:

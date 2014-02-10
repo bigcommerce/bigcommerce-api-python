@@ -9,7 +9,7 @@ class TestBigcommerceApi(unittest.TestCase):
     """ Test API client creation and helpers"""
 
     def test_create_basic(self):
-        api = bigcommerce.api.BigcommerceApi(store_endpoint='https://store.mybigcommerce.com', basic_auth=('admin', 'abcdef'))
+        api = bigcommerce.api.BigcommerceApi(host='store.mybigcommerce.com', basic_auth=('admin', 'abcdef'))
         self.assertIsInstance(api.connection, Connection)
         self.assertNotIsInstance(api.connection, OAuthConnection)
 

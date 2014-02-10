@@ -5,9 +5,9 @@ from bigcommerce.resources import * # Needed for ApiResourceWrapper dynamic load
 
 class BigcommerceApi(object):
 
-    def __init__(self, store_endpoint=None, basic_auth=None, client_id=None, store_hash=None, access_token=None):
-        if store_endpoint and basic_auth:
-            self.connection = connection.Connection(store_endpoint, basic_auth)
+    def __init__(self, host=None, basic_auth=None, client_id=None, store_hash=None, access_token=None):
+        if host and basic_auth:
+            self.connection = connection.Connection(host, basic_auth)
         elif client_id and store_hash:
             self.connection = connection.OAuthConnection(client_id, store_hash, access_token)
         else:
