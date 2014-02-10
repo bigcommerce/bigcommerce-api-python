@@ -40,17 +40,17 @@ class TestApiResourceWrapper(unittest.TestCase):
 
         self.assertRaises(AttributeError, lambda: bigcommerce.api.ApiResourceWrapper.str_to_class('ApiResourceWhichDoesNotExist'))
 
-    def test_get_attr(self):
+    @patch.object(ApiResource, 'get')
+    def test_get_attr(self, patcher):
         api = MagicMock()
         api.connection = MagicMock()
 
-        ApiResource.get = MagicMock()
-        mock_return = Mock()
-        ApiResource.get.return_value = mock_return
+        result = {'id': 1}
+        patcher.return_value = result
 
         wrapper = bigcommerce.api.ApiResourceWrapper('ApiResource', api)
-        self.assertEqual(wrapper.get(1), mock_return)
-        ApiResource.get.assert_called_once_with(1, connection=api.connection)
+        self.assertEqual(wrapper.get(1), result)
+        patcher.assert_called_once_with(1, connection=api.connection)
 
 
 

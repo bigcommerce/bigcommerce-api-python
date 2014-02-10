@@ -1,7 +1,3 @@
-# from bigcommerce import connection
-# from bigcommerce.exception import NotLoggedInException
-
-
 class Mapping(dict):
     """
     Mapping
@@ -9,11 +5,22 @@ class Mapping(dict):
     provides '.' access to dictionary keys
     """
     def __init__(self, mapping, *args, **kwargs):
+        """
+        Create a new mapping. Filters the mapping argument
+        to remove any elements that are already methods on the
+        object.
+
+        For example, Orders retains its `coupons` method, instead
+        of being replaced by the dict describing the coupons endpoint
+        """
         filter_args = {k: mapping[k] for k in mapping if k not in dir(self)}
         self.__dict__ = self
         dict.__init__(self, filter_args, *args, **kwargs)
 
     def __str__(self):
+        """
+        Display as a normal dict, but filter out underscored items first
+        """
         return str({k: self.__dict__[k] for k in self.__dict__ if not k.startswith("_")})
 
     def __repr__(self):
@@ -21,7 +28,7 @@ class Mapping(dict):
 
 
 class ApiResource(Mapping):
-    resource_name = ""
+    resource_name = ""  # The identifier which describes this resource in urls
 
     @classmethod
     def _create_object(cls, response, connection=None):
