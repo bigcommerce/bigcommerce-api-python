@@ -1,6 +1,10 @@
 Bigcommerce API V2 - Python Client
 ==================================
 
+[![Build Status](https://travis-ci.org/bigcommerce/bigcommerce-api-python.png?branch=master)](https://travis-ci.org/bigcommerce/bigcommerce-api-python)
+[![Package Version](https://pypip.in/v/bigcommerce/badge.png)](https://pypi.python.org/pypi/bigcommerce)
+[![Downloads](https://pypip.in/d/bigcommerce/badge.png)](https://pypi.python.org/pypi/bigcommerce)
+
 Wrapper over the `requests` library for communicating with the Bigcommerce v2 API.
 
 Install with `pip install bigcommerce` or `easy_install bigcommerce`. Tested with
