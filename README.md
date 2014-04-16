@@ -1,160 +1,97 @@
-BigCommerce API V2 - Python Client
+Bigcommerce API V2 - Python Client
 ==================================
 
-This module provides an object-oriented wrapper around the BigCommerce V2 API
-for use in Python projects or via the Python shell.
+Wrapper over the `requests` library for communicating with the Bigcommerce v2 API.
 
-Requirements:
+Install with `pip install bigcommerce` or `easy_install bigcommerce`. Tested with
+python 2.7 and 3.3, and only requires `requests` and `streql`.
 
-- Python 2.6+
+## Usage
 
+### Connecting
 
-A valid API key is required to authenticate requests. To grant API access for
-user, go to Control Panel > Users > Edit User and make sure that the
-'Enable the XML API?' checkbox is ticked.
+```python
+import bigcommerce
 
-Usage:
+# OAuth2-based connection
+# Access_token is optional, if you don't have one you can use oauth_fetch_token (see below)
+api = bigcommerce.api.BigcommerceApi(client_id='', store_hash='', access_token='')
 
-```
-#!/usr/bin/python
-from Bigcommerce.api import ApiClient
-
-api = ApiClient(STORE_HOST, STORE_TOKEN, STORE_USERID)
-    
-filters = api.Products.filters()
-filters.min_id.set(73873)
-	    
-# List 10 products starting at offset 10
-for product in api.Products.enumerate(start=10, limit=10, query=filters):
-	print product.id, product.sku, product.name, product.price
-	
-
-# How to update a resource
-product = api.Products.get(14)
-    
-print product.id, product.sku, product.name
-product.name = "My New Product"
-product.save()
-
-product.images[1].is_thumbnail = True
-product.images[1].save()
-
-
-	
+# Legacy Basic authentication
+api = bigcommerce.api.BigcommerceApi(host='store.mybigcommerce.com', basic_auth=('username', 'api token'))
 ```
 
-Features
---------
+`BigcommerceApi` also provides two helper methods for connection with OAuth2:
 
-* All urls to resources are inferred from an initial call to API
-* Enumerate multiple pages of resources with "start" and "limit" parameters
-* Filtering
-* Inflates SubResource objects on demand (ex: listing the products in an order)
+* `api.oauth_fetch_token(client_secret, client_secret, code, context, scope, redirect_uri)` -- fetches and
+  returns an access token for your application. As a side effect, configures `api` to be ready for use.
 
-Access to SubResources using native contructs
----------------------------------------------
-```
-logging.basicConfig(level=logging.DEBUG, 
-                    stream=sys.stdout,
-                    format='%(asctime)s %(levelname)-8s[%(name)s] %(message)s',
-                    datefmt='%m/%d %H:%M:%S')
-                    
-order = api.Orders.get(121000980)
-print "Order", order.id, order.date_created
-for product in order.products:
-	print product.quantity, product.name
-	
-```
+* `BigcommerceApi.oauth_verify_payload(signed_payload, client_secret)` -- Returns user data from a signed
+  payload.
 
-```
-11/14 02:38:24 DEBUG   [bc_api] GET /api/v2/orders/121000980
-11/14 02:38:25 DEBUG   [bc_api] GET /api/v2/orders/121000980 status 200
-11/14 02:38:25 DEBUG   [bc_api] GET /api/v2/orders/121000980/products?limit=50&page=1
-11/14 02:38:25 DEBUG   [bc_api] GET /api/v2/orders/121000980/products?limit=50&page=1 status 200
-11/14 02:38:25 DEBUG   [bc_api] GET /api/v2/orders/121000980/products?limit=50&page=2
-11/14 02:38:25 DEBUG   [bc_api] GET /api/v2/orders/121000980/products?limit=50&page=2 status 204
+### Accessing and objects
 
-Order 121000980 Fri, 09 Nov 2012 18:55:43 +0000
-1 Navy Blue Scrub Bottoms
-1 Navy Blue Scrub Tops
-1 Hampton Cotton Polo
+The `api` object provides access to each API resource, each of which provides CRUD operations,
+depending on capabilities of the resource:
+
+```python
+api.Products.all()                         # GET /products
+api.Products.get(1)                        # GET /products/1
+api.Products.create(name='', type='', ...) # POST /products
+api.Products.get(1).update(price='199.90') # PUT /products/1
+api.Products.delete_all()                  # DELETE /products
+api.Products.get(1).delete()               # DELETE /products/1
 ```
 
-Note: The count urls are not always accurate, so I enumerate until I hit a HTTP 204 Response.
+The client provides full access to subresources, both as independent resources:
 
-Resource Objects
----------------
-
-Information about BigCommerce Resources is specified in the ResourceObjects.  These 
-objects also serve as the classes that will be inflated with the results of a query
-on that resource type.
-
-ResourceObjects are intended to specify:
-* SubResource Types (automatic API calls to inflate sub resources)
-* Available filters and types
-* Read-Only fields (for error checking)
-* Fields required for create and update
-
-Product Resource Definition
----------------------------
 ```
-from . import ResourceObject
-from Brands import Brands
-import SubResources
-
-class Products(ResourceObject):
-    """
-    
-    """
-    sub_resources = Mapping(brand = Mapping(
-                                            klass = Brands,
-                                            single = True),
-                            configurable_fields = Mapping(),
-                            custom_fields = Mapping(),
-                            discount_rules = Mapping(),
-                            downloads = Mapping(),
-                            images = Mapping(),
-                            options = Mapping(klass = SubResources.ProductOptions),
-                            option_set = Mapping(klass = SubResources.OptionSets, single=True),
-                            rules = Mapping(),
-                            skus = Mapping(klass = SubResources.SKU),
-                            tax_class = Mapping(),
-                            videos = Mapping(),
-                            )
-    
-    @classmethod
-    def filter_set(cls):
-        return FilterSet(min_id = NumberFilter( info="Minimum id of the product" ),
-                      max_id = NumberFilter( info="Minimum id of the product" ),
-                      name = StringFilter( info="The product name" ),
-                      sku = StringFilter(),
-                      description = StringFilter(),
-                      condition = StringFilter(),
-                      availability = StringFilter(),
-                      brand_id = NumberFilter(),
-                      min_date_created = DateFilter(),
-                      max_date_created = DateFilter(),
-                      min_date_modified = DateFilter(),
-                      max_date_modified = DateFilter(),
-                      min_date_last_imported = DateFilter(),
-                      max_date_last_imported = DateFilter(),
-                      min_inventory_level = NumberFilter(),
-                      max_inventory_level = NumberFilter(),
-                      is_visible = BoolFilter(),
-                      is_featured = BoolFilter(),
-                      min_price = NumberFilter(),
-                      max_price = NumberFilter(),
-                      min_number_sold = NumberFilter(),
-                      max_number_sold = NumberFilter(),
-                      ) 
+api.ProductOptions.get(1)                  # GET /products/1/options
+api.ProductOptions.get(1, 2)               # GET /products/1/options/2
 ```
 
+And as helper methods on the parent resoource:
 
+```
+api.Products.get(1).options()              # GET /products/1/options
+api.Products.get(1).options(1)             # GET /products/1/options/1
+```
 
+These subresources implement CRUD methods in exactly the same way as regular resources:
+```
+api.Products.get(1).options(1).delete()
+```
 
+### Filters
 
+Filters can be applied to `all` methods as keyword arguments:
 
+```python
+customer = api.Customers.all(first_name='John', last_name='Smith')[0]
+orders = api.Orders.all(customer_id=customer.id)
+```
 
+### Error handling
 
+Minimal validation of data is performed by the client, instead deferring this to the server.
+A `HttpException` will be raised for any unusual status code: 
 
+* 3xx status code: `RedirectionException`
+* 4xx status code: `ClientRequestException`
+* 5xx status code: `ServerException`
 
+## The low level API
+
+The high level API provided by `bigcommerce.api.BigcommerceApi` is a wrapper around a lower level
+api in `bigcommerce.connection`. This can be accessed through `api.connection`, and provides helper
+methods for get/post/put/delete operations.
+
+## Further documentation
+
+Full documentation of the API is available at
+[developer.bigcommerce.com](http://developer.bigcommerce.com)
+
+## To do
+
+* Count endpoints
+* Automatic enumeration of multiple page responses
