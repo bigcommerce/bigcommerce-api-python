@@ -1,5 +1,5 @@
 import unittest
-from bigcommerce.resources import Mapping, Orders, ApiResource, OrderShipments
+from bigcommerce.resources import Mapping, Orders, ApiResource, OrderShipments, Products
 from bigcommerce.resources.orders import OrderCoupons
 from bigcommerce.resources.webhooks import Webhooks
 from mock import MagicMock
@@ -175,3 +175,12 @@ class TestDeleteableApiSubResource(unittest.TestCase):
         connection.make_request.return_value = {}
 
         self.assertRaises(NotImplementedError, Webhooks.delete_all, connection=connection)
+
+
+class TestCountableApiResource(unittest.TestCase):
+    def test_count(self):
+        connection = MagicMock()
+        connection.make_request.return_value = {'count': 2}
+
+        self.assertEqual(Products.count(connection, is_visible=True), 2)
+        connection.make_request.assert_called_once_with('GET', 'products/count', None, {'is_visible': True}, {})
