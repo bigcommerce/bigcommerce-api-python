@@ -27,7 +27,7 @@ api = bigcommerce.api.BigcommerceApi(host='store.mybigcommerce.com', basic_auth=
 
 `BigcommerceApi` also provides two helper methods for connection with OAuth2:
 
-* `api.oauth_fetch_token(client_secret, client_secret, code, context, scope, redirect_uri)` -- fetches and
+* `api.oauth_fetch_token(client_secret, code, context, scope, redirect_uri)` -- fetches and
   returns an access token for your application. As a side effect, configures `api` to be ready for use.
 
 * `BigcommerceApi.oauth_verify_payload(signed_payload, client_secret)` -- Returns user data from a signed
