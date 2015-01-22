@@ -5,7 +5,7 @@ class HttpException(Exception):
     def __init__(self, msg, res):
         super(Exception, self).__init__(msg)
         self.response = res
-        
+
     @property
     def status_code(self):
         return self.response.status_code
@@ -15,10 +15,10 @@ class HttpException(Exception):
     @property
     def content(self):
         return self.response.content
-  
+
 # 204
 class EmptyResponseWarning(HttpException): pass
-    
+
 # 4xx codes
 class ClientRequestException(HttpException): pass
 # class Unauthorised(ClientRequestException): pass
