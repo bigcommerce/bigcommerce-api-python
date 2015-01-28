@@ -15,3 +15,4 @@ from .shipping import *
 from .store import *
 from .tax_classes import *
 from .time import *
+from .webhooks import *
