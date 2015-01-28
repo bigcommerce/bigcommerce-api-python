@@ -78,7 +78,7 @@ orders = api.Orders.all(customer_id=customer.id)
 ### Error handling
 
 Minimal validation of data is performed by the client, instead deferring this to the server.
-A `HttpException` will be raised for any unusual status code: 
+A `HttpException` will be raised for any unusual status code:
 
 * 3xx status code: `RedirectionException`
 * 4xx status code: `ClientRequestException`

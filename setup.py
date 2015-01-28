@@ -8,7 +8,7 @@ def read(fname):
 setup(
     name = "bigcommerce",
     version = "0.10.2",
-    
+
     packages=find_packages(),
     package_data = {'' : ['LICENSE', 'README.md']},
     install_requires = ['requests>=2.1.0',
@@ -19,7 +19,7 @@ setup(
     license = "MIT",
     keywords = "bigcommerce api client",
     url = "https://github.com/bigcommerce/bigcommerce-api-python",
-    
+
     long_description=read('README.md'),
     classifiers=[
         "Development Status :: 3 - Alpha",
