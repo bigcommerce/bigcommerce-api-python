@@ -3,21 +3,22 @@ import sys
 from bigcommerce import connection
 from bigcommerce.resources import * # Needed for ApiResourceWrapper dynamic loading
 
-
 class BigcommerceApi(object):
-
     def __init__(self, host=None, basic_auth=None, client_id=None, store_hash=None, access_token=None):
+        self.api_service = os.getenv('BC_API_ENDPOINT', 'api.bigcommerce.com')
+        self.auth_service = os.getenv('BC_AUTH_SERVICE', 'login.bigcommerce.com')
+
         if host and basic_auth:
             self.connection = connection.Connection(host, basic_auth)
         elif client_id and store_hash:
-            api_host = os.getenv('BC_API_ENDPOINT', 'api.bigcommerce.com')
-            self.connection = connection.OAuthConnection(client_id, store_hash, access_token, host=api_host)
+            self.connection = connection.OAuthConnection(client_id, store_hash, access_token, self.api_service)
         else:
             raise Exception("Must provide either (client_id and store_hash) or (host and basic_auth)")
 
     def oauth_fetch_token(self, client_secret, code, context, scope, redirect_uri):
         if isinstance(self.connection, connection.OAuthConnection):
-            return self.connection.fetch_token(client_secret, code, context, scope, redirect_uri)
+            token_url = 'https://%s/oauth2/token' % self.auth_service
+            return self.connection.fetch_token(client_secret, code, context, scope, redirect_uri, token_url)
 
     @classmethod
     def oauth_verify_payload(cls, signed_payload, client_secret):
@@ -25,7 +26,6 @@ class BigcommerceApi(object):
 
     def __getattr__(self, item):
         return ApiResourceWrapper(item, self)
-
 
 class ApiResourceWrapper(object):
     """
