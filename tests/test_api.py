@@ -18,12 +18,25 @@ class TestBigcommerceApi(unittest.TestCase):
         api = bigcommerce.api.BigcommerceApi(client_id='123456', store_hash='abcdef', access_token='123abc')
         self.assertIsInstance(api.connection, OAuthConnection)
 
+    def test_default_api_endpoint(self):
+        api = bigcommerce.api.BigcommerceApi(client_id='123456', store_hash='abcdef', access_token='123abc')
+        self.assertEqual(api.api_service, 'api.bigcommerce.com')
+
     def test_alternate_api_endpoint_from_env(self):
         os.environ['BC_API_ENDPOINT'] = 'foobar.com'
         api = bigcommerce.api.BigcommerceApi(client_id='123456', store_hash='abcdef', access_token='123abc')
-        self.assertIsInstance(api.connection, OAuthConnection)
-        self.assertEqual(api.connection.full_path('time'), 'https://foobar.com/stores/abcdef/v2/time')
+        self.assertEqual(api.api_service, 'foobar.com')
         del os.environ['BC_API_ENDPOINT']
+
+    def test_default_auth_endpoint(self):
+        api = bigcommerce.api.BigcommerceApi(client_id='123456', store_hash='abcdef', access_token='123abc')
+        self.assertEqual(api.auth_service, 'login.bigcommerce.com')
+
+    def test_alternate_auth_endpoint_from_env(self):
+        os.environ['BC_AUTH_SERVICE'] = 'foobar.com'
+        api = bigcommerce.api.BigcommerceApi(client_id='123456', store_hash='abcdef', access_token='123abc')
+        self.assertEqual(api.auth_service, 'foobar.com')
+        del os.environ['BC_AUTH_SERVICE']
 
     def test_create_incorrect_args(self):
         self.assertRaises(Exception, lambda: bigcommerce.api.BigcommerceApi(client_id='123', basic_auth=('admin', 'token')))
