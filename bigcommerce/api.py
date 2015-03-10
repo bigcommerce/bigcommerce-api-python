@@ -1,3 +1,4 @@
+import os
 import sys
 from bigcommerce import connection
 from bigcommerce.resources import * # Needed for ApiResourceWrapper dynamic loading
@@ -9,9 +10,10 @@ class BigcommerceApi(object):
         if host and basic_auth:
             self.connection = connection.Connection(host, basic_auth)
         elif client_id and store_hash:
-            self.connection = connection.OAuthConnection(client_id, store_hash, access_token)
+            api_host = os.getenv('BC_API_ENDPOINT', 'api.bigcommerce.com')
+            self.connection = connection.OAuthConnection(client_id, store_hash, access_token, host=api_host)
         else:
-            raise Exception("Must provide either (client_id and store_hash) or (store_endpoint and basic_auth)")
+            raise Exception("Must provide either (client_id and store_hash) or (host and basic_auth)")
 
     def oauth_fetch_token(self, client_secret, code, context, scope, redirect_uri):
         if isinstance(self.connection, connection.OAuthConnection):

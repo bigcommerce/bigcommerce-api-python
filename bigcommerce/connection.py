@@ -11,10 +11,10 @@ try:
     from urllib import urlencode
 except ImportError:
     from urllib.parse import urlencode
+
 import json  # only used for urlencode querystr
 import logging
 import streql
-
 import requests
 
 from bigcommerce.exception import *
@@ -173,14 +173,11 @@ class OAuthConnection(Connection):
     The verify_payload method is also provided for authenticating signed payloads passed to an application's load url.
     """
 
-    def __init__(self, client_id, store_hash, access_token=None,
-                 host='api.bigcommerce.com', api_path='/stores/{}/v2/{}'):
+    def __init__(self, client_id, store_hash, access_token=None, host='api.bigcommerce.com', api_path='/stores/{}/v2/{}'):
         self.client_id = client_id
         self.store_hash = store_hash
-
         self.host = host
         self.api_path = api_path
-
         self.timeout = 7.0  # can attach to session?
 
         self._session = requests.Session()

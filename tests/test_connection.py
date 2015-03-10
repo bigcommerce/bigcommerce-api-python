@@ -97,6 +97,10 @@ class TestOAuthConnection(unittest.TestCase):
         connection = OAuthConnection(client_id='123', store_hash='abcdef')
         self.assertEqual(connection.full_path('time'), 'https://api.bigcommerce.com/stores/abcdef/v2/time')
 
+    def test_alternate_api_endpoint(self):
+        connection = OAuthConnection(client_id='123', store_hash='abcdef', host='barbaz.com')
+        self.assertEqual(connection.full_path('time'), 'https://barbaz.com/stores/abcdef/v2/time')
+
     def test_verify_payload(self):
         """Decode and verify signed payload."""
         payload = "eyJ1c2VyIjp7ImlkIjo3MiwiZW1haWwiOiJqYWNraWUuaHV5bmh" \
