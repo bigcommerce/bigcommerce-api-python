@@ -1,7 +1,9 @@
 from .base import *
 
 
-class Orders(ListableApiResource, CreateableApiResource, UpdateableApiResource, DeleteableApiResource):
+class Orders(ListableApiResource, CreateableApiResource,
+             UpdateableApiResource, DeleteableApiResource,
+             CollectionDeleteableApiResource):
     resource_name = 'orders'
 
     def coupons(self, id=None):
@@ -41,7 +43,9 @@ class OrderProducts(ListableApiSubResource):
     parent_key = 'order_id'
 
 
-class OrderShipments(ListableApiSubResource, CreateableApiSubResource, UpdateableApiSubResource, DeleteableApiSubResource):
+class OrderShipments(ListableApiSubResource, CreateableApiSubResource,
+                     UpdateableApiSubResource, DeleteableApiSubResource,
+                     CollectionDeleteableApiSubResource):
     resource_name = 'shipments'
     parent_resource = 'orders'
     parent_key = 'order_id'
