@@ -1,7 +1,7 @@
 from .base import *
 
 
-class Products(ListableApiResource, CreateableApiResource, UpdateableApiResource, DeleteableApiResource):
+class Products(ListableApiResource, CreateableApiResource, UpdateableApiResource, DeleteableApiResource, CountableApiResource):
     resource_name = 'products'
 
     def configurable_fields(self, id=None):

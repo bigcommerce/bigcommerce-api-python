@@ -125,3 +125,10 @@ class DeleteableApiSubResource(ApiSubResource):
     def delete_all(cls, parentid, connection=None):
         path = "%s/%s/%s" % (cls.parent_resource, parentid, cls.resource_name)
         return cls._make_request('DELETE', path, connection)
+
+class CountableApiResource(ApiSubResource):
+    @classmethod
+    def count(cls, connection=None, **params):
+        path = "%s/count" % (cls.resource_name)
+        response = cls._make_request('GET', path, connection, params=params)
+        return response['count']
