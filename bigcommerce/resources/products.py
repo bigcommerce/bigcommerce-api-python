@@ -54,6 +54,12 @@ class Products(ListableApiResource, CreateableApiResource,
         else:
             return ProductVideos.all(self.id, connection=self._connection)
 
+    def google_mappings(self, id=None):
+        if id:
+            return GoogleProductSearchMappings.get(self.id, id, connection=self._connection)
+        else:
+            return GoogleProductSearchMappings.all(self.id, connection=self._connection)
+
 
 class ProductConfigurableFields(ListableApiSubResource, DeleteableApiSubResource,
                                 CollectionDeleteableApiSubResource):
@@ -110,5 +116,11 @@ class ProductSkus(ListableApiSubResource, CreateableApiSubResource,
 
 class ProductVideos(ListableApiSubResource):
     resource_name = 'videos'
+    parent_resource = 'products'
+    parent_key = 'product_id'
+
+
+class GoogleProductSearchMappings(ListableApiSubResource):
+    resource_name = 'googleproductsearch'
     parent_resource = 'products'
     parent_key = 'product_id'
