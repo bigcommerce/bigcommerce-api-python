@@ -1,7 +1,9 @@
 from .base import *
 
 
-class Products(ListableApiResource, CreateableApiResource, UpdateableApiResource, DeleteableApiResource, CountableApiResource):
+class Products(ListableApiResource, CreateableApiResource,
+               UpdateableApiResource, DeleteableApiResource,
+               CollectionDeleteableApiResource, CountableApiResource):
     resource_name = 'products'
 
     def configurable_fields(self, id=None):
@@ -53,25 +55,32 @@ class Products(ListableApiResource, CreateableApiResource, UpdateableApiResource
             return ProductVideos.all(self.id, connection=self._connection)
 
 
-class ProductConfigurableFields(ListableApiSubResource, DeleteableApiSubResource):
+class ProductConfigurableFields(ListableApiSubResource, DeleteableApiSubResource,
+                                CollectionDeleteableApiSubResource):
     resource_name = 'configurable_fields'
     parent_resource = 'products'
     parent_key = 'product_id'
 
 
-class ProductCustomFields(ListableApiSubResource, CreateableApiSubResource, UpdateableApiSubResource, DeleteableApiSubResource):
+class ProductCustomFields(ListableApiSubResource, CreateableApiSubResource,
+                          UpdateableApiSubResource, DeleteableApiSubResource,
+                          CollectionDeleteableApiSubResource):
     resource_name = 'custom_fields'
     parent_resource = 'products'
     parent_key = 'product_id'
 
 
-class ProductDiscountRules(ListableApiSubResource, CreateableApiSubResource, UpdateableApiSubResource, DeleteableApiSubResource):
+class ProductDiscountRules(ListableApiSubResource, CreateableApiSubResource,
+                           UpdateableApiSubResource, DeleteableApiSubResource,
+                           CollectionDeleteableApiSubResource):
     resource_name = 'discount_rules'
     parent_resource = 'products'
     parent_key = 'product_id'
 
 
-class ProductImages(ListableApiSubResource, CreateableApiSubResource, UpdateableApiSubResource, DeleteableApiSubResource):
+class ProductImages(ListableApiSubResource, CreateableApiSubResource,
+                    UpdateableApiSubResource, DeleteableApiSubResource,
+                    CollectionDeleteableApiSubResource):
     resource_name = 'images'
     parent_resource = 'products'
     parent_key = 'product_id'
@@ -83,13 +92,17 @@ class ProductOptions(ListableApiSubResource):
     parent_key = 'product_id'
 
 
-class ProductRules(ListableApiSubResource, CreateableApiSubResource, UpdateableApiSubResource, DeleteableApiSubResource):
+class ProductRules(ListableApiSubResource, CreateableApiSubResource,
+                   UpdateableApiSubResource, DeleteableApiSubResource,
+                   CollectionDeleteableApiSubResource):
     resource_name = 'rules'
     parent_resource = 'products'
     parent_key = 'product_id'
 
 
-class ProductSkus(ListableApiSubResource, CreateableApiSubResource, UpdateableApiSubResource, DeleteableApiSubResource):
+class ProductSkus(ListableApiSubResource, CreateableApiSubResource,
+                  UpdateableApiSubResource, DeleteableApiSubResource,
+                  CollectionDeleteableApiSubResource):
     resource_name = 'skus'
     parent_resource = 'products'
     parent_key = 'product_id'

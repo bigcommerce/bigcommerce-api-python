@@ -1,7 +1,9 @@
 from .base import *
 
 
-class Customers(ListableApiResource, CreateableApiResource, UpdateableApiResource, DeleteableApiResource):
+class Customers(ListableApiResource, CreateableApiResource,
+                UpdateableApiResource, DeleteableApiResource,
+                CollectionDeleteableApiResource):
     resource_name = 'customers'
 
     def addresses(self, id=None):
@@ -11,7 +13,9 @@ class Customers(ListableApiResource, CreateableApiResource, UpdateableApiResourc
             return CustomerAddresses.all(self.id, connection=self._connection)
 
 
-class CustomerAddresses(ListableApiSubResource, CreateableApiSubResource, UpdateableApiSubResource, DeleteableApiSubResource):
+class CustomerAddresses(ListableApiSubResource, CreateableApiSubResource,
+                        UpdateableApiSubResource, DeleteableApiSubResource,
+                        CollectionDeleteableApiSubResource):
     resource_name = 'addresses'
     parent_resource = 'customers'
     parent_key = 'customer_id'

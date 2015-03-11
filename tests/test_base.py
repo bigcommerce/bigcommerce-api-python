@@ -170,12 +170,6 @@ class TestDeleteableApiSubResource(unittest.TestCase):
 
         connection.make_request.assert_called_once_with('DELETE', 'orders/2/shipments/1', None, {}, {})
 
-    def test_webhook_delete_all(self):
-        connection = MagicMock()
-        connection.make_request.return_value = {}
-
-        self.assertRaises(NotImplementedError, Webhooks.delete_all, connection=connection)
-
 
 class TestCountableApiResource(unittest.TestCase):
     def test_count(self):
