@@ -178,11 +178,20 @@ class CountableApiResource(ApiResource):
 
 
 class CountableApiSubResource(ApiSubResource):
-    @classmethod
-    def _count_path(cls, parentid):
-        return "%s/%s/%s/count" % (cls.parent_resource, parentid, cls.resource_name)
+    # Account for the fairly common case where the count path doesn't include the parent id
+    count_resource = None
 
     @classmethod
-    def count(cls, parentid, connection=None, **params):
+    def _count_path(cls, parentid=None):
+        if cls.count_resource is not None:
+            return "%s/count" % (cls.count_resource)
+        elif parentid is not None:
+            return "%s/%s/%s/count" % (cls.parent_resource, parentid, cls.resource_name)
+        else:
+            # misconfiguration
+            raise NotImplementedError('Count not implemented for this resource.')
+
+    @classmethod
+    def count(cls, parentid=None, connection=None, **params):
         response = cls._make_request('GET', cls._count_path(parentid), connection, params=params)
         return response['count']

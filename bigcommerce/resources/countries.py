@@ -1,7 +1,7 @@
 from .base import *
 
 
-class Countries(ListableApiResource):
+class Countries(ListableApiResource, CountableApiResource):
     resource_name = 'countries'
 
     def states(self, id=None):
@@ -11,7 +11,7 @@ class Countries(ListableApiResource):
             return CountryStates.all(self.id, connection=self._connection)
 
 
-class CountryStates(ListableApiSubResource):
+class CountryStates(ListableApiSubResource, CountableApiSubResource):
     resource_name = 'states'
     parent_resource = 'countries'
     parent_key = 'country_id'

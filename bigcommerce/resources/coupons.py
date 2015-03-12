@@ -3,5 +3,5 @@ from .base import *
 
 class Coupons(ListableApiResource, CreateableApiResource,
               UpdateableApiResource, DeleteableApiResource,
-              CollectionDeleteableApiResource):
+              CollectionDeleteableApiResource, CountableApiResource):
     resource_name = 'coupons'
