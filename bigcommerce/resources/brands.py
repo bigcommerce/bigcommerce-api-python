@@ -3,5 +3,5 @@ from .base import *
 
 class Brands(ListableApiResource, CreateableApiResource,
              UpdateableApiResource, DeleteableApiResource,
-             CollectionDeleteableApiResource):
+             CollectionDeleteableApiResource, CountableApiResource):
     resource_name = 'brands'

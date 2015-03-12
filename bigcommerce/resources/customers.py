@@ -3,7 +3,7 @@ from .base import *
 
 class Customers(ListableApiResource, CreateableApiResource,
                 UpdateableApiResource, DeleteableApiResource,
-                CollectionDeleteableApiResource):
+                CollectionDeleteableApiResource, CountableApiResource):
     resource_name = 'customers'
 
     def addresses(self, id=None):
@@ -15,7 +15,7 @@ class Customers(ListableApiResource, CreateableApiResource,
 
 class CustomerAddresses(ListableApiSubResource, CreateableApiSubResource,
                         UpdateableApiSubResource, DeleteableApiSubResource,
-                        CollectionDeleteableApiSubResource):
+                        CollectionDeleteableApiSubResource, CountableApiSubResource):
     resource_name = 'addresses'
     parent_resource = 'customers'
     parent_key = 'customer_id'

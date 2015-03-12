@@ -3,7 +3,7 @@ from .base import *
 
 class OptionSets(ListableApiResource, CreateableApiResource,
                  UpdateableApiResource, DeleteableApiResource,
-                 CollectionDeleteableApiResource):
+                 CollectionDeleteableApiResource, CountableApiResource):
     resource_name = 'option_sets'
 
     def options(self, id=None):

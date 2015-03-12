@@ -1,7 +1,6 @@
 import unittest
-from bigcommerce.resources import Mapping, Orders, ApiResource, OrderShipments, Products
-from bigcommerce.resources.orders import OrderCoupons
-from bigcommerce.resources.webhooks import Webhooks
+from bigcommerce.resources import Mapping, Orders, ApiResource, OrderShipments, Products, CountryStates,\
+                                  OrderCoupons, Webhooks
 from mock import MagicMock
 
 
@@ -178,3 +177,19 @@ class TestCountableApiResource(unittest.TestCase):
 
         self.assertEqual(Products.count(connection, is_visible=True), 2)
         connection.make_request.assert_called_once_with('GET', 'products/count', None, {'is_visible': True}, {})
+
+
+class TestCountableApiSubResource(unittest.TestCase):
+    def test_count(self):
+        connection = MagicMock()
+        connection.make_request.return_value = {'count': 2}
+
+        self.assertEqual(CountryStates.count(1, connection=connection, is_visible=True), 2)
+        connection.make_request.assert_called_once_with('GET', 'countries/1/states/count', None, {'is_visible': True}, {})
+
+    def test_count_with_custom_count_path(self):
+        connection = MagicMock()
+        connection.make_request.return_value = {'count': 2}
+
+        self.assertEqual(OrderShipments.count(connection=connection, is_visible=True), 2)
+        connection.make_request.assert_called_once_with('GET', 'orders/shipments/count', None, {'is_visible': True}, {})

@@ -3,7 +3,7 @@ from .base import *
 
 class Orders(ListableApiResource, CreateableApiResource,
              UpdateableApiResource, DeleteableApiResource,
-             CollectionDeleteableApiResource):
+             CollectionDeleteableApiResource, CountableApiResource):
     resource_name = 'orders'
 
     def coupons(self, id=None):
@@ -37,21 +37,24 @@ class OrderCoupons(ListableApiSubResource):
     parent_key = 'order_id'
 
 
-class OrderProducts(ListableApiSubResource):
+class OrderProducts(ListableApiSubResource, CountableApiSubResource):
     resource_name = 'products'
     parent_resource = 'orders'
     parent_key = 'order_id'
+    count_resource = 'orders/products'
 
 
 class OrderShipments(ListableApiSubResource, CreateableApiSubResource,
                      UpdateableApiSubResource, DeleteableApiSubResource,
-                     CollectionDeleteableApiSubResource):
+                     CollectionDeleteableApiSubResource, CountableApiSubResource):
     resource_name = 'shipments'
     parent_resource = 'orders'
     parent_key = 'order_id'
+    count_resource = 'orders/shipments'
 
 
-class OrderShippingAddresses(ListableApiSubResource):
+class OrderShippingAddresses(ListableApiSubResource, CountableApiSubResource):
     resource_name = 'shipping_addresses'
     parent_resource = 'orders'
     parent_key = 'order_id'
+    count_resource = 'orders/shipping_addresses'
