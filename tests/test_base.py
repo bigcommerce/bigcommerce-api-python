@@ -1,6 +1,6 @@
 import unittest
 from bigcommerce.resources import Mapping, Orders, ApiResource, OrderShipments, Products, CountryStates,\
-                                  OrderCoupons, Webhooks
+                                  OrderCoupons, Webhooks, GoogleProductSearchMappings
 from mock import MagicMock
 
 
@@ -104,6 +104,14 @@ class TestListableApiSubResource(unittest.TestCase):
         result = OrderCoupons.all(1, connection, limit=2)
         self.assertEqual(len(result), 2)
         connection.make_request.assert_called_once_with('GET', 'orders/1/coupons', None, {'limit': 2}, {})
+
+    def test_google_mappings(self):
+        connection = MagicMock()
+        connection.make_request.return_value = [{'id': 1}, {'id': 2}]
+
+        result = GoogleProductSearchMappings.all(1, connection, limit=2)
+        self.assertEqual(len(result), 2)
+        connection.make_request.assert_called_once_with('GET', 'products/1/googleproductsearch', None, {'limit': 2}, {})
 
 
 class TestUpdateableApiResource(unittest.TestCase):

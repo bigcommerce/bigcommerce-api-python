@@ -54,6 +54,9 @@ class Products(ListableApiResource, CreateableApiResource,
         else:
             return ProductVideos.all(self.id, connection=self._connection)
 
+    def google_mappings(self):
+        return GoogleProductSearchMappings.all(self.id, connection=self._connection)
+
 
 class ProductConfigurableFields(ListableApiSubResource, DeleteableApiSubResource,
                                 CollectionDeleteableApiSubResource, CountableApiSubResource):
@@ -119,3 +122,9 @@ class ProductVideos(ListableApiSubResource, CountableApiSubResource):
     parent_resource = 'products'
     parent_key = 'product_id'
     count_resource = 'products/videos'
+
+
+class GoogleProductSearchMappings(ListableApiSubResource):
+    resource_name = 'googleproductsearch'
+    parent_resource = 'products'
+    parent_key = 'product_id'

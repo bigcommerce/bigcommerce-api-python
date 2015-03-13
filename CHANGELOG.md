@@ -1,5 +1,6 @@
 ### 0.10.3
 
+* [jtallieu] Add support for Google product mappings endpoint
 * [mattolson] Refactor to allow override of paths; Extract delete_all into a separate class
 * [sebaacuna] Add support for Product count
 * [mattolson] Allow override of auth endpoint with environment var
