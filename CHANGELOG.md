@@ -1,4 +1,4 @@
-### 0.10.3
+### 0.11.0
 
 * [jtallieu] Add support for Google product mappings endpoint
 * [mattolson] Add counts for all resources and subresources that support it
