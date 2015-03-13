@@ -1,2 +1,2 @@
-include *.txt *.md
+include *.txt *.md *.rst
 exclude scripts/*
