@@ -112,9 +112,9 @@ To do
 
 -  Automatic enumeration of multiple page responses
 
-.. |Build Status| image:: https://travis-ci.org/bigcommerce/bigcommerce-api-python.png?branch=master
+.. |Build Status| image:: https://api.travis-ci.org/bigcommerce/bigcommerce-api-python.svg?branch=master
    :target: https://travis-ci.org/bigcommerce/bigcommerce-api-python
-.. |Package Version| image:: https://pypip.in/v/bigcommerce/badge.png
+.. |Package Version| image:: https://pypip.in/version/bigcommerce/badge.svg
    :target: https://pypi.python.org/pypi/bigcommerce
-.. |Downloads| image:: https://pypip.in/d/bigcommerce/badge.png
+.. |Downloads| image:: https://pypip.in/download/bigcommerce/badge.svg
    :target: https://pypi.python.org/pypi/bigcommerce
