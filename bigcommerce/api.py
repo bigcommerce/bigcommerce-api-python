@@ -1,7 +1,8 @@
 import os
 import sys
 from bigcommerce import connection
-from bigcommerce.resources import * # Needed for ApiResourceWrapper dynamic loading
+from bigcommerce.resources import *  # Needed for ApiResourceWrapper dynamic loading
+
 
 class BigcommerceApi(object):
     def __init__(self, host=None, basic_auth=None, client_id=None, store_hash=None, access_token=None):
@@ -26,6 +27,7 @@ class BigcommerceApi(object):
 
     def __getattr__(self, item):
         return ApiResourceWrapper(item, self)
+
 
 class ApiResourceWrapper(object):
     """
