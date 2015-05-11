@@ -55,7 +55,8 @@ class Connection(object):
             url = self.full_path(url)
 
         qs = urlencode(query)
-        if qs: qs = "?" + qs
+        if qs:
+            qs = "?" + qs
         url += qs
 
         # mess with content
@@ -63,7 +64,7 @@ class Connection(object):
             if not headers:  # assume JSON
                 data = json.dumps(data)
                 headers = {'Content-Type': 'application/json'}
-            if headers and not 'Content-Type' in headers:
+            if headers and 'Content-Type' not in headers:
                 data = json.dumps(data)
                 headers['Content-Type'] = 'application/json'
         log.debug("%s %s" % (method, url))
@@ -84,7 +85,8 @@ class Connection(object):
         (see Bigcommerce resource documentation).
         """
         if rid:
-            if resource[-1] != '/': resource += '/'
+            if resource[-1] != '/':
+                resource += '/'
             resource += str(rid)
         response = self._run_method('GET', resource, query=query)
         return self._handle_response(resource, response)
@@ -93,7 +95,8 @@ class Connection(object):
         """
         Updates the resource with id 'rid' with the given updates dictionary.
         """
-        if resource[-1] != '/': resource += '/'
+        if resource[-1] != '/':
+            resource += '/'
         resource += str(rid)
         return self.put(resource, data=updates)
 
@@ -108,7 +111,8 @@ class Connection(object):
         Deletes the resource with given id 'rid', or all resources of given type if rid is not supplied.
         """
         if rid:
-            if resource[-1] != '/': resource += '/'
+            if resource[-1] != '/':
+                resource += '/'
             resource += str(rid)
         response = self._run_method('DELETE', resource)
         return self._handle_response(resource, response, suppress_empty=True)
@@ -147,7 +151,7 @@ class Connection(object):
                 result = res.json()
             except Exception as e:  # json might be invalid, or store might be down
                 e.message += " (_handle_response failed to decode JSON: " + str(res.content) + ")"
-                raise # TODO better exception
+                raise  # TODO better exception
         elif res.status_code == 204 and not suppress_empty:
             raise EmptyResponseWarning("%d %s @ %s: %s" % (res.status_code, res.reason, url, res.content), res)
         elif res.status_code >= 500:
