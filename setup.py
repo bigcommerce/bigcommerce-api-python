@@ -7,7 +7,7 @@ def read(fname):
 
 setup(
     name = 'bigcommerce',
-    version = '0.11.0',
+    version = '0.12.0',
 
     packages = find_packages(),
     install_requires = ['requests>=2.1.0', 'streql>=3.0.2'],

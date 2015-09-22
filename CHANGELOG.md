@@ -1,3 +1,9 @@
+### 0.12.0
+* [mattolson] Update badges for pypip.in
+* [bc-bfenton] Updating code for pep8 compliance
+* [bookernath] Add gift certs and banners as resources
+* [bookernath] Fix bug with path counting
+
 ### 0.11.0
 
 * [jtallieu] Add support for Google product mappings endpoint
