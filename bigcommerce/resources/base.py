@@ -183,10 +183,10 @@ class CountableApiSubResource(ApiSubResource):
 
     @classmethod
     def _count_path(cls, parentid=None):
-        if cls.count_resource is not None:
-            return "%s/count" % (cls.count_resource)
-        elif parentid is not None:
+        if parentid is not None:
             return "%s/%s/%s/count" % (cls.parent_resource, parentid, cls.resource_name)
+        elif cls.count_resource is not None:
+            return "%s/count" % (cls.count_resource)
         else:
             # misconfiguration
             raise NotImplementedError('Count not implemented for this resource.')
