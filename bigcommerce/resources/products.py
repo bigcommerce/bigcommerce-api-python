@@ -36,6 +36,12 @@ class Products(ListableApiResource, CreateableApiResource,
         else:
             return ProductOptions.all(self.id, connection=self._connection)
 
+    def reviews(self, id=None):
+        if id:
+            return ProductReviews.get(self.id, id, connection=self._connection)
+        else:
+            return ProductReviews.all(self.id, connection=self._connection)
+
     def rules(self, id=None):
         if id:
             return ProductRules.get(self.id, id, connection=self._connection)
@@ -98,6 +104,13 @@ class ProductOptions(ListableApiSubResource):
     parent_resource = 'products'
     parent_key = 'product_id'
 
+class ProductReviews(ListableApiSubResource, CreateableApiSubResource,
+                   UpdateableApiSubResource, DeleteableApiSubResource,
+                   CollectionDeleteableApiSubResource, CountableApiSubResource):
+    resource_name = 'reviews'
+    parent_resource = 'products'
+    parent_key = 'product_id'
+    count_resource = 'products/reviews'
 
 class ProductRules(ListableApiSubResource, CreateableApiSubResource,
                    UpdateableApiSubResource, DeleteableApiSubResource,
