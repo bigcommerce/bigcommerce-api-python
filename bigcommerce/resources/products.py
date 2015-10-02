@@ -104,6 +104,7 @@ class ProductOptions(ListableApiSubResource):
     parent_resource = 'products'
     parent_key = 'product_id'
 
+
 class ProductReviews(ListableApiSubResource, CreateableApiSubResource,
                    UpdateableApiSubResource, DeleteableApiSubResource,
                    CollectionDeleteableApiSubResource, CountableApiSubResource):
@@ -111,6 +112,7 @@ class ProductReviews(ListableApiSubResource, CreateableApiSubResource,
     parent_resource = 'products'
     parent_key = 'product_id'
     count_resource = 'products/reviews'
+
 
 class ProductRules(ListableApiSubResource, CreateableApiSubResource,
                    UpdateableApiSubResource, DeleteableApiSubResource,
