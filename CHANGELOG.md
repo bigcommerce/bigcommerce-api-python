@@ -1,3 +1,6 @@
+### 0.13.0
+* [bookernath] Add support for product reviews CRUD
+
 ### 0.12.0
 * [mattolson] Update badges for pypip.in
 * [bc-bfenton] Updating code for pep8 compliance
