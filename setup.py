@@ -5,15 +5,17 @@ from setuptools import setup, find_packages
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
+VERSION = '0.16.0'
+
 setup(
     name = 'bigcommerce',
-    version = '0.16.0',
+    version = VERSION
 
     packages = find_packages(),
     install_requires = ['requests>=2.1.0', 'streql>=3.0.2', 'pyjwt>=1.4.0'],
 
     url = 'https://github.com/bigcommerce/bigcommerce-api-python',
-    download_url = 'https://github.com/bigcommerce/bigcommerce-api-python/releases',
+    download_url = 'https://pypi.python.org/packages/source/b/bigcommerce/bigcommerce-{}.tar.gz'.format(version),
 
     author = 'Bigcommerce Engineering',
     author_email = 'api@bigcommerce.com',
