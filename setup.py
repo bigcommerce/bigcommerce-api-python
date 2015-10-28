@@ -13,7 +13,7 @@ setup(
     install_requires = ['requests>=2.1.0', 'streql>=3.0.2'],
 
     url = 'https://github.com/bigcommerce/bigcommerce-api-python',
-    download_url = 'https://github.com/bigcommerce/bigcommerce-api-python/releases',
+    download_url = 'https://pypi.python.org/packages/source/b/bigcommerce/bigcommerce-0.13.0.tar.gz',
 
     author = 'Bigcommerce Engineering',
     author_email = 'api@bigcommerce.com',
