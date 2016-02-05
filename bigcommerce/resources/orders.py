@@ -36,6 +36,12 @@ class Orders(ListableApiResource, CreateableApiResource,
         else:
             return OrderMessages.all(self.id, connection=self._connection)
 
+    def taxes(self, id=None):
+        if id:
+            return OrderTaxes.get(self.id, id, connection=self._connection)
+        else:
+            return OrderTaxes.all(self.id, connection=self._connection)
+
 
 class OrderCoupons(ListableApiSubResource):
     resource_name = 'coupons'
@@ -68,5 +74,11 @@ class OrderShippingAddresses(ListableApiSubResource, CountableApiSubResource):
 
 class OrderMessages(ListableApiSubResource):
     resource_name = 'messages'
+    parent_resource = 'orders'
+    parent_key = 'order_id'
+
+
+class OrderTaxes(ListableApiSubResource):
+    resource_name = 'taxes'
     parent_resource = 'orders'
     parent_key = 'order_id'
