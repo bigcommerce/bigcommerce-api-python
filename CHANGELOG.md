@@ -1,3 +1,6 @@
+### 0.14.0
+* [bookernath] Add support for currencies
+
 ### 0.13.0
 * [bookernath] Add support for product reviews CRUD
 
