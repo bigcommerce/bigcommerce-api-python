@@ -3,6 +3,7 @@ from .brands import *
 from .categories import *
 from .countries import *
 from .coupons import *
+from .currencies import *
 from .customer_groups import *
 from .customers import *
 from .gift_certificates import *
