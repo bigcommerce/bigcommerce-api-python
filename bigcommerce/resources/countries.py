@@ -6,9 +6,9 @@ class Countries(ListableApiResource, CountableApiResource):
 
     def states(self, id=None):
         if id:
-            return CountryStates.get(self.id, id, connection=self._connection)
+            return CountryStates.get(self.get('id'), id, connection=self.get('_connection'))
         else:
-            return CountryStates.all(self.id, connection=self._connection)
+            return CountryStates.all(self.get('id'), connection=self.get('_connection'))
 
 
 class CountryStates(ListableApiSubResource, CountableApiSubResource):
