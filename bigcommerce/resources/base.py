@@ -1,30 +1,16 @@
 class Mapping(dict):
-    """
-    Mapping
-
-    provides '.' access to dictionary keys
-    """
-    def __init__(self, mapping, *args, **kwargs):
-        """
-        Create a new mapping. Filters the mapping argument
-        to remove any elements that are already methods on the
-        object.
-
-        For example, Orders retains its `coupons` method, instead
-        of being replaced by the dict describing the coupons endpoint
-        """
-        filter_args = {k: mapping[k] for k in mapping if k not in dir(self)}
-        self.__dict__ = self
-        dict.__init__(self, filter_args, *args, **kwargs)
 
     def __str__(self):
         """
         Display as a normal dict, but filter out underscored items first
         """
-        return str({k: self.__dict__[k] for k in self.__dict__ if not k.startswith("_")})
+        return str(self.get_dict())
 
     def __repr__(self):
         return "<%s at %s, %s>" % (type(self).__name__, hex(id(self)), str(self))
+
+    def get_dict(self):
+        return {k: self[k] for k in self if not k.startswith("_")}
 
 
 class ApiResource(Mapping):
@@ -46,7 +32,7 @@ class ApiResource(Mapping):
         return "%s/%s" % (cls.resource_name, id)
 
     @classmethod
-    def get(cls, id, connection=None, **params):
+    def fetch(cls, id, connection=None, **params):
         response = cls._make_request('GET', cls._get_path(id), connection, params=params)
         return cls._create_object(response, connection=connection)
 
@@ -60,7 +46,7 @@ class ApiSubResource(ApiResource):
         return "%s/%s/%s/%s" % (cls.parent_resource, parentid, cls.resource_name, id)
 
     @classmethod
-    def get(cls, parentid, id, connection=None, **params):
+    def fetch(cls, parentid, id, connection=None, **params):
         response = cls._make_request('GET', cls._get_path(id, parentid), connection, params=params)
         return cls._create_object(response, connection=connection)
 
@@ -114,36 +100,36 @@ class ListableApiSubResource(ApiSubResource):
 
 class UpdateableApiResource(ApiResource):
     def _update_path(self):
-        return "%s/%s" % (self.resource_name, self.id)
+        return "%s/%s" % (self.resource_name, self.get('id'))
 
-    def update(self, **updates):
-        response = self._make_request('PUT', self._update_path(), self._connection, data=updates)
-        return self._create_object(response, connection=self._connection)
+    def save(self, **updates):
+        response = self._make_request('PUT', self._update_path(), self.get('_connection'), data=updates)
+        return self._create_object(response, connection=self.get('_connection'))
 
 
 class UpdateableApiSubResource(ApiSubResource):
     def _update_path(self):
-        return "%s/%s/%s/%s" % (self.parent_resource, self.parent_id(), self.resource_name, self.id)
+        return "%s/%s/%s/%s" % (self.parent_resource, self.parent_id(), self.resource_name, self.get('id'))
 
-    def update(self, **updates):
-        response = self._make_request('PUT', self._update_path(), self._connection, data=updates)
-        return self._create_object(response, connection=self._connection)
+    def save(self, **updates):
+        response = self._make_request('PUT', self._update_path(), self.get('_connection'), data=updates)
+        return self._create_object(response, connection=self.get('_connection'))
 
 
 class DeleteableApiResource(ApiResource):
     def _delete_path(self):
-        return "%s/%s" % (self.resource_name, self.id)
+        return "%s/%s" % (self.resource_name, self.get('id'))
 
     def delete(self):
-        return self._make_request('DELETE', self._delete_path(), self._connection)
+        return self._make_request('DELETE', self._delete_path(), self.get('_connection'))
 
 
 class DeleteableApiSubResource(ApiSubResource):
     def _delete_path(self):
-        return "%s/%s/%s/%s" % (self.parent_resource, self.parent_id(), self.resource_name, self.id)
+        return "%s/%s/%s/%s" % (self.parent_resource, self.parent_id(), self.resource_name, self.get('id'))
 
     def delete(self):
-        return self._make_request('DELETE', self._delete_path(), self._connection)
+        return self._make_request('DELETE', self._delete_path(), self.get('_connection'))
 
 
 class CollectionDeleteableApiResource(ApiResource):
