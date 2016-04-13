@@ -12,6 +12,9 @@ class Mapping(dict):
     def get_dict(self):
         return {k: self[k] for k in self if not k.startswith("_")}
 
+    def __dict__(self):
+        return self.get_dict()
+
 
 class ApiResource(Mapping):
     resource_name = ""  # The identifier which describes this resource in urls
