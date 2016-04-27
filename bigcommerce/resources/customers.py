@@ -11,11 +11,20 @@ class Customers(ListableApiResource, CreateableApiResource,
             return CustomerAddresses.get(self.id, id, connection=self._connection)
         else:
             return CustomerAddresses.all(self.id, connection=self._connection)
+            
+    def token(self, id=None):
+            return CustomerLoginToken.all(self.id, connection=self._connection)
 
 
 class CustomerAddresses(ListableApiSubResource, CreateableApiSubResource,
                         UpdateableApiSubResource, DeleteableApiSubResource,
                         CollectionDeleteableApiSubResource, CountableApiSubResource):
     resource_name = 'addresses'
+    parent_resource = 'customers'
+    parent_key = 'customer_id'
+
+
+class CustomerLoginToken(ListableApiSubResource):
+    resource_name = 'tokens'
     parent_resource = 'customers'
     parent_key = 'customer_id'
