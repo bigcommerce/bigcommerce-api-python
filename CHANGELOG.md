@@ -1,3 +1,7 @@
+### 0.15.0
+* [bookernath] Add order message support
+* [bookernath] Add support for customer login tokens
+
 ### 0.14.0
 * [bookernath] Add support for currencies
 
