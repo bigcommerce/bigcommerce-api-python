@@ -10,7 +10,7 @@ setup(
     version = '0.14.0',
 
     packages = find_packages(),
-    install_requires = ['requests>=2.1.0', 'streql>=3.0.2'],
+    install_requires = ['requests>=2.1.0', 'streql>=3.0.2', 'pyjwt>=1.4.0'],
 
     url = 'https://github.com/bigcommerce/bigcommerce-api-python',
     download_url = 'https://github.com/bigcommerce/bigcommerce-api-python/releases',
