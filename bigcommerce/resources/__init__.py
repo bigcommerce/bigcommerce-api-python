@@ -11,6 +11,7 @@ from .option_sets import *
 from .options import *
 from .order_statuses import *
 from .orders import *
+from .pages import *
 from .payments import *
 from .products import *
 from .redirects import *
