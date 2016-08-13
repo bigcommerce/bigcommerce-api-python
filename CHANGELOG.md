@@ -1,3 +1,6 @@
+### 0.16.0
+* [bookernath] Add support for web pages
+
 ### 0.15.0
 * [bookernath] Add order message support
 * [bookernath] Add support for customer login tokens
