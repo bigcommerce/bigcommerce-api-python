@@ -103,11 +103,15 @@ class ListableApiResource(ApiResource):
 
 class ListableApiSubResource(ApiSubResource):
     @classmethod
-    def _get_all_path(cls, parentid):
-        return "%s/%s/%s" % (cls.parent_resource, parentid, cls.resource_name)
+    def _get_all_path(cls, parentid=None):
+        # Not all sub resources require a parent id.  Eg: /api/v2/products/skus?sku=<value>
+        if (parentid):
+            return "%s/%s/%s" % (cls.parent_resource, parentid, cls.resource_name)
+        else: 
+            return "%s/%s" % (cls.parent_resource, cls.resource_name)
 
     @classmethod
-    def all(cls, parentid, connection=None, **params):
+    def all(cls, parentid=None, connection=None, **params):
         response = cls._make_request('GET', cls._get_all_path(parentid), connection, params=params)
         return cls._create_object(response, connection=connection)
 
