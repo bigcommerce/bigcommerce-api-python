@@ -58,7 +58,7 @@ resources:
     api.ProductOptions.get(1)                  # GET /products/1/options
     api.ProductOptions.get(1, 2)               # GET /products/1/options/2
 
-And as helper methods on the parent resoource:
+And as helper methods on the parent resource:
 
 ::
 
