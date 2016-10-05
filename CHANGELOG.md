@@ -1,3 +1,8 @@
+### 0.17.0
+* [bc-croh92] PEP-470 compliance in setup.py
+* [verygoodsoftwarenotvirus] Fixed a typo in readme
+* [jbub] Add missing order taxes subresource
+
 ### 0.16.0
 * [bookernath] Add support for web pages
 
