@@ -139,7 +139,7 @@ class TestOAuthConnection(unittest.TestCase):
             self.assertEqual(res, result)
             self.assertDictEqual(connection._session.headers,
                                  {'X-Auth-Client': 'abc123', 'X-Auth-Token': '12345abcdef',
-                                  'Accept': 'application/json'})
+                                  'Accept': 'application/json', 'Accept-Encoding': 'gzip'})
             connection.post.assert_called_once_with('https://login.bigcommerce.com/oauth2/token',
                                                     {
                                                         'client_id': client_id,

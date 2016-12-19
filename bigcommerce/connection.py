@@ -185,7 +185,8 @@ class OAuthConnection(Connection):
         self.timeout = 7.0  # can attach to session?
 
         self._session = requests.Session()
-        self._session.headers = {"Accept": "application/json"}
+        self._session.headers = {"Accept": "application/json",
+                                 "Accept-Encoding": "gzip"}
         if access_token and store_hash:
             self._session.headers.update(self._oauth_headers(client_id, access_token))
 
