@@ -1,7 +1,7 @@
 Bigcommerce API Python Client
 ==================================
 
-|Build Status| |Package Version| |Downloads|
+|Build Status| |Package Version|
 
 Wrapper over the ``requests`` library for communicating with the Bigcommerce v2 API.
 
@@ -114,7 +114,5 @@ To do
 
 .. |Build Status| image:: https://api.travis-ci.org/bigcommerce/bigcommerce-api-python.svg?branch=master
    :target: https://travis-ci.org/bigcommerce/bigcommerce-api-python
-.. |Package Version| image:: https://pypip.in/version/bigcommerce/badge.svg
-   :target: https://pypi.python.org/pypi/bigcommerce
-.. |Downloads| image:: https://pypip.in/download/bigcommerce/badge.svg
+.. |Package Version| image:: https://badge.fury.io/py/bigcommerce.svg
    :target: https://pypi.python.org/pypi/bigcommerce
