@@ -1,3 +1,7 @@
+### 0.17.1
+* [bookernath] Gzip support
+* [neybar] Filters on SKU resource
+
 ### 0.17.0
 * [bc-croh92] PEP-470 compliance in setup.py
 * [verygoodsoftwarenotvirus] Fixed a typo in readme
