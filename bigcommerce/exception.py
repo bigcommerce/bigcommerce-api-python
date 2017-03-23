@@ -27,6 +27,9 @@ class EmptyResponseWarning(HttpException):
 # 4xx codes
 class ClientRequestException(HttpException):
     pass
+
+class RateLimitingException(ClientRequestException):
+    pass
 # class Unauthorised(ClientRequestException): pass
 # class AccessForbidden(ClientRequestException): pass
 # class ResourceNotFound(ClientRequestException): pass
