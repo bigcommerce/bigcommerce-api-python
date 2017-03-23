@@ -156,6 +156,8 @@ class Connection(object):
             raise EmptyResponseWarning("%d %s @ %s: %s" % (res.status_code, res.reason, url, res.content), res)
         elif res.status_code >= 500:
             raise ServerException("%d %s @ %s: %s" % (res.status_code, res.reason, url, res.content), res)
+        elif res.status_code == 429:
+            raise RateLimitingException("%d %s @ %s: %s" % (res.status_code, res.reason, url, res.content), res)
         elif res.status_code >= 400:
             raise ClientRequestException("%d %s @ %s: %s" % (res.status_code, res.reason, url, res.content), res)
         elif res.status_code >= 300:
