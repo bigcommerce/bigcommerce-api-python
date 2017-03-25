@@ -194,6 +194,8 @@ class OAuthConnection(Connection):
 
         self._last_response = None  # for debugging
 
+        self.rate_limit = {}
+
     def full_path(self, url):
         return "https://" + self.host + self.api_path.format(self.store_hash, url)
 
@@ -237,3 +239,15 @@ class OAuthConnection(Connection):
                         headers={'Content-Type': 'application/x-www-form-urlencoded'})
         self._session.headers.update(self._oauth_headers(self.client_id, res['access_token']))
         return res
+
+    def _handle_response(self, url, res, suppress_empty=True):
+        """
+        Adds rate limiting information on to the response object
+        """
+        result = Connection._handle_response(self, url, res, suppress_empty)
+        if 'X-Rate-Limit-Time-Reset-Ms' in res.headers:
+            self.rate_limit = dict(ms_until_reset=res.headers['X-Rate-Limit-Time-Reset-Ms'],
+                                   window_size_ms=res.headers['X-Rate-Limit-Time-Window-Ms'],
+                                   requests_remaining=res.headers['X-Rate-Limit-Requests-Left'],
+                                   requests_quota=res.headers['X-Rate-Limit-Requests-Quota'])
+        return result
