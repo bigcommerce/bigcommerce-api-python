@@ -29,6 +29,10 @@ class ClientRequestException(HttpException):
     pass
 
 class RateLimitingException(ClientRequestException):
+    @property
+    def retry_after(self):
+        return self.response.headers['X-Rate-Limit-Time-Reset-Ms']
+
     pass
 # class Unauthorised(ClientRequestException): pass
 # class AccessForbidden(ClientRequestException): pass
