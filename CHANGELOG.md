@@ -1,3 +1,6 @@
+### 0.17.2
+* [bookernath] Support for new rate limiting headers (OAuth connections only)
+
 ### 0.17.1
 * [bookernath] Gzip support
 * [neybar] Filters on SKU resource
