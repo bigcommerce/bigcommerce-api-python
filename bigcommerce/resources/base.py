@@ -14,6 +14,7 @@ class Mapping(dict):
         of being replaced by the dict describing the coupons endpoint
         """
         filter_args = {k: mapping[k] for k in mapping if k not in dir(self)}
+	filter_args['_items'] = mapping['items'] if  mapping.has_key("items") else [] #Changed/Newly Added
         self.__dict__ = self
         dict.__init__(self, filter_args, *args, **kwargs)
 
