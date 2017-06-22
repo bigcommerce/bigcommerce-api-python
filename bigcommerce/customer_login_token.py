@@ -33,7 +33,7 @@ class CustomerLoginTokens(object):
                        )
 
         if redirect_url:
-            payload['redirect_url'] = redirect_url
+            payload['redirect_to'] = redirect_url
 
         if request_ip:
             payload['request_ip'] = request_ip
