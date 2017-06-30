@@ -14,7 +14,6 @@ except ImportError:
 
 import json  # only used for urlencode querystr
 import logging
-import streql
 import requests
 
 from bigcommerce.exception import *
@@ -216,7 +215,7 @@ class OAuthConnection(Connection):
         dc_json = base64.b64decode(encoded_json)
         signature = base64.b64decode(encoded_hmac)
         expected_sig = hmac.new(client_secret.encode(), base64.b64decode(encoded_json), hashlib.sha256).hexdigest()
-        authorised = streql.equals(signature, expected_sig)
+        authorised = hmac.compare_digest(signature, expected_sig.encode())
         return json.loads(dc_json.decode()) if authorised else False
 
     def fetch_token(self, client_secret, code, context, scope, redirect_uri,
