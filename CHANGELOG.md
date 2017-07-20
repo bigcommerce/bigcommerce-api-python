@@ -1,3 +1,7 @@
+### 0.17.3
+* [bookernath] Remove streql dependency
+* [bookernath] Fix redirect_to parameter for Customer Login API
+
 ### 0.17.2
 * [bookernath] Support for new rate limiting headers (OAuth connections only)
 
