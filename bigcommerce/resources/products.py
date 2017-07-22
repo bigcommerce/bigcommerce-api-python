@@ -8,60 +8,60 @@ class Products(ListableApiResource, CreateableApiResource,
 
     def configurable_fields(self, id=None):
         if id:
-            return ProductConfigurableFields.get(self.id, id, connection=self._connection)
+            return ProductConfigurableFields.get(self.get('id'), id, connection=self.get('_connection'))
         else:
-            return ProductConfigurableFields.all(self.id, connection=self._connection)
+            return ProductConfigurableFields.all(self.get('id'), connection=self.get('_connection'))
 
     def custom_fields(self, id=None):
         if id:
-            return ProductCustomFields.get(self.id, id, connection=self._connection)
+            return ProductCustomFields.get(self.get('id'), id, connection=self.get('_connection'))
         else:
-            return ProductCustomFields.all(self.id, connection=self._connection)
+            return ProductCustomFields.all(self.get('id'), connection=self.get('_connection'))
 
     def discount_rules(self, id=None):
         if id:
-            return ProductDiscountRules.get(self.id, id, connection=self._connection)
+            return ProductDiscountRules.get(self.get('id'), id, connection=self.get('_connection'))
         else:
-            return ProductDiscountRules.all(self.id, connection=self._connection)
+            return ProductDiscountRules.all(self.get('id'), connection=self.get('_connection'))
 
     def images(self, id=None):
         if id:
-            return ProductImages.get(self.id, id, connection=self._connection)
+            return ProductImages.get(self.get('id'), id, connection=self.get('_connection'))
         else:
-            return ProductImages.all(self.id, connection=self._connection)
+            return ProductImages.all(self.get('id'), connection=self.get('_connection'))
 
     def options(self, id=None):
         if id:
-            return ProductOptions.get(self.id, id, connection=self._connection)
+            return ProductOptions.get(self.get('id'), id, connection=self.get('_connection'))
         else:
-            return ProductOptions.all(self.id, connection=self._connection)
+            return ProductOptions.all(self.get('id'), connection=self.get('_connection'))
 
     def reviews(self, id=None):
         if id:
-            return ProductReviews.get(self.id, id, connection=self._connection)
+            return ProductReviews.get(self.get('id'), id, connection=self.get('_connection'))
         else:
-            return ProductReviews.all(self.id, connection=self._connection)
+            return ProductReviews.all(self.get('id'), connection=self.get('_connection'))
 
     def rules(self, id=None):
         if id:
-            return ProductRules.get(self.id, id, connection=self._connection)
+            return ProductRules.get(self.get('id'), id, connection=self.get('_connection'))
         else:
-            return ProductRules.all(self.id, connection=self._connection)
+            return ProductRules.all(self.get('id'), connection=self.get('_connection'))
 
     def skus(self, id=None):
         if id:
-            return ProductSkus.get(self.id, id, connection=self._connection)
+            return ProductSkus.get(self.get('id'), id, connection=self.get('_connection'))
         else:
-            return ProductSkus.all(self.id, connection=self._connection)
+            return ProductSkus.all(self.get('id'), connection=self.get('_connection'))
 
     def videos(self, id=None):
         if id:
-            return ProductVideos.get(self.id, id, connection=self._connection)
+            return ProductVideos.get(self.get('id'), id, connection=self.get('_connection'))
         else:
-            return ProductVideos.all(self.id, connection=self._connection)
+            return ProductVideos.all(self.get('id'), connection=self.get('_connection'))
 
     def google_mappings(self):
-        return GoogleProductSearchMappings.all(self.id, connection=self._connection)
+        return GoogleProductSearchMappings.all(self.get('id'), connection=self.get('_connection'))
 
 
 class ProductConfigurableFields(ListableApiSubResource, DeleteableApiSubResource,

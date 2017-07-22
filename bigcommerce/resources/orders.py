@@ -8,27 +8,27 @@ class Orders(ListableApiResource, CreateableApiResource,
 
     def coupons(self, id=None):
         if id:
-            return OrderCoupons.get(self.id, id, connection=self._connection)
+            return OrderCoupons.get(self.get('id'), id, connection=self.get('_connection'))
         else:
-            return OrderCoupons.all(self.id, connection=self._connection)
+            return OrderCoupons.all(self.get('id'), connection=self.get('_connection'))
 
     def products(self, id=None):
         if id:
-            return OrderProducts.get(self.id, id, connection=self._connection)
+            return OrderProducts.get(self.get('id'), id, connection=self.get('_connection'))
         else:
-            return OrderProducts.all(self.id, connection=self._connection)
+            return OrderProducts.all(self.get('id'), connection=self.get('_connection'))
 
     def shipments(self, id=None):
         if id:
-            return OrderShipments.get(self.id, id, connection=self._connection)
+            return OrderShipments.get(self.get('id'), id, connection=self.get('_connection'))
         else:
-            return OrderShipments.all(self.id, connection=self._connection)
+            return OrderShipments.all(self.get('id'), connection=self.get('_connection'))
 
     def shipping_addresses(self, id=None):
         if id:
-            return OrderShippingAddresses.get(self.id, id, connection=self._connection)
+            return OrderShippingAddresses.get(self.get('id'), id, connection=self.get('_connection'))
         else:
-            return OrderShippingAddresses.all(self.id, connection=self._connection)
+            return OrderShippingAddresses.all(self.get('id'), connection=self.get('_connection'))
 
     def messages(self, id=None):
         if id:

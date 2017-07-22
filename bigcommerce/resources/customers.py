@@ -8,9 +8,9 @@ class Customers(ListableApiResource, CreateableApiResource,
 
     def addresses(self, id=None):
         if id:
-            return CustomerAddresses.get(self.id, id, connection=self._connection)
+            return CustomerAddresses.get(self.get('id'), id, connection=self.get('_connection'))
         else:
-            return CustomerAddresses.all(self.id, connection=self._connection)
+            return CustomerAddresses.all(self.get('id'), connection=self.get('_connection'))
 
 
 class CustomerAddresses(ListableApiSubResource, CreateableApiSubResource,

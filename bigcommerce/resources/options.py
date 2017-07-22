@@ -8,9 +8,9 @@ class Options(ListableApiResource, CreateableApiResource,
 
     def values(self, id=None):
         if id:
-            return OptionValues.get(self.id, id, connection=self._connection)
+            return OptionValues.get(self.get('id'), id, connection=self.get('_connection'))
         else:
-            return OptionValues.all(self.id, connection=self._connection)
+            return OptionValues.all(self.get('id'), connection=self.get('_connection'))
 
 
 class OptionValues(ListableApiSubResource, CreateableApiSubResource,
