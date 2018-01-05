@@ -21,13 +21,13 @@ class TestConnection(unittest.TestCase):
         # Call with nothing
         connection._run_method('GET', '')
         connection._session.request.assert_called_once_with('GET', 'https://store.mybigcommerce.com/api/v2/',
-                                                            data=None, timeout=7.0, headers={})
+                                                            data=None, timeout=7.0, headers=None)
         connection._session.request.reset_mock()
 
         # A simple request
         connection._run_method('GET', 'time')
         connection._session.request.assert_called_once_with('GET', 'https://store.mybigcommerce.com/api/v2/time',
-                                                            data=None, timeout=7.0, headers={})
+                                                            data=None, timeout=7.0, headers=None)
         connection._session.request.reset_mock()
 
         # A request with data
@@ -47,7 +47,7 @@ class TestConnection(unittest.TestCase):
         connection._run_method('GET', '/orders', query={'limit': 50})
         connection._session.request.assert_called_once_with('GET',
                                                             'https://store.mybigcommerce.com/api/v2/orders?limit=50',
-                                                            data=None, timeout=7.0, headers={})
+                                                            data=None, timeout=7.0, headers=None)
         connection._session.request.reset_mock()
 
     def test_handle_response(self):

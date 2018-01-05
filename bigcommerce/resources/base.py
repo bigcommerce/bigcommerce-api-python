@@ -13,6 +13,9 @@ class Mapping(dict):
         For example, Orders retains its `coupons` method, instead
         of being replaced by the dict describing the coupons endpoint
         """
+
+        mapping = mapping or {}
+
         filter_args = {k: mapping[k] for k in mapping if k not in dir(self)}
         self.__dict__ = self
         dict.__init__(self, filter_args, *args, **kwargs)
@@ -32,13 +35,13 @@ class ApiResource(Mapping):
 
     @classmethod
     def _create_object(cls, response, connection=None):
-        if isinstance(response, list):
-            return [cls._create_object(obj, connection) for obj in response]
+        if response and not isinstance(response, dict):
+            return [cls(obj, _connection=connection) for obj in response]
         else:
             return cls(response, _connection=connection)
 
     @classmethod
-    def _make_request(cls, method, url, connection, data=None, params={}, headers={}):
+    def _make_request(cls, method, url, connection, data=None, params=None, headers=None):
         return connection.make_request(method, url, data, params, headers)
 
     @classmethod
@@ -96,9 +99,40 @@ class ListableApiResource(ApiResource):
         return cls.resource_name
 
     @classmethod
-    def all(cls, connection=None, **params):
-        request = cls._make_request('GET', cls._get_all_path(), connection, params=params)
-        return cls._create_object(request, connection=connection)
+    def all(cls, connection=None, **kwargs):
+
+        try:
+            limit = kwargs['limit']
+        except KeyError:
+            limit = None
+
+        try:
+            page = kwargs['page']
+        except KeyError:
+            page = None
+
+        def _all_responses():
+            page = 1  # one based
+            params = kwargs.copy()
+
+            while True:
+                params.update(page=page, limit=250)
+                rsp = cls._make_request('GET', cls._get_all_path(), connection, params=params)
+                if rsp:
+                    yield rsp
+                    page += 1
+                else:
+                    yield []  # needed for case where there is no objects
+                    break
+
+        if not (limit or page):
+            for rsp in _all_responses():
+                for obj in rsp:
+                    yield cls._create_object(obj, connection=connection)
+
+        else:
+            response = cls._make_request('GET', cls._get_all_path(), connection, params=kwargs)
+            yield from cls._create_object(response, connection=connection)
 
 
 class ListableApiSubResource(ApiSubResource):
