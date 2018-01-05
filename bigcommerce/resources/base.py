@@ -132,7 +132,8 @@ class ListableApiResource(ApiResource):
 
         else:
             response = cls._make_request('GET', cls._get_all_path(), connection, params=kwargs)
-            yield from cls._create_object(response, connection=connection)
+            for obj in cls._create_object(response, connection=connection):
+                yield obj
 
 
 class ListableApiSubResource(ApiSubResource):
