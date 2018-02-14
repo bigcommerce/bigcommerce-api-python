@@ -177,7 +177,7 @@ class OAuthConnection(Connection):
     """
 
     def __init__(self, client_id, store_hash, access_token=None, host='api.bigcommerce.com', api_path='/stores/{}/v2/{}'):
-        super().__init__(host, None, api_path)
+        super(OAuthConnection, self).__init__(host, None, api_path)
 
         self.client_id = client_id
         self.store_hash = store_hash
