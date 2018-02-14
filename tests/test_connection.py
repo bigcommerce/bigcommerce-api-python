@@ -130,25 +130,25 @@ class TestOAuthConnection(unittest.TestCase):
         scope = 'store_v2_products'
         redirect_uri = 'http://localhost/callback'
         result = {'access_token': '12345abcdef'}
-        with patch('bigcommerce.connection.OAuthConnection') as mock:
-            connection = OAuthConnection(client_id, store_hash='abc')
-            connection.post = MagicMock()
-            connection.post.return_value = result
 
-            res = connection.fetch_token(client_secret, code, context, scope, redirect_uri)
-            self.assertEqual(res, result)
-            self.assertDictEqual(connection._session.headers,
-                                 {'X-Auth-Client': 'abc123', 'X-Auth-Token': '12345abcdef',
-                                  'Accept': 'application/json', 'Accept-Encoding': 'gzip'})
-            connection.post.assert_called_once_with('https://login.bigcommerce.com/oauth2/token',
-                                                    {
-                                                        'client_id': client_id,
-                                                        'client_secret': client_secret,
-                                                        'code': code,
-                                                        'context': context,
-                                                        'scope': scope,
-                                                        'grant_type': 'authorization_code',
-                                                        'redirect_uri': redirect_uri
-                                                    },
-                                                    headers={'Content-Type': 'application/x-www-form-urlencoded'}
+        connection = OAuthConnection(client_id, store_hash='abc')
+        connection.post = MagicMock()
+        connection.post.return_value = result
+
+        res = connection.fetch_token(client_secret, code, context, scope, redirect_uri)
+        self.assertEqual(res, result)
+        self.assertDictEqual(connection._session.headers,
+                             {'X-Auth-Client': 'abc123', 'X-Auth-Token': '12345abcdef',
+                              'Accept': 'application/json', 'Accept-Encoding': 'gzip'})
+        connection.post.assert_called_once_with('https://login.bigcommerce.com/oauth2/token',
+                                                {
+                                                    'client_id': client_id,
+                                                    'client_secret': client_secret,
+                                                    'code': code,
+                                                    'context': context,
+                                                    'scope': scope,
+                                                    'grant_type': 'authorization_code',
+                                                    'redirect_uri': redirect_uri
+                                                },
+                                                headers={'Content-Type': 'application/x-www-form-urlencoded'}
             )
