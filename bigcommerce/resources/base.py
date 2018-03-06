@@ -99,7 +99,19 @@ class ListableApiResource(ApiResource):
         return cls.resource_name
 
     @classmethod
-    def all(cls, connection=None, **kwargs):
+    def all(cls, connection=None, **params):
+        """
+            Returns first page if no params passed in as a list.
+        """
+
+        request = cls._make_request('GET', cls._get_all_path(), connection, params=params)
+        return cls._create_object(request, connection=connection)
+
+    @classmethod
+    def iterall(cls, connection=None, **kwargs):
+        """
+            Returns a autopaging generator that yields each object returned one by one.
+        """
 
         try:
             limit = kwargs['limit']
