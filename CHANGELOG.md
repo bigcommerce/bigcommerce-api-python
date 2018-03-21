@@ -1,3 +1,6 @@
+### 0.18.0
+* [surbas] New method for automatically paginating resources
+
 ### 0.17.3
 * [bookernath] Remove streql dependency
 * [bookernath] Fix redirect_to parameter for Customer Login API
