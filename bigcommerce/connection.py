@@ -26,7 +26,7 @@ class Connection(object):
     Connection class manages the connection to the Bigcommerce REST API.
     """
 
-    def __init__(self, host, auth, api_path='/api/v2/{}'):
+    def __init__(self, host, auth=None, api_path='/api/v2/{}'):
         self.host = host
         self.api_path = api_path
 
@@ -44,7 +44,7 @@ class Connection(object):
     def full_path(self, url):
         return "https://" + self.host + self.api_path.format(url)
 
-    def _run_method(self, method, url, data=None, query={}, headers={}):
+    def _run_method(self, method, url, data=None, query=None, headers=None):
         # make full path if not given
         if url and url[:4] != "http":
             if url[0] == '/':  # can call with /resource if you want
@@ -53,19 +53,18 @@ class Connection(object):
         elif not url:  # blank path
             url = self.full_path(url)
 
-        qs = urlencode(query)
+        qs = urlencode(query if query else {})
         if qs:
             qs = "?" + qs
         url += qs
 
         # mess with content
         if data:
-            if not headers:  # assume JSON
-                data = json.dumps(data)
-                headers = {'Content-Type': 'application/json'}
-            if headers and 'Content-Type' not in headers:
-                data = json.dumps(data)
-                headers['Content-Type'] = 'application/json'
+            headers = headers or {}
+            headers.setdefault('Content-Type', 'application/json')
+
+            data = json.dumps(data)
+
         log.debug("%s %s" % (method, url))
         # make and send the request
         return self._session.request(method, url, data=data, timeout=self.timeout, headers=headers)
@@ -118,7 +117,7 @@ class Connection(object):
 
     # Raw-er stuff
 
-    def make_request(self, method, url, data=None, params = {}, headers = {}):
+    def make_request(self, method, url, data=None, params=None, headers=None):
         response = self._run_method(method, url, data, params, headers)
         return self._handle_response(url, response)
 
@@ -143,11 +142,11 @@ class Connection(object):
         """
         Returns parsed JSON or raises an exception appropriately.
         """
+
         self._last_response = res
-        result = {}
         if res.status_code in (200, 201, 202):
             try:
-                result = res.json()
+                return res.json()
             except Exception as e:  # json might be invalid, or store might be down
                 e.message += " (_handle_response failed to decode JSON: " + str(res.content) + ")"
                 raise  # TODO better exception
@@ -161,7 +160,6 @@ class Connection(object):
             raise ClientRequestException("%d %s @ %s: %s" % (res.status_code, res.reason, url, res.content), res)
         elif res.status_code >= 300:
             raise RedirectionException("%d %s @ %s: %s" % (res.status_code, res.reason, url, res.content), res)
-        return result
 
     def __repr__(self):
         return "%s %s%s" % (self.__class__.__name__, self.host, self.api_path)
@@ -179,19 +177,14 @@ class OAuthConnection(Connection):
     """
 
     def __init__(self, client_id, store_hash, access_token=None, host='api.bigcommerce.com', api_path='/stores/{}/v2/{}'):
+        super(OAuthConnection, self).__init__(host, None, api_path)
+
         self.client_id = client_id
         self.store_hash = store_hash
-        self.host = host
-        self.api_path = api_path
-        self.timeout = 7.0  # can attach to session?
+        self._session.headers.update({"Accept-Encoding": "gzip"})
 
-        self._session = requests.Session()
-        self._session.headers = {"Accept": "application/json",
-                                 "Accept-Encoding": "gzip"}
         if access_token and store_hash:
             self._session.headers.update(self._oauth_headers(client_id, access_token))
-
-        self._last_response = None  # for debugging
 
         self.rate_limit = {}
 

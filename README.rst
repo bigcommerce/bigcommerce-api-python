@@ -42,7 +42,9 @@ provides CRUD operations, depending on capabilities of the resource:
 
 .. code:: python
 
-    api.Products.all()                         # GET /products
+    api.Products.all()                         # GET /products (returns only a single page of products as a list)
+    api.Products.iterall()                     # GET /products (autopaging generator that yields all
+                                               #                  products from all pages product by product.)
     api.Products.get(1)                        # GET /products/1
     api.Products.create(name='', type='', ...) # POST /products
     api.Products.get(1).update(price='199.90') # PUT /products/1
@@ -110,7 +112,7 @@ Full documentation of the API is available on the Bigcommerce
 To do
 -----
 
--  Automatic enumeration of multiple page responses
+-  Automatic enumeration of multiple page responses for subresources.
 
 .. |Build Status| image:: https://api.travis-ci.org/bigcommerce/bigcommerce-api-python.svg?branch=master
    :target: https://travis-ci.org/bigcommerce/bigcommerce-api-python
