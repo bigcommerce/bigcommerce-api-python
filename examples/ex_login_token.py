@@ -23,6 +23,7 @@ print('Token: %s' % login_token)
 # You can build the URL yourself
 print('%s/login/token/%s' % ('https://domain.com', login_token))
 
-# Or use the helper method to build the URL (uses 1 API request to get the secure domain for the store)
-login_token_url = bigcommerce.customer_login_token.create_url(api, customer.id)
+# Or use the helper method to build the URL. This uses 1 API request to get the secure domain for the store, 
+# and another API request if you opt to use BC's clock for the iat.
+login_token_url = bigcommerce.customer_login_token.create_url(api, customer.id, use_bc_time=True)
 print('Token URL: %s' % login_token_url)

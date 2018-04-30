@@ -6,7 +6,7 @@ import jwt
 
 class CustomerLoginTokens(object):
     @classmethod
-    def create(cls, client, id, redirect_url=None, request_ip=None):
+    def create(cls, client, id, redirect_url=None, request_ip=None, iat_time=None):
         
         # Get the client_secret needed to sign tokens from the environment
         # Intended to play nice with the Python Hello World sample app
@@ -32,6 +32,9 @@ class CustomerLoginTokens(object):
                        customer_id=id
                        )
 
+        if iat_time:
+            payload['iat'] = iat_time
+
         if redirect_url:
             payload['redirect_to'] = redirect_url
 
@@ -43,8 +46,12 @@ class CustomerLoginTokens(object):
         return token.decode('utf-8')
 
     @classmethod
-    def create_url(cls, client, id, redirect_url=None, request_ip=None):
+    def create_url(cls, client, id, redirect_url=None, request_ip=None, use_bc_time=False):
         secure_url = client.Store.all()['secure_url']
-        login_token = cls.create(client, id, redirect_url, request_ip)
+        iat_time = None
+        if use_bc_time:
+            iat_time = client.Time.all()['time']
+            login_token = cls.create(client, id, redirect_url, request_ip, iat_time=iat_time)
+        else:
+            login_token = cls.create(client, id, redirect_url, request_ip)
         return '%s/login/token/%s' % (secure_url, login_token)
-
