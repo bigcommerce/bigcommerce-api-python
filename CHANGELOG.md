@@ -1,3 +1,7 @@
+### 0.18.1
+* [bookernath] Option to use BC server time to synchronize BC login API
+* [bookernath] Fix app installation flow
+
 ### 0.18.0
 * [surbas] New method for automatically paginating resources
 
