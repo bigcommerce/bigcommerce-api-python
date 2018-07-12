@@ -44,7 +44,12 @@ class Connection(object):
     def full_path(self, url):
         return "https://" + self.host + self.api_path.format(url)
 
-    def _run_method(self, method, url, data=None, query={}, headers={}):
+    def _run_method(self, method, url, data=None, query=None, headers=None):
+        if query is None:
+            query = {}
+        if headers is None:
+            headers = {}
+
         # make full path if not given
         if url and url[:4] != "http":
             if url[0] == '/':  # can call with /resource if you want
@@ -118,7 +123,7 @@ class Connection(object):
 
     # Raw-er stuff
 
-    def make_request(self, method, url, data=None, params = {}, headers = {}):
+    def make_request(self, method, url, data=None, params=None, headers=None):
         response = self._run_method(method, url, data, params, headers)
         return self._handle_response(url, response)
 
