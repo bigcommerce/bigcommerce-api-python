@@ -1,3 +1,6 @@
+### 0.18.2
+* [Anmol-Gulati] Do not use mutable objects as default arguments
+
 ### 0.18.1
 * [bookernath] Option to use BC server time to synchronize BC login API
 * [bookernath] Fix app installation flow
