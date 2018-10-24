@@ -1,4 +1,5 @@
 from .banners import *
+from .blog_posts import *
 from .brands import *
 from .categories import *
 from .countries import *
