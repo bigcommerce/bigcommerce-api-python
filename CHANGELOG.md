@@ -1,3 +1,7 @@
+### 0.19.0
+* [bookernath] Add counting for Web Pages
+* [bookernath] Add CRUD of Blog Posts
+
 ### 0.18.2
 * [Anmol-Gulati] Do not use mutable objects as default arguments
 
