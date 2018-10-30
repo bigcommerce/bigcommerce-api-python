@@ -1,3 +1,6 @@
+### 0.19.1
+* [bookernath] Bump requests to 2.20.0
+
 ### 0.19.0
 * [bookernath] Add counting for Web Pages
 * [bookernath] Add CRUD of Blog Posts
