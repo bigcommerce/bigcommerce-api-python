@@ -1,3 +1,6 @@
+### 0.20.0
+* [bookernath] Automatically handle rate limiting via optional parameters
+
 ### 0.19.1
 * [bookernath] Bump requests to 2.20.0
 
