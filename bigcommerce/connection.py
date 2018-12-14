@@ -16,6 +16,9 @@ import json  # only used for urlencode querystr
 import logging
 import requests
 
+from math import ceil
+from time import sleep
+
 from bigcommerce.exception import *
 
 log = logging.getLogger("bigcommerce.connection")
@@ -183,12 +186,14 @@ class OAuthConnection(Connection):
     The verify_payload method is also provided for authenticating signed payloads passed to an application's load url.
     """
 
-    def __init__(self, client_id, store_hash, access_token=None, host='api.bigcommerce.com', api_path='/stores/{}/v2/{}'):
+    def __init__(self, client_id, store_hash, access_token=None, host='api.bigcommerce.com',
+                 api_path='/stores/{}/v2/{}', rate_limiting_management=None):
         self.client_id = client_id
         self.store_hash = store_hash
         self.host = host
         self.api_path = api_path
         self.timeout = 7.0  # can attach to session?
+        self.rate_limiting_management = rate_limiting_management
 
         self._session = requests.Session()
         self._session.headers = {"Accept": "application/json",
@@ -250,8 +255,20 @@ class OAuthConnection(Connection):
         """
         result = Connection._handle_response(self, url, res, suppress_empty)
         if 'X-Rate-Limit-Time-Reset-Ms' in res.headers:
-            self.rate_limit = dict(ms_until_reset=res.headers['X-Rate-Limit-Time-Reset-Ms'],
-                                   window_size_ms=res.headers['X-Rate-Limit-Time-Window-Ms'],
-                                   requests_remaining=res.headers['X-Rate-Limit-Requests-Left'],
-                                   requests_quota=res.headers['X-Rate-Limit-Requests-Quota'])
+            self.rate_limit = dict(ms_until_reset=int(res.headers['X-Rate-Limit-Time-Reset-Ms']),
+                                   window_size_ms=int(res.headers['X-Rate-Limit-Time-Window-Ms']),
+                                   requests_remaining=int(res.headers['X-Rate-Limit-Requests-Left']),
+                                   requests_quota=int(res.headers['X-Rate-Limit-Requests-Quota']))
+            if self.rate_limiting_management:
+                if self.rate_limiting_management['min_requests_remaining'] >= self.rate_limit['requests_remaining']:
+                    if self.rate_limiting_management['wait']:
+                        sleep(ceil(float(self.rate_limit['ms_until_reset']) / 1000))
+                    if self.rate_limiting_management.get('callback_function'):
+                        callback = self.rate_limiting_management['callback_function']
+                        args_dict = self.rate_limiting_management.get('callback_args')
+                        if args_dict:
+                            callback(args_dict)
+                        else:
+                            callback()
+
         return result

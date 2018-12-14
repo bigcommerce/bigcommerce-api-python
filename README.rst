@@ -103,6 +103,30 @@ wrapper around a lower level api in ``bigcommerce.connection``. This can
 be accessed through ``api.connection``, and provides helper methods for
 get/post/put/delete operations.
 
+Managing OAuth Rate Limits
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can optionally pass a ``rate_limiting_management`` object into ``bigcommerce.api.BigcommerceApi`` or ``bigcommerce.connection.OAuthConnection`` for automatic rate limiting management, ex:
+
+.. code:: python
+
+    import bigcommerce
+
+    api = bigcommerce.api.BigcommerceApi(client_id='', store_hash='', access_token=''
+                                         rate_limiting_management= {'min_requests_remaining':2,
+                                                                    'wait':True,
+                                                                    'callback_function':None})
+
+``min_requests_remaining`` will determine the number of requests remaining in the rate limiting window which will invoke the management function
+
+``wait`` determines whether or not we should automatically sleep until the end of the window
+
+``callback_function`` is a function to run when the rate limiting management function fires. It will be invoked *after* the wait, if enabled.
+
+``callback_args`` is an optional parameter which is a dictionary passed as an argument to the callback function.
+
+For simple applications which run API requests in serial (and aren't interacting with many different stores, or use a separate worker for each store) the simple sleep function may work well enough for most purposes. For more complex applications that may be parallelizing API requests on a given store, it's adviseable to write your own callback function for handling the rate limiting, use a ``min_requests_remaining`` higher than your concurrency, and not use the default wait function.
+
 Further documentation
 ---------------------
 
