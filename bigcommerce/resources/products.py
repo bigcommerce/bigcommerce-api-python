@@ -132,7 +132,9 @@ class ProductSkus(ListableApiSubResource, CreateableApiSubResource,
     count_resource = 'products/skus'
 
 
-class ProductVideos(ListableApiSubResource, CountableApiSubResource):
+class ProductVideos(ListableApiSubResource, CountableApiSubResource, 
+                    CreateableApiSubResource, DeleteableApiSubResource, 
+                    CollectionDeleteableApiSubResource):
     resource_name = 'videos'
     parent_resource = 'products'
     parent_key = 'product_id'
