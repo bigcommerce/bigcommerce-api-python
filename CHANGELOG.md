@@ -1,3 +1,6 @@
+### 0.20.1
+* [karen-white] Updated allowable methods on ProductVideos
+
 ### 0.20.0
 * [bookernath] Automatically handle rate limiting via optional parameters
 
