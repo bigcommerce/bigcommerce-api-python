@@ -48,11 +48,11 @@ class Products(ListableApiResource, CreateableApiResource,
         else:
             return ProductRules.all(self.id, connection=self._connection)
 
-    def skus(self, id=None):
+    def skus(self, id=None, **kwargs):
         if id:
-            return ProductSkus.get(self.id, id, connection=self._connection)
+            return ProductSkus.get(self.id, id, connection=self._connection, **kwargs)
         else:
-            return ProductSkus.all(self.id, connection=self._connection)
+            return ProductSkus.all(self.id, connection=self._connection, **kwargs)
 
     def videos(self, id=None):
         if id:
