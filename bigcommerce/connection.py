@@ -53,6 +53,10 @@ class Connection(object):
         if headers is None:
             headers = {}
 
+        # Support v3
+        if self.api_path and 'v3' in self.api_path:
+            url = 'catalog/{}'.format(url)
+
         # make full path if not given
         if url and url[:4] != "http":
             if url[0] == '/':  # can call with /resource if you want
@@ -156,6 +160,9 @@ class Connection(object):
         if res.status_code in (200, 201, 202):
             try:
                 result = res.json()
+                # Support v3
+                if self.api_path and 'v3' in self.api_path:
+                    result = result['data'] #TODO ignore meta field for now
             except Exception as e:  # json might be invalid, or store might be down
                 e.message += " (_handle_response failed to decode JSON: " + str(res.content) + ")"
                 raise  # TODO better exception
@@ -187,11 +194,11 @@ class OAuthConnection(Connection):
     """
 
     def __init__(self, client_id, store_hash, access_token=None, host='api.bigcommerce.com',
-                 api_path='/stores/{}/v2/{}', rate_limiting_management=None):
+                 api_path=None, rate_limiting_management=None):
         self.client_id = client_id
         self.store_hash = store_hash
         self.host = host
-        self.api_path = api_path
+        self.api_path = api_path if api_path else "/stores/{}/v2/{}"
         self.timeout = 7.0  # can attach to session?
         self.rate_limiting_management = rate_limiting_management
 
