@@ -54,6 +54,12 @@ class Products(ListableApiResource, CreateableApiResource,
         else:
             return ProductSkus.all(self.id, connection=self._connection, **kwargs)
 
+    def variants(self, id=None, **kwargs):
+        if id:
+            return ProductVariants.get(self.id, id, connection=self._connection, **kwargs)
+        else:
+            return ProductVariants.all(self.id, connection=self._connection, **kwargs)
+
     def videos(self, id=None):
         if id:
             return ProductVideos.get(self.id, id, connection=self._connection)
@@ -131,6 +137,13 @@ class ProductSkus(ListableApiSubResource, CreateableApiSubResource,
     parent_key = 'product_id'
     count_resource = 'products/skus'
 
+class ProductVariants(ListableApiSubResource, CreateableApiSubResource,
+                  UpdateableApiSubResource, DeleteableApiSubResource,
+                  CollectionDeleteableApiSubResource, CountableApiSubResource):
+    resource_name = 'variants'
+    parent_resource = 'products'
+    parent_key = 'product_id'
+    count_resource = 'products/variants'
 
 class ProductVideos(ListableApiSubResource, CountableApiSubResource, 
                     CreateableApiSubResource, DeleteableApiSubResource, 
