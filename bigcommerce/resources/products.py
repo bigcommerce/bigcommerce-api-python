@@ -105,7 +105,9 @@ class ProductImages(ListableApiSubResource, CreateableApiSubResource,
     count_resource = 'products/images'
 
 
-class ProductOptions(ListableApiSubResource):
+class ProductOptions(ListableApiSubResource, CreateableApiSubResource,
+                    UpdateableApiSubResource, DeleteableApiSubResource,
+                    CollectionDeleteableApiSubResource, CountableApiSubResource):
     resource_name = 'options'
     parent_resource = 'products'
     parent_key = 'product_id'
