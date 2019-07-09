@@ -20,8 +20,10 @@ Connecting
 
     # Public apps (OAuth)
     # Access_token is optional, if you don't have one you can use oauth_fetch_token (see below)
+    For connecting to the v2 api:
     api = bigcommerce.api.BigcommerceApi(client_id='', store_hash='', access_token='')
-
+    For connecting to the v3 api:
+    api = bigcommerce.api.BigcommerceApi(client_id='', store_hash='', access_token='', api_path='/stores/{}/v3/{}'))
     # Private apps (Basic Auth)
     api = bigcommerce.api.BigcommerceApi(host='store.mybigcommerce.com', basic_auth=('username', 'api token'))
 
