@@ -55,7 +55,10 @@ class Connection(object):
 
         # Support v3
         if self.api_path and 'v3' in self.api_path:
-            url = 'catalog/{}'.format(url)
+            if url is 'orders':
+                self.api_path = self.api_path.replace('v3', 'v2')
+            else:
+                url = 'catalog/{}'.format(url)
 
         # make full path if not given
         if url and url[:4] != "http":
