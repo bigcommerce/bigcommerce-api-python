@@ -223,7 +223,7 @@ class OAuthConnection(Connection):
                          and self.rate_limiting_management.get('autoretry'))
 
             if (autoretry and 'X-Rate-Limit-Time-Reset-Ms' in response.headers):
-                sleep(int(response.headers['X-Rate-Limit-Time-Reset-Ms'])/1000)
+                sleep(ceil(float(response.headers['X-Rate-Limit-Time-Reset-Ms'])/1000))
                 return super(OAuthConnection, self).make_request(
                         *args, **kwargs)
             else:
