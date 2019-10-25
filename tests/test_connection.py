@@ -1,7 +1,7 @@
 import json
 import unittest
 from bigcommerce.connection import Connection, OAuthConnection
-from bigcommerce.exception import ServerException, ClientRequestException, RedirectionException
+from bigcommerce.exception import ServerException, ClientRequestException, RedirectionException, RateLimitingException
 from mock import patch, MagicMock
 
 
@@ -152,3 +152,37 @@ class TestOAuthConnection(unittest.TestCase):
                                                 },
                                                 headers={'Content-Type': 'application/x-www-form-urlencoded'}
             )
+
+    def test_handle_rate_limit(self):
+        client_id = 'abc123'
+        client_secret = '123abc'
+        code = 'hellosecret'
+        context = 'stores/abc'
+        scope = 'store_v2_products'
+        redirect_uri = 'http://localhost/callback'
+        result = {'access_token': '12345abcdef'}
+        connection = OAuthConnection(
+            client_id,
+            store_hash='abc',
+            rate_limiting_management={
+                'wait': True,
+                'autoretry': True
+            }
+        )
+        connection._run_method = MagicMock()
+        connection._run_method.return_value = MagicMock(
+            status_code=429,
+            reason='foo',
+            headers={
+                'X-Rate-Limit-Time-Reset-Ms': '300',
+                'X-Rate-Limit-Time-Window-Ms': '5000',
+                'X-Rate-Limit-Requests-Left': '6',
+                'X-Rate-Limit-Requests-Quota': '25'
+            },
+            content=''
+        )
+
+        with self.assertRaises(RateLimitingException ):
+            connection.make_request('POST', 'wathever')
+
+        self.assertEqual(connection._run_method.call_count, 2)

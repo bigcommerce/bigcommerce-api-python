@@ -213,6 +213,22 @@ class OAuthConnection(Connection):
         return {'X-Auth-Client': cid,
                 'X-Auth-Token': atoken}
 
+    def make_request(self, *args, **kwargs):
+        try:
+            return super(OAuthConnection, self).make_request(*args, **kwargs)
+        except RateLimitingException as exc:
+            response = exc.response
+            autoretry = (self.rate_limiting_management
+                         and self.rate_limiting_management.get('wait')
+                         and self.rate_limiting_management.get('autoretry'))
+
+            if (autoretry and 'X-Rate-Limit-Time-Reset-Ms' in response.headers):
+                sleep(int(response.headers['X-Rate-Limit-Time-Reset-Ms'])/1000)
+                return super(OAuthConnection, self).make_request(
+                        *args, **kwargs)
+            else:
+                raise
+
     @staticmethod
     def verify_payload(signed_payload, client_secret):
         """
@@ -253,13 +269,7 @@ class OAuthConnection(Connection):
         """
         Adds rate limiting information on to the response object
         """
-        try:
-            result = Connection._handle_response(self, url, res, suppress_empty)
-        except RateLimitingException:
-            if not (self.rate_limiting_management
-                    and self.rate_limiting_management['wait']):
-                raise
-
+        result = Connection._handle_response(self, url, res, suppress_empty)
         if 'X-Rate-Limit-Time-Reset-Ms' in res.headers:
             self.rate_limit = dict(ms_until_reset=int(res.headers['X-Rate-Limit-Time-Reset-Ms']),
                                    window_size_ms=int(res.headers['X-Rate-Limit-Time-Window-Ms']),
