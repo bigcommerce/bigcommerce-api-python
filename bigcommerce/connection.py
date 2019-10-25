@@ -253,7 +253,13 @@ class OAuthConnection(Connection):
         """
         Adds rate limiting information on to the response object
         """
-        result = Connection._handle_response(self, url, res, suppress_empty)
+        try:
+            result = Connection._handle_response(self, url, res, suppress_empty)
+        except RateLimitingException:
+            if not (self.rate_limiting_management
+                    and self.rate_limiting_management['wait']):
+                raise
+
         if 'X-Rate-Limit-Time-Reset-Ms' in res.headers:
             self.rate_limit = dict(ms_until_reset=int(res.headers['X-Rate-Limit-Time-Reset-Ms']),
                                    window_size_ms=int(res.headers['X-Rate-Limit-Time-Window-Ms']),
