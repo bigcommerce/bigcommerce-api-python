@@ -48,11 +48,17 @@ class Products(ListableApiResource, CreateableApiResource,
         else:
             return ProductRules.all(self.id, connection=self._connection)
 
-    def skus(self, id=None):
+    def skus(self, id=None, **kwargs):
         if id:
-            return ProductSkus.get(self.id, id, connection=self._connection)
+            return ProductSkus.get(self.id, id, connection=self._connection, **kwargs)
         else:
-            return ProductSkus.all(self.id, connection=self._connection)
+            return ProductSkus.all(self.id, connection=self._connection, **kwargs)
+
+    def variants(self, id=None, **kwargs):
+        if id:
+            return ProductVariants.get(self.id, id, connection=self._connection, **kwargs)
+        else:
+            return ProductVariants.all(self.id, connection=self._connection, **kwargs)
 
     def videos(self, id=None):
         if id:
@@ -99,7 +105,9 @@ class ProductImages(ListableApiSubResource, CreateableApiSubResource,
     count_resource = 'products/images'
 
 
-class ProductOptions(ListableApiSubResource):
+class ProductOptions(ListableApiSubResource, CreateableApiSubResource,
+                     UpdateableApiSubResource, DeleteableApiSubResource,
+                     CollectionDeleteableApiSubResource, CountableApiSubResource):
     resource_name = 'options'
     parent_resource = 'products'
     parent_key = 'product_id'
@@ -130,6 +138,15 @@ class ProductSkus(ListableApiSubResource, CreateableApiSubResource,
     parent_resource = 'products'
     parent_key = 'product_id'
     count_resource = 'products/skus'
+
+
+class ProductVariants(ListableApiSubResource, CreateableApiSubResource,
+                      UpdateableApiSubResource, DeleteableApiSubResource,
+                      CollectionDeleteableApiSubResource, CountableApiSubResource):
+    resource_name = 'variants'
+    parent_resource = 'products'
+    parent_key = 'product_id'
+    count_resource = 'products/variants'
 
 
 class ProductVideos(ListableApiSubResource, CountableApiSubResource, 
