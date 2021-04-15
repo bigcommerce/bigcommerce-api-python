@@ -40,10 +40,8 @@ class CustomerLoginTokens(object):
 
         if request_ip:
             payload['request_ip'] = request_ip
-        
-        token = jwt.encode(payload, client_secret, algorithm='HS256')
-        
-        return token.decode('utf-8')
+
+        return jwt.encode(payload, client_secret, algorithm='HS256')
 
     @classmethod
     def create_url(cls, client, id, redirect_url=None, request_ip=None, use_bc_time=False):
