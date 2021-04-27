@@ -5,14 +5,14 @@ from setuptools import setup, find_packages
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
-VERSION = '0.20.1'
+VERSION = '0.21.0'
 
 setup(
     name = 'bigcommerce',
     version = VERSION,
 
     packages = find_packages(),
-    install_requires = ['requests>=2.1.0', 'pyjwt>=1.4.0'],
+    install_requires = ['requests>=2.25.1', 'pyjwt>=2.0.1'],
     
     
     url = 'https://github.com/bigcommerce/bigcommerce-api-python',
@@ -34,9 +34,7 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.4'
+        'Programming Language :: Python :: 3.9'
     ],
 )

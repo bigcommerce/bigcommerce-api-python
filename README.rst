@@ -6,7 +6,7 @@ Bigcommerce API Python Client
 Wrapper over the ``requests`` library for communicating with the Bigcommerce v2 API.
 
 Install with ``pip install bigcommerce`` or ``easy_install bigcommerce``. Tested with
-python 2.7.7+ and 3.4, and only requires ``requests`` and ``pyjwt``.
+python 3.8, and only requires ``requests`` and ``pyjwt``.
 
 Usage
 -----
