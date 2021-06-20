@@ -1,3 +1,8 @@
+### 0.22.0
+* Update dependencies and drop support for python <3.5
+* Add method for decoding signed_payload_jwt
+* Add example for V3 API to readme
+
 ### 0.20.1
 * [karen-white] Updated allowable methods on ProductVideos
 
