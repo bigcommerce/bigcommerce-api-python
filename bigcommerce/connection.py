@@ -230,12 +230,16 @@ class OAuthConnection(Connection):
         return loads(dc_json.decode()) if authorised else False
 
     @staticmethod
-    def verify_payload_jwt(signed_payload, client_secret):
+    def verify_payload_jwt(signed_payload, client_secret, client_id):
         """
         Given a signed payload JWT (usually passed as parameter in a GET request to the app's load URL)
         and a client secret, authenticates the payload and returns the user's data, or error on fail.
         """
-        return jwt.decode(signed_payload, client_secret, algorithms="HS256")
+        return jwt.decode(signed_payload,
+                          client_secret,
+                          algorithms=["HS256"],
+                          audience=client_id,
+                          verify_iss=False)
 
     def fetch_token(self, client_secret, code, context, scope, redirect_uri,
                     token_url='https://login.bigcommerce.com/oauth2/token'):
