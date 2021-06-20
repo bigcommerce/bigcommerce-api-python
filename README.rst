@@ -103,6 +103,19 @@ wrapper around a lower level api in ``bigcommerce.connection``. This can
 be accessed through ``api.connection``, and provides helper methods for
 get/post/put/delete operations.
 
+Accessing V3 API endpoints
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+Although this library currently only supports high-level modeling for V2 API endpoints,
+it can be used to access V3 APIs using the OAuthConnection object:
+
+::
+
+    v3client = bigcommerce.connection.OAuthConnection(client_id=client_id,
+                                                      store_hash=store_hash,
+                                                      access_token=access_token,
+                                                      api_path='/stores/{}/v3/{}')
+    v3client.get('/catalog/products', include_fields='name,sku', limit=5, page=1)
+
 Managing OAuth Rate Limits
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
