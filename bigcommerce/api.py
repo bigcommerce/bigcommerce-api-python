@@ -28,8 +28,8 @@ class BigcommerceApi(object):
         return connection.OAuthConnection.verify_payload(signed_payload, client_secret)
 
     @classmethod
-    def oauth_verify_payload_jwt(cls, signed_payload, client_secret):
-        return connection.OAuthConnection.verify_payload_jwt(signed_payload, client_secret)
+    def oauth_verify_payload_jwt(cls, signed_payload, client_secret, client_id):
+        return connection.OAuthConnection.verify_payload_jwt(signed_payload, client_secret, client_id)
 
     def __getattr__(self, item):
         return ApiResourceWrapper(item, self)
