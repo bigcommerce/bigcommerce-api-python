@@ -12,10 +12,11 @@ try:
 except ImportError:
     from urllib.parse import urlencode
 
-import json  # only used for urlencode querystr
 import logging
 import requests
+import jwt
 
+from json import dumps, loads
 from math import ceil
 from time import sleep
 
@@ -69,10 +70,10 @@ class Connection(object):
         # mess with content
         if data:
             if not headers:  # assume JSON
-                data = json.dumps(data)
+                data = dumps(data)
                 headers = {'Content-Type': 'application/json'}
             if headers and 'Content-Type' not in headers:
-                data = json.dumps(data)
+                data = dumps(data)
                 headers['Content-Type'] = 'application/json'
         log.debug("%s %s" % (method, url))
         # make and send the request
@@ -226,7 +227,15 @@ class OAuthConnection(Connection):
         signature = base64.b64decode(encoded_hmac)
         expected_sig = hmac.new(client_secret.encode(), base64.b64decode(encoded_json), hashlib.sha256).hexdigest()
         authorised = hmac.compare_digest(signature, expected_sig.encode())
-        return json.loads(dc_json.decode()) if authorised else False
+        return loads(dc_json.decode()) if authorised else False
+
+    @staticmethod
+    def verify_payload_jwt(signed_payload, client_secret):
+        """
+        Given a signed payload JWT (usually passed as parameter in a GET request to the app's load URL)
+        and a client secret, authenticates the payload and returns the user's data, or error on fail.
+        """
+        return jwt.decode(signed_payload, client_secret, algorithms="HS256")
 
     def fetch_token(self, client_secret, code, context, scope, redirect_uri,
                     token_url='https://login.bigcommerce.com/oauth2/token'):
