@@ -239,7 +239,9 @@ class OAuthConnection(Connection):
                           client_secret,
                           algorithms=["HS256"],
                           audience=client_id,
-                          verify_iss=False)
+                          options={
+                            'verify_iss': False
+                          })
 
     def fetch_token(self, client_secret, code, context, scope, redirect_uri,
                     token_url='https://login.bigcommerce.com/oauth2/token'):
