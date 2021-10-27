@@ -222,7 +222,7 @@ class OAuthConnection(Connection):
 
         Uses constant-time str comparison to prevent vulnerability to timing attacks.
         """
-        encoded_json, encoded_hmac, __ = signed_payload.split('.')
+        encoded_json, encoded_hmac = signed_payload.split('.')
         dc_json = base64.b64decode(encoded_json)
         signature = base64.b64decode(encoded_hmac)
         expected_sig = hmac.new(client_secret.encode(), base64.b64decode(encoded_json), hashlib.sha256).hexdigest()
