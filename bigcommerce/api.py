@@ -1,9 +1,8 @@
 import os
 import sys
 from bigcommerce import connection
-from bigcommerce.resources import *  # Needed for ApiResourceWrapper dynamic loading
-from bigcommerce.resources import v3 # Needed for V3ApiResourceWrapper dynamic loading
-
+from bigcommerce.resources.v2 import * # Needed for ApiResourceWrapper dynamic loading
+from bigcommerce.resources import v3 # Needed for ApiResourceWrapper dynamic loading
 
 class BigcommerceApi(object):
     def __init__(self, host=None, basic_auth=None,
