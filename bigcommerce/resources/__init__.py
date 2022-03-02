@@ -2,6 +2,7 @@ from .banners import *
 from .blog_posts import *
 from .brands import *
 from .categories import *
+from .categories_v3 import *
 from .countries import *
 from .coupons import *
 from .currencies import *
@@ -15,6 +16,7 @@ from .orders import *
 from .pages import *
 from .payments import *
 from .products import *
+from .products_v3 import *
 from .redirects import *
 from .shipping import *
 from .store import *
