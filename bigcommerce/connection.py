@@ -30,10 +30,9 @@ class Connection(object):
     Connection class manages the connection to the Bigcommerce REST API.
     """
 
-    def __init__(self, host, auth, api_path='/api/v2/{}'):
+    def __init__(self, host, auth, api_path='/api/{}/{}'):
         self.host = host
         self.api_path = api_path
-
         self.timeout = 7.0  # need to catch timeout?
 
         log.info("API Host: %s/%s" % (self.host, self.api_path))
@@ -45,10 +44,14 @@ class Connection(object):
 
         self._last_response = None  # for debugging
 
-    def full_path(self, url):
-        return "https://" + self.host + self.api_path.format(url)
+    def full_path(self, url, version='v2'):
+        if '/api/{}/{}' in self.api_path:
+            return "https://" + self.host + self.api_path.format(version, url)
+        else:
+            return "https://" + self.host + self.api_path.format(url)
 
-    def _run_method(self, method, url, data=None, query=None, headers=None):
+
+    def _run_method(self, method, url, data=None, query=None, headers=None, version='v2'):
         if query is None:
             query = {}
         if headers is None:
@@ -58,9 +61,9 @@ class Connection(object):
         if url and url[:4] != "http":
             if url[0] == '/':  # can call with /resource if you want
                 url = url[1:]
-            url = self.full_path(url)
+            url = self.full_path(url, version)
         elif not url:  # blank path
-            url = self.full_path(url)
+            url = self.full_path(url, version)
 
         qs = urlencode(query)
         if qs:
@@ -127,8 +130,8 @@ class Connection(object):
 
     # Raw-er stuff
 
-    def make_request(self, method, url, data=None, params=None, headers=None):
-        response = self._run_method(method, url, data, params, headers)
+    def make_request(self, method, url, data=None, params=None, headers=None, version='v2'):
+        response = self._run_method(method, url, data, params, headers, version=version)
         return self._handle_response(url, response)
 
     def put(self, url, data):
@@ -170,6 +173,9 @@ class Connection(object):
             raise ClientRequestException("%d %s @ %s: %s" % (res.status_code, res.reason, url, res.content), res)
         elif res.status_code >= 300:
             raise RedirectionException("%d %s @ %s: %s" % (res.status_code, res.reason, url, res.content), res)
+
+        if 'data' in result: # for v3
+            result = result['data']
         return result
 
     def __repr__(self):
@@ -187,8 +193,8 @@ class OAuthConnection(Connection):
     The verify_payload method is also provided for authenticating signed payloads passed to an application's load url.
     """
 
-    def __init__(self, client_id, store_hash, access_token=None, host='api.bigcommerce.com',
-                 api_path='/stores/{}/v2/{}', rate_limiting_management=None):
+    def __init__(self, client_id=None, store_hash=None, access_token=None, host='api.bigcommerce.com',
+                 api_path='/stores/{}/{}/{}', rate_limiting_management=None):
         self.client_id = client_id
         self.store_hash = store_hash
         self.host = host
@@ -206,8 +212,10 @@ class OAuthConnection(Connection):
 
         self.rate_limit = {}
 
-    def full_path(self, url):
-        return "https://" + self.host + self.api_path.format(self.store_hash, url)
+    def full_path(self, url, version='v2'):
+        if '/api/{}/{}/{}' in self.api_path:
+            return "https://" + self.host + self.api_path.format(self.store_hash, version, url)
+        return "https://" + self.host + self.api_path.format(self.store_hash, version, url)
 
     @staticmethod
     def _oauth_headers(cid, atoken):

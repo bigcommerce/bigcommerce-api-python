@@ -26,12 +26,16 @@ class Mapping(dict):
         """
         return str({k: self.__dict__[k] for k in self.__dict__ if not k.startswith("_")})
 
+    def __json__(self):
+        return {k: self.__dict__[k] for k in self.__dict__ if not k.startswith("_")}
+
     def __repr__(self):
         return "<%s at %s, %s>" % (type(self).__name__, hex(id(self)), str(self))
 
 
 class ApiResource(Mapping):
     resource_name = ""  # The identifier which describes this resource in urls
+    resource_version = "v2"
 
     @classmethod
     def _create_object(cls, response, connection=None):
@@ -42,7 +46,7 @@ class ApiResource(Mapping):
 
     @classmethod
     def _make_request(cls, method, url, connection, data=None, params=None, headers=None):
-        return connection.make_request(method, url, data, params, headers)
+        return connection.make_request(method, url, data, params, headers, version=cls.resource_version)
 
     @classmethod
     def _get_path(cls, id):
@@ -183,6 +187,8 @@ class UpdateableApiSubResource(ApiSubResource):
 
 class DeleteableApiResource(ApiResource):
     def _delete_path(self):
+        if 'id' not in self and 'uuid' in self: # widgets have uuid not id
+            return "%s/%s" % (self.resource_name, self.uuid)
         return "%s/%s" % (self.resource_name, self.id)
 
     def delete(self):

@@ -12,8 +12,8 @@ class BigcommerceApi(object):
 
         if host and basic_auth:
             self.connection = connection.Connection(host, basic_auth)
-        elif client_id and store_hash:
-            self.connection = connection.OAuthConnection(client_id, store_hash, access_token, self.api_service,
+        elif (client_id or access_token) and store_hash:
+            self.connection = connection.OAuthConnection(client_id=client_id, store_hash=store_hash, access_token=access_token, host=self.api_service,
                                                          rate_limiting_management=rate_limiting_management)
         else:
             raise Exception("Must provide either (client_id and store_hash) or (host and basic_auth)")
