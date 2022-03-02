@@ -1,7 +1,7 @@
-from .base import *
+from ..base import *
 
 
-class CategoriesV3(ListableApiResource, CreateableApiResource,
+class Categories(ListableApiResource, CreateableApiResource,
                UpdateableApiResource, DeleteableApiResource,
                CollectionDeleteableApiResource, CountableApiResource):
     resource_version = 'v3'
