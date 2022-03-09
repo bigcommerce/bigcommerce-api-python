@@ -9,3 +9,4 @@ Pipfile.lock
 
 *.egg-info*
 venv/
+build

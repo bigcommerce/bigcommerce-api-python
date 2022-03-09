@@ -1,7 +1,5 @@
 from ..base import *
 
-"""
-"""
 
 class Products(ListableApiResource, CreateableApiResource,
                UpdateableApiResource, DeleteableApiResource,
