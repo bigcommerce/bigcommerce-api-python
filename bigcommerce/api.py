@@ -80,6 +80,7 @@ class BigCommerceLatestApi(BigcommerceApi):
     def __getattr__(self, item):
         return TryLatestApiResourceWrapper(item, self)
 
+
 class V3ApiResourceWrapper(ApiResourceWrapper):
     @classmethod
     def str_to_class(cls, str):
@@ -88,6 +89,7 @@ class V3ApiResourceWrapper(ApiResourceWrapper):
         Assumes that the class is already loaded.
         """
         return getattr(getattr(sys.modules[__name__], 'v3'), str)
+
 
 class TryLatestApiResourceWrapper(ApiResourceWrapper):
     @classmethod

@@ -59,20 +59,51 @@ class ApiResource(Mapping):
 
 
 class ApiSubResource(ApiResource):
+    gparent_resource = ""
     parent_resource = ""
+    gparent_key = ""
     parent_key = ""
 
     @classmethod
-    def _get_path(cls, id, parentid):
-        return "%s/%s/%s/%s" % (cls.parent_resource, parentid, cls.resource_name, id)
+    def _get_path(cls, parentid, id=None):
+        if id:
+            return "%s/%s/%s/%s" % (cls.parent_resource, parentid, cls.resource_name, id)
+        return "%s/%s/%s" % (cls.parent_resource, parentid, cls.resource_name)
 
     @classmethod
-    def get(cls, parentid, id, connection=None, **params):
-        response = cls._make_request('GET', cls._get_path(id, parentid), connection, params=params)
+    def get(cls, parentid, id=None, connection=None, **params):
+        response = cls._make_request('GET', cls._get_path(parentid, id), connection, params=params)
         return cls._create_object(response, connection=connection)
 
     def parent_id(self):
         return self[self.parent_key]
+
+    def gparent_id(self):
+        return self[self.gparent_key]
+
+
+class ApiSubSubResource(ApiSubResource):
+    gparent_resource = ""
+    parent_resource = ""
+    gparent_key = ""
+    parent_key = ""
+
+    @classmethod
+    def _get_path(cls, gparentid, parentid, id=None):
+        if id:
+            return "%s/%s/%s/%s/%s/%s" % (cls.gparent_resource, gparentid, cls.parent_resource, parentid, cls.resource_name, id)
+        return "%s/%s/%s/%s/%s" % (cls.gparent_resource, gparentid, cls.parent_resource, parentid, cls.resource_name)
+
+    @classmethod
+    def get(cls, gparentid, parentid, id=None, connection=None, **params):
+        response = cls._make_request('GET', cls._get_path(gparentid, parentid, id), connection, params=params)
+        return cls._create_object(response, connection=connection)
+
+    def parent_id(self):
+        return self[self.parent_key]
+
+    def gparent_id(self):
+        return self[self.gparent_key]    
 
 
 class CreateableApiResource(ApiResource):
@@ -97,6 +128,17 @@ class CreateableApiSubResource(ApiSubResource):
         return cls._create_object(response, connection=connection)
 
 
+class CreateableApiSubSubResource(ApiSubSubResource):
+    @classmethod
+    def _create_path(cls, gparentid, parentid):
+        return "%s/%s/%s/%s/%s" % (cls.gparent_resource, gparentid, cls.parent_resource, parentid, cls.resource_name)
+
+    @classmethod
+    def create(cls, gparentid, parentid, connection=None, **params):
+        response = cls._make_request('POST', cls._create_path(gparentid, parentid), connection, data=params)
+        return cls._create_object(response, connection=connection)
+
+
 class ListableApiResource(ApiResource):
     @classmethod
     def _get_all_path(cls):
@@ -107,7 +149,6 @@ class ListableApiResource(ApiResource):
         """
             Returns first page if no params passed in as a list.
         """
-
         request = cls._make_request('GET', cls._get_all_path(), connection, params=params)
         return cls._create_object(request, connection=connection)
 
@@ -154,7 +195,7 @@ class ListableApiResource(ApiResource):
 
 class ListableApiSubResource(ApiSubResource):
     @classmethod
-    def _get_all_path(cls, parentid=None):
+    def _get_all_path(cls, parentid):
         # Not all sub resources require a parent id.  Eg: /api/v2/products/skus?sku=<value>
         if (parentid):
             return "%s/%s/%s" % (cls.parent_resource, parentid, cls.resource_name)
@@ -162,8 +203,20 @@ class ListableApiSubResource(ApiSubResource):
             return "%s/%s" % (cls.parent_resource, cls.resource_name)
 
     @classmethod
-    def all(cls, parentid=None, connection=None, **params):
-        response = cls._make_request('GET', cls._get_all_path(parentid), connection, params=params)
+    def all(cls, parentid=None, gparentid=None, connection=None, **params):
+        response = cls._make_request('GET', cls._get_all_path(parentid, gparentid), connection, params=params)
+        return cls._create_object(response, connection=connection)
+
+
+class ListableApiSubSubResource(ApiSubSubResource):
+    @classmethod
+    def _get_all_path(cls, gparentid, parentid):
+        # Not all sub resources require a parent id.  Eg: /api/v2/products/skus?sku=<value>
+        return "%s/%s/%s/%s/%s" % (cls.gparent_resource, gparentid, cls.parent_resource, parentid, cls.resource_name)
+
+    @classmethod
+    def all(cls, gparentid, parentid, connection=None, **params):
+        response = cls._make_request('GET', cls._get_all_path(parentid, gparentid), connection, params=params)
         return cls._create_object(response, connection=connection)
 
 
@@ -185,6 +238,15 @@ class UpdateableApiSubResource(ApiSubResource):
         return self._create_object(response, connection=self._connection)
 
 
+class UpdateableApiSubSubResource(ApiSubResource):
+    def _update_path(self):
+        return "%s/%s/%s/%s/%s/%s" % (self.gparent_resource, self.gparent_id(), self.parent_resource, self.parent_id(), self.resource_name, self.id)
+
+    def update(self, **updates):
+        response = self._make_request('PUT', self._update_path(), self._connection, data=updates)
+        return self._create_object(response, connection=self._connection)
+
+
 class DeleteableApiResource(ApiResource):
     def _delete_path(self):
         if 'id' not in self and 'uuid' in self: # widgets have uuid not id
@@ -198,6 +260,14 @@ class DeleteableApiResource(ApiResource):
 class DeleteableApiSubResource(ApiSubResource):
     def _delete_path(self):
         return "%s/%s/%s/%s" % (self.parent_resource, self.parent_id(), self.resource_name, self.id)
+
+    def delete(self):
+        return self._make_request('DELETE', self._delete_path(), self._connection)
+
+
+class DeleteableApiSubSubResource(ApiSubSubResource):
+    def _delete_path(self):
+        return "%s/%s/%s/%s/%s/%s" % (self.gparent_resource, self.gparent_id(), self.parent_resource, self.parent_id(), self.resource_name, self.id)
 
     def delete(self):
         return self._make_request('DELETE', self._delete_path(), self._connection)
