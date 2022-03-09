@@ -1,8 +1,11 @@
+from sqlite3 import connect
 import unittest
 from bigcommerce.resources import Mapping, Orders, ApiResource, OrderShipments, Products, CountryStates,\
                                   OrderCoupons, Webhooks, GoogleProductSearchMappings
 from bigcommerce.resources.v3 import ProductModifiers, ProductModifiersValues
 from mock import MagicMock
+
+from bigcommerce.resources.v3.abandoned_cart_emails import AbandonedCartEmails
 
 
 class TestMapping(unittest.TestCase):
@@ -74,7 +77,7 @@ class TestApiSubResource(unittest.TestCase):
         connection = MagicMock()
         connection.make_request.return_value = {'id': 2}
 
-        result = ProductModifiersValues.get(2, 3, connection, 1)
+        result = ProductModifiersValues.get(1, 2, 3, connection)
         self.assertIsInstance(result, ProductModifiersValues)
         self.assertEqual(result.id, 2)
 
@@ -116,6 +119,11 @@ class TestListableApiResource(unittest.TestCase):
         self.assertEqual(len(list(result)), 3)
         connection.make_request.assert_called_once_with('GET', 'orders', None, {'limit': 3}, None, version='v2')
 
+    def test_abandoned_cart_emails_templates(self):
+        connection = MagicMock()
+        result = AbandonedCartEmails.all(connection)
+        connection.make_request.assert_called_once_with('GET', 'settings/marketing/abandoned-cart-emails', None, {}, None, version='v3')
+
 
 class TestListableApiSubResource(unittest.TestCase):
     def test_all(self):
@@ -133,7 +141,6 @@ class TestListableApiSubResource(unittest.TestCase):
         result = GoogleProductSearchMappings.all(1, connection, limit=2)
         self.assertEqual(len(result), 2)
         connection.make_request.assert_called_once_with('GET', 'products/1/googleproductsearch', None, {'limit': 2}, None, version='v2')
-
 
 class TestUpdateableApiResource(unittest.TestCase):
     def test_update(self):

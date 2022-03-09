@@ -203,8 +203,8 @@ class ListableApiSubResource(ApiSubResource):
             return "%s/%s" % (cls.parent_resource, cls.resource_name)
 
     @classmethod
-    def all(cls, parentid=None, gparentid=None, connection=None, **params):
-        response = cls._make_request('GET', cls._get_all_path(parentid, gparentid), connection, params=params)
+    def all(cls, parentid=None, connection=None, **params):
+        response = cls._make_request('GET', cls._get_all_path(parentid), connection, params=params)
         return cls._create_object(response, connection=connection)
 
 
