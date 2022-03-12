@@ -6,3 +6,8 @@ class Categories(ListableApiResource, CreateableApiResource,
                CollectionDeleteableApiResource, CountableApiResource):
     resource_version = 'v3'
     resource_name = 'catalog/categories'
+
+
+# TODO: product sort order
+# TODO: images
+# TODO: metafields

@@ -24,10 +24,10 @@ class Mapping(dict):
         """
         Display as a normal dict, but filter out underscored items first
         """
-        return str({k: self.__dict__[k] for k in self.__dict__ if not k.startswith("_")})
+        return str({k: self.__dict__[k] for k in self.__dict__ if not k.startswith("_") and k.startswith('connection')})
 
     def __json__(self):
-        return {k: self.__dict__[k] for k in self.__dict__ if not k.startswith("_")}
+        return {k: self.__dict__[k] for k in self.__dict__ if not k.startswith("_") and not k.startswith('connection')}
 
     def __repr__(self):
         return "<%s at %s, %s>" % (type(self).__name__, hex(id(self)), str(self))
@@ -50,10 +50,13 @@ class ApiResource(Mapping):
 
     @classmethod
     def _get_path(cls, id):
-        return "%s/%s" % (cls.resource_name, id)
+        if id:
+            return "%s/%s" % (cls.resource_name, id)
+        else:
+            return "%s" % (cls.resource_name)
 
     @classmethod
-    def get(cls, id, connection=None, **params):
+    def get(cls, id=None, connection=None, **params):
         response = cls._make_request('GET', cls._get_path(id), connection, params=params)
         return cls._create_object(response, connection=connection)
 
@@ -229,6 +232,9 @@ class UpdateableApiResource(ApiResource):
         return self._create_object(response, connection=self._connection)
 
 
+# TODO: Add Upsertable?
+
+
 class UpdateableApiSubResource(ApiSubResource):
     def _update_path(self):
         return "%s/%s/%s/%s" % (self.parent_resource, self.parent_id(), self.resource_name, self.id)
@@ -291,6 +297,9 @@ class CollectionDeleteableApiSubResource(ApiSubResource):
     @classmethod
     def delete_all(cls, parentid, connection=None):
         return cls._make_request('DELETE', cls._delete_all_path(parentid), connection)
+
+
+# TODO: Add CollectionUpdateableApiResource
 
 
 class CountableApiResource(ApiResource):

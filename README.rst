@@ -3,7 +3,7 @@ Bigcommerce API Python Client
 
 |Build Status| |Package Version|
 
-Wrapper over the ``requests`` library for communicating with the Bigcommerce v2 API.
+Experimental fork of `bigcommerce/bigcommerce-api-python <https://github.com/bigcommerce/bigcommerce-api-python>`__ that adds high-level modeling for V3 API objects.
 
 Install with ``pip install bigcommerce`` or ``easy_install bigcommerce``. Tested with
 python 3.8, and only requires ``requests`` and ``pyjwt``.
