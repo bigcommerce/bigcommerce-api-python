@@ -1,5 +1,5 @@
 from ..base import *
 
 
-class Store(ListableApiResource):
+class Store(ApiResource):
     resource_name = 'store'

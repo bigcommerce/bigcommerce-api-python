@@ -7,6 +7,11 @@ class Themes(ListableApiResource, CreateableApiResource,
     resource_version = 'v3'
     resource_name = 'themes'
 
+class CustomTemplates(ListableApiResource, CreateableApiResource,
+               CollectionUpdateableApiResource, DeleteableApiResource):
+    resource_version = 'v3'
+    resource_name = 'themes/custom-templates'
+    key='version_uuid'
 
 class ThemeActions(CreateableApiSubResource):
     resource_version = Themes.resource_version

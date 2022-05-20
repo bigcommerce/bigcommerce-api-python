@@ -231,9 +231,27 @@ class UpdateableApiResource(ApiResource):
         response = self._make_request('PUT', self._update_path(), self._connection, data=updates)
         return self._create_object(response, connection=self._connection)
 
+class CollectionUpdateableApiResource(ApiResource):
+    @classmethod
+    def _update_path(cls):
+        return cls.resource_name
+    @classmethod
+    def update(cls, updates, connection=None):
+        response = cls._make_request('PUT', cls._update_path(), connection, updates)
+        return cls._create_object(response, connection=connection)
+
+class CollectionCreatableApiSubResource(ApiResource):
+    @classmethod
+    def _create_path(cls, parentid):
+        return "%s/%s/%s" % (cls.parent_resource, parentid, cls.resource_name)
+
+    @classmethod
+    def create(cls, parentid, data, connection=None):
+        response = cls._make_request('POST', cls._create_path(parentid), connection, data)
+        return cls._create_object(response, connection=connection)
+
 
 # TODO: Add Upsertable?
-
 
 class UpdateableApiSubResource(ApiSubResource):
     def _update_path(self):
@@ -297,10 +315,6 @@ class CollectionDeleteableApiSubResource(ApiSubResource):
     @classmethod
     def delete_all(cls, parentid, connection=None):
         return cls._make_request('DELETE', cls._delete_all_path(parentid), connection)
-
-
-# TODO: Add CollectionUpdateableApiResource
-
 
 class CountableApiResource(ApiResource):
     @classmethod
