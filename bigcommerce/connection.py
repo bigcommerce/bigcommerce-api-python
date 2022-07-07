@@ -237,7 +237,7 @@ class OAuthConnection(Connection):
         """
         return jwt.decode(signed_payload,
                           client_secret,
-                          algorithms=["HS256"],
+                          algorithms=["HS256", "HS512"],
                           audience=client_id,
                           options={
                             'verify_iss': False
