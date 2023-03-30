@@ -116,7 +116,30 @@ it can be used to access V3 APIs using the OAuthConnection object:
                                                       api_path='/stores/{}/v3/{}')
     v3client.get('/catalog/products', include_fields='name,sku', limit=5, page=1)
 
-Managing OAuth Rate Limits
+Accessing GraphQL Admin API
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+There is a basic GraphQL client which allows you to submit GraphQL queries to the GraphQL Admin API.
+
+::
+
+    gql = bigcommerce.connection.GraphQLConnection(
+        client_id=client_id,
+        store_hash=store_hash,
+        access_token=access_token
+    )
+    # Make a basic query
+    time_query_result = gql.query("""
+        query {
+          system {
+            time
+          }
+        }
+    """)
+    # Fetch the schema
+    schema = gql.introspection_query()
+
+
+Managing Rate Limits
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You can optionally pass a ``rate_limiting_management`` object into ``bigcommerce.api.BigcommerceApi`` or ``bigcommerce.connection.OAuthConnection`` for automatic rate limiting management, ex:

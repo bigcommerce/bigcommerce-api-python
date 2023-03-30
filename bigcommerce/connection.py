@@ -287,3 +287,120 @@ class OAuthConnection(Connection):
                             callback()
 
         return result
+
+
+class GraphQLConnection(OAuthConnection):
+    def __init__(self, client_id, store_hash, access_token=None, host='api.bigcommerce.com',
+                 api_path='/stores/{}/graphql', rate_limiting_management=None):
+        self.client_id = client_id
+        self.store_hash = store_hash
+        self.host = host
+        self.api_path = api_path
+        self.graphql_path = "https://" + self.host + self.api_path.format(self.store_hash)
+        self.timeout = 7.0  # can attach to session?
+        self.rate_limiting_management = rate_limiting_management
+
+        self._session = requests.Session()
+        self._session.headers = {"Accept": "application/json",
+                                 "Accept-Encoding": "gzip"}
+        if access_token and store_hash:
+            self._session.headers.update(self._oauth_headers(client_id, access_token))
+
+        self._last_response = None  # for debugging
+
+        self.rate_limit = {}
+
+    def query(self, query, variables=None):
+        return self.post(self.graphql_path, dict(query=query, variables=variables))
+
+    def introspection_query(self):
+        return self.query("""
+        fragment FullType on __Type {
+          kind
+          name
+          fields(includeDeprecated: true) {
+            name
+            args {
+              ...InputValue
+            }
+            type {
+              ...TypeRef
+            }
+            isDeprecated
+            deprecationReason
+          }
+          inputFields {
+            ...InputValue
+          }
+          interfaces {
+            ...TypeRef
+          }
+          enumValues(includeDeprecated: true) {
+            name
+            isDeprecated
+            deprecationReason
+          }
+          possibleTypes {
+            ...TypeRef
+          }
+        }
+        fragment InputValue on __InputValue {
+          name
+          type {
+            ...TypeRef
+          }
+          defaultValue
+        }
+        fragment TypeRef on __Type {
+          kind
+          name
+          ofType {
+            kind
+            name
+            ofType {
+              kind
+              name
+              ofType {
+                kind
+                name
+                ofType {
+                  kind
+                  name
+                  ofType {
+                    kind
+                    name
+                    ofType {
+                      kind
+                      name
+                      ofType {
+                        kind
+                        name
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        query IntrospectionQuery {
+          __schema {
+            queryType {
+              name
+            }
+            mutationType {
+              name
+            }
+            types {
+              ...FullType
+            }
+            directives {
+              name
+              locations
+              args {
+                ...InputValue
+              }
+            }
+          }
+        }
+        """)
