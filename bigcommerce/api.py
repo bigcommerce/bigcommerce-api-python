@@ -5,7 +5,7 @@ from bigcommerce.resources import *  # Needed for ApiResourceWrapper dynamic loa
 
 
 class BigcommerceApi(object):
-    def __init__(self, host=None, basic_auth=None,
+    def __init__(self, host=None, api_path=None, basic_auth=None,
                  client_id=None, store_hash=None, access_token=None, rate_limiting_management=None):
         self.api_service = os.getenv('BC_API_ENDPOINT', 'api.bigcommerce.com')
         self.auth_service = os.getenv('BC_AUTH_SERVICE', 'login.bigcommerce.com')
@@ -14,6 +14,7 @@ class BigcommerceApi(object):
             self.connection = connection.Connection(host, basic_auth)
         elif client_id and store_hash:
             self.connection = connection.OAuthConnection(client_id, store_hash, access_token, self.api_service,
+                                                         api_path=api_path,
                                                          rate_limiting_management=rate_limiting_management)
         else:
             raise Exception("Must provide either (client_id and store_hash) or (host and basic_auth)")

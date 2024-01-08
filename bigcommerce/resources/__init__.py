@@ -20,4 +20,5 @@ from .shipping import *
 from .store import *
 from .tax_classes import *
 from .time import *
+from .variants import *
 from .webhooks import *
