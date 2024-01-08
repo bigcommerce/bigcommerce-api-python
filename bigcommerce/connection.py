@@ -310,7 +310,7 @@ class GraphQLConnection(OAuthConnection):
 
         self.rate_limit = {}
 
-    def query(self, query, variables=None):
+    def query(self, query, variables={}):
         return self.post(self.graphql_path, dict(query=query, variables=variables))
 
     def introspection_query(self):

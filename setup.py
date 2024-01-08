@@ -7,7 +7,7 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
-VERSION = '0.23.3'
+VERSION = '0.23.4'
 
 setup(
     name='bigcommerce',
