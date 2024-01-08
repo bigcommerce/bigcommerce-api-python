@@ -52,6 +52,18 @@ class ApiResourceWrapper(object):
         else:
             self.resource_class = resource_class
         self.connection = api.connection
+        self.update_api_version()
+        
+
+    def update_api_version(self):
+        api_version = "v2"
+        if "api_version" in self.resource_class.__dict__.keys():
+            api_version = self.resource_class.api_version
+        
+        if self.connection.store_hash:
+            self.connection.api_path = '/stores/{}/%s/{}' % api_version
+        else:
+            self.connection.api_path = '/api/%s/{}' % api_version
 
     def __getattr__(self, item):
         """
